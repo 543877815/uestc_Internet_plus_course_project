@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tcp</title>
+</head>
+<body>
+	<div>
+		<h2>remote Ip:</h2>
+		<span>ip:</span><input type="text" id="ID_INPUT">
+		<span>port:</span><input type="text" id="PORT_INPUT">
+		<button id="submit_IP">提交</button>
+		<button id="clear_IP">清除</button>
+		<br>
+		<span>feedback:</span><input type="text" id="Feedback_IP" readonly="true">
+	</div>
+	<div>	
+		<h1>string to 9999</h1>
+		<textarea id="input" cols="40" rows="20"></textarea>
+		<button id="clear">清除</button>
+		<button id="submit">提交</button>  
+	</div>
+	<div>
+		<h1>receive</h1>
+		<textarea id="receive" cols="30" rows="10"></textarea>
+	</div>
+	<script>
+		document.getElementById("PORT_INPUT").value = "9999";
+		document.getElementById("ID_INPUT").value = "192.168";
+		document.getElementById("submit_IP").addEventListener("click", function(){
+			var IP = document.getElementById("ID_INPUT").value;
+			var PORT = document.getElementById("PORT_INPUT").value;
+			if(IP==""||PORT==""){
+				alert("IP and PORT can't be empty!");
+			}else{
+				var ws = new WebSocket("ws://localhost:8083");
+
+				ws.onopen = function (e) {
+					console.log("connect to server opened 9999");
+					ws.send(JSON.stringify({
+						"IP": IP,
+						"PORT":PORT
+					}));
+				}
+
+				ws.onmessage = function(e){
+					console.log(e);
+					document.getElementById("Feedback_IP").value = e.data;
+				}
+			}
+		}, false);
+
+		document.getElementById("clear_IP").addEventListener("click", function(){
+			document.getElementById("ID_INPUT").value = "";
+			document.getElementById("PORT_INPUT").value = "";
+		}, false)
+		
+
+		document.getElementById("submit").addEventListener("click", function(){
+			ws.send(document.getElementById("input1").value);
+			document.getElementById("receive2-1").value = document.getElementById("input2").value = document.getElementById("receive2").value = "";
+		}, false);
+		document.getElementById("clear").addEventListener("click", function(){
+			document.getElementById("input").value = "";
+			document.getElementById("receive").value = "";
+		}, false);
+
+	</script>
+</body>
+</html>

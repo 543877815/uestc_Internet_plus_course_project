@@ -1,0 +1,9 @@
+select id, name, origin from goodsList where id > 5 and name <= b and origin >= D
+select * from goodsList where id > 5 and name <= b and origin >= D
+INSERT INTO goodsList VALUES (a, B, C, 4, 4, 2018-7-11)
+INSERT INTO goodsList (type, name) VALUES (type, name)
+
+select * from goodsList where id = 6
+UPDATE goodsList SET origin = B, type = 2 WHERE id = 6
+DELETE FROM goodsList WHERE id = 6 and type = 2
+Create TABLE Persons(Id_P int, LastName varchar(255), FirstName varchar(255), Address varchar(255), City varchar(255))

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tcp</title>
+</head>
+<body>
+	<div>	
+		<h1>string to 9999</h1>
+		<textarea id="input1" cols="40" rows="20"></textarea>
+		<button id="clear1">清除</button>
+		<button id="submit1">提交</button>
+		<h1>binary from 9999</h1>
+		<textarea id="receive1" cols="30" rows="10"></textarea>
+		<h1>string to binary</h1>
+		<textarea id="receive1-1" cols="30" rows="10"></textarea>
+		<img src="imgs/9999.png" alt="" style="margin-left: 300px">
+	</div>
+	<div>
+		<img src="imgs/xindao.png" alt="" style="position: absolute;left: 50%;width: 200px; margin-left: -100px">
+	</div>
+	<div style="position: absolute; top: 0; right: 0">
+		<h1 style="margin-left: 300px">string to 10000</h1>
+		<textarea id="input2" cols="40" rows="20" style="margin-left: 300px"></textarea>
+		<button id="clear2">清除</button>
+		<button id="submit2">提交</button>
+		<h1 style="margin-left: 300px">binary from 10000</h1>
+		<textarea id="receive2" cols="30" rows="10" style="position: relative; right: -400px"></textarea>
+		<h1 style="margin-left: 300px">string to binary</h1>
+		<img src="imgs/10000.png" alt="" style="margin-right: 300px;">
+		<textarea id="receive2-1" cols="30" rows="10"></textarea>
+	</div>
+	<script>
+		var ws = new WebSocket("ws://localhost:8081");
+
+		ws.onopen = function (e) {
+			console.log("connect to server opened 9999");
+		}
+		ws.onmessage = function(evt){
+			var data = JSON.parse(evt.data);
+			if(data.type == "binary"){
+				document.getElementById("receive2").value = data.data;
+			}
+			if(data.type == "string"){
+				document.getElementById("input1").value += data.data.replace(/\u0000/g,"");
+			}
+			if(data.type == "strToBinary"){
+				document.getElementById("receive1-1").value = data.data.replace(/\u0000/g,"");
+			}
+			console.log("data from port 10000 is:" + evt.data);
+		}
+		document.getElementById("submit1").addEventListener("click", function(){
+			ws.send(document.getElementById("input1").value);
+			document.getElementById("receive2-1").value = document.getElementById("input2").value = document.getElementById("receive2").value = "";
+		}, false);
+		document.getElementById("clear1").addEventListener("click", function(){
+			document.getElementById("input1").value = "";
+			document.getElementById("receive1").value = "";
+		}, false);
+
+
+		var ws2 = new WebSocket("ws://localhost:8082");
+		ws2.onopen = function(e){
+			console.log("connect to server opened 10000");
+		}
+		ws2.onmessage = function(evt){
+			var data = JSON.parse(evt.data);
+			if(data.type == "binary"){
+				document.getElementById("receive1").value = data.data;
+			}
+			if(data.type == "string"){
+				document.getElementById("input2").value += data.data.replace(/\u0000/g,"");
+			}
+			if(data.type == "strToBinary"){
+				document.getElementById("receive2-1").value = data.data.replace(/\u0000/g,"");
+			}
+			console.log("data from port 10000 is:" + evt.data);
+		}
+		document.getElementById("clear2").addEventListener("click", function(){
+			document.getElementById("input2").value = "";
+			document.getElementById("receive2").value = "";
+		}, false);
+		document.getElementById("submit2").addEventListener("click", function(){
+			ws2.send(document.getElementById("input2").value);
+			document.getElementById("receive1-1").value = document.getElementById("input1").value = document.getElementById("receive1").value = "";
+		}, false);
+	</script>
+</body>
+</html>

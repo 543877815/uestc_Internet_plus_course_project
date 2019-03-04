@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<h1>上面输入文字</h1>
+	<textarea name="" id="Chinese" cols="30" rows="10"></textarea>
+	<button id="one">字符串转二进制</button>
+	<button id="clearOne">清空</button>
+	<span>
+		注：字符与字符之间转二进制用空格隔开，同样二进制转字符串也需要用空格隔开
+	</span>
+	<h1>下面输入二进制</h1>
+	<textarea name="" id="binary" cols="30" rows="10"></textarea>
+	<button id="two">二进制转字符串</button>
+	<button id="clearTwo">清空</button>
+	<script>
+		document.getElementById("one").addEventListener("click", function(){
+			document.getElementById("binary").value = strToBinary(document.getElementById("Chinese").value);
+		}, false);
+		document.getElementById("two").addEventListener("click", function(){
+			document.getElementById("Chinese").value = binaryToStr(document.getElementById("binary").value);
+		}, false);
+		document.getElementById("clearOne").addEventListener("click", function(){
+			document.getElementById("Chinese").value = "";
+		}, false);
+		document.getElementById("clearTwo").addEventListener("click", function(){
+			document.getElementById("binary").value = "";
+		}, false);
+		
+		//将字符串转换成二进制形式，中间用空格隔开
+		function strToBinary(str){
+			var result = [];
+			var list = str.split("");
+			for(var i=0;i<list.length;i++){
+				if(i != 0){
+					result.push(" ");
+				}
+				var item = list[i];
+				var binaryStr = item.charCodeAt().toString(2);
+				result.push(binaryStr);
+			}   
+			return result.join("");
+		}
+
+		//将二进制字符串转换成Unicode字符串
+		function binaryToStr(str){
+			var result = [];
+			var list = str.split(" ");
+			for(var i=0;i<list.length;i++){
+				var item = list[i];
+				var asciiCode = parseInt(item,2);
+				var charValue = String.fromCharCode(asciiCode);
+				result.push(charValue);
+			}
+			return result.join("");
+		}
+
+</script>
+</body>
+</html>
