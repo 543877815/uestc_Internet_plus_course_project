@@ -1,0 +1,3 @@
+"D:\CLion 2018.2.4\bin\cmake\win\bin\cmake.exe" -E remove -f CMakeFiles\parallel_programming.dir/objects.a
+D:\MinGW\mingw32\bin\ar.exe cr CMakeFiles\parallel_programming.dir/objects.a @CMakeFiles\parallel_programming.dir\objects1.rsp
+D:\MinGW\mingw32\bin\g++.exe -g   -Wl,--whole-archive CMakeFiles\parallel_programming.dir/objects.a -Wl,--no-whole-archive  -o parallel_programming.exe -Wl,--out-implib,libparallel_programming.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\parallel_programming.dir\linklibs.rsp
