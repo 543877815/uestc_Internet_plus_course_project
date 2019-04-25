@@ -1,13 +1,4 @@
-"D:\CLion 2018.2.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" D:\uestc-Internet_plus-course-project\parallel_programming
--- Could NOT find MPI_C (missing: MPI_C_HEADER_DIR MPI_C_WORKS) 
--- Could NOT find MPI_CXX (missing: MPI_CXX_HEADER_DIR MPI_CXX_WORKS) 
-CMake Error at D:/CLion 2018.2.4/bin/cmake/win/share/cmake-3.12/Modules/FindPackageHandleStandardArgs.cmake:137 (message):
-  Could NOT find MPI (missing: MPI_C_FOUND MPI_CXX_FOUND)
-Call Stack (most recent call first):
-  D:/CLion 2018.2.4/bin/cmake/win/share/cmake-3.12/Modules/FindPackageHandleStandardArgs.cmake:378 (_FPHSA_FAILURE_MESSAGE)
-  D:/CLion 2018.2.4/bin/cmake/win/share/cmake-3.12/Modules/FindMPI.cmake:1666 (find_package_handle_standard_args)
-  CMakeLists.txt:17 (find_package)
-
-
--- Configuring incomplete, errors occurred!
-See also "D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+/home/ubuntu/clion-2019.1.2/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug

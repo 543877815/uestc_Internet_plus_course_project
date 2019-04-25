@@ -8,86 +8,88 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug"/>
+				<Option working_dir="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="parallel_programming">
-				<Option output="D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/parallel_programming.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="E:/download/chrome/Microsoft-MPI-master/Microsoft-MPI-master/src/include"/>
-					<Add directory="D:/uestc-Internet_plus-course-project/parallel_programming/INC_DIR"/>
-					<Add directory="D:/MinGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
-					<Add directory="D:/MinGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32"/>
-					<Add directory="D:/MinGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward"/>
-					<Add directory="D:/MinGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include"/>
-					<Add directory="D:/MinGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include-fixed"/>
-					<Add directory="D:/MinGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/../../../../i686-w64-mingw32/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 parallel_programming"/>
-					<CompileFile command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="parallel_programming/fast">
-				<Option output="D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/parallel_programming.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="E:/download/chrome/Microsoft-MPI-master/Microsoft-MPI-master/src/include"/>
-					<Add directory="D:/uestc-Internet_plus-course-project/parallel_programming/INC_DIR"/>
-					<Add directory="D:/MinGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
-					<Add directory="D:/MinGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32"/>
-					<Add directory="D:/MinGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward"/>
-					<Add directory="D:/MinGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include"/>
-					<Add directory="D:/MinGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include-fixed"/>
-					<Add directory="D:/MinGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/../../../../i686-w64-mingw32/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 parallel_programming/fast"/>
-					<CompileFile command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="edit_cache">
-				<Option working_dir="D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug"/>
+				<Option working_dir="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/MinGW/mingw32/bin/mingw32-make.exe -f &quot;D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="parallel_programming">
+				<Option output="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/parallel_programming" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/mpich"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 parallel_programming"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="parallel_programming/fast">
+				<Option output="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/parallel_programming" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/mpich"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 parallel_programming/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="D:/uestc-Internet_plus-course-project/parallel_programming/main.cpp">
+		<Unit filename="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/main.cpp">
 			<Option target="parallel_programming"/>
 		</Unit>
-		<Unit filename="D:/uestc-Internet_plus-course-project/parallel_programming/CMakeLists.txt">
+		<Unit filename="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

@@ -1,9 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/parallel_programming.dir/main.cpp.obj"
+  "CMakeFiles/parallel_programming.dir/main.cpp.o"
   "parallel_programming.pdb"
-  "parallel_programming.exe"
-  "parallel_programming.exe.manifest"
-  "libparallel_programming.dll.a"
+  "parallel_programming"
 )
 
 # Per-language clean rules from dependency scanning.

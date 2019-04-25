@@ -6,3 +6,33 @@
 
 #IncludeRegexTransform: 
 
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/main.cpp
+mpi.h
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/mpi.h
+stdio.h
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/stdio.h
+string.h
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/string.h
+math.h
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/math.h
+
+/usr/include/mpich/mpi.h
+stddef.h
+-
+cstdint
+-
+stdint.h
+-
+mpio.h
+/usr/include/mpich/mpio.h
+mpicxx.h
+/usr/include/mpich/mpicxx.h
+
+/usr/include/mpich/mpicxx.h
+stdio.h
+-
+
+/usr/include/mpich/mpio.h
+mpi.h
+/usr/include/mpich/mpi.h
+
