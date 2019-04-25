@@ -1,4 +1,4 @@
-# Install script for directory: D:/uestc-Internet_plus-course-project/parallel_programming
+# Install script for directory: D:/uestc_Internet_plus_course_project/parallel_programming
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

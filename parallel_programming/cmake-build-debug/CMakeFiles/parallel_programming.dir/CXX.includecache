@@ -6,3 +6,15 @@
 
 #IncludeRegexTransform: 
 
+D:/MPI/Include/mpi.h
+sal.h
+-
+
+D:/uestc_Internet_plus_course_project/parallel_programming/main.cpp
+cstdio
+D:/uestc_Internet_plus_course_project/parallel_programming/cstdio
+cstring
+D:/uestc_Internet_plus_course_project/parallel_programming/cstring
+mpi.h
+D:/uestc_Internet_plus_course_project/parallel_programming/mpi.h
+

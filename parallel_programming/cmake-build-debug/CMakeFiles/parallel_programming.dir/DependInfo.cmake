@@ -4,14 +4,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "D:/uestc-Internet_plus-course-project/parallel_programming/main.cpp" "D:/uestc-Internet_plus-course-project/parallel_programming/cmake-build-debug/CMakeFiles/parallel_programming.dir/main.cpp.obj"
+  "D:/uestc_Internet_plus_course_project/parallel_programming/main.cpp" "D:/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/CMakeFiles/parallel_programming.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "E:/download/chrome/Microsoft-MPI-master/Microsoft-MPI-master/src/include"
-  "../INC_DIR"
+  "D:/MPI/Include"
   )
 
 # Targets to which this target links.
