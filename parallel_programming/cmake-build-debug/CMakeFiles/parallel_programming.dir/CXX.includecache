@@ -6,6 +6,7 @@
 
 #IncludeRegexTransform: 
 
+<<<<<<< HEAD
 D:/MPI/Include/mpi.h
 sal.h
 -
@@ -17,4 +18,35 @@ cstring
 D:/uestc_Internet_plus_course_project/parallel_programming/cstring
 mpi.h
 D:/uestc_Internet_plus_course_project/parallel_programming/mpi.h
+=======
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/main.cpp
+mpi.h
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/mpi.h
+stdio.h
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/stdio.h
+string.h
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/string.h
+math.h
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/math.h
+
+/usr/include/mpich/mpi.h
+stddef.h
+-
+cstdint
+-
+stdint.h
+-
+mpio.h
+/usr/include/mpich/mpio.h
+mpicxx.h
+/usr/include/mpich/mpicxx.h
+
+/usr/include/mpich/mpicxx.h
+stdio.h
+-
+
+/usr/include/mpich/mpio.h
+mpi.h
+/usr/include/mpich/mpi.h
+>>>>>>> 5dfafda82c3bea527b03912fd7990bfaecad9509
 

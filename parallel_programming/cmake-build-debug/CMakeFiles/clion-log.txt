@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "D:\CLion 2018.2.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" D:\uestc_Internet_plus_course_project\parallel_programming
 -- The C compiler identification is GNU 8.1.0
 -- The CXX compiler identification is GNU 8.1.0
@@ -16,3 +17,9 @@
 -- Configuring done
 -- Generating done
 -- Build files have been written to: D:/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug
+=======
+/home/ubuntu/clion-2019.1.2/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug
+>>>>>>> 5dfafda82c3bea527b03912fd7990bfaecad9509

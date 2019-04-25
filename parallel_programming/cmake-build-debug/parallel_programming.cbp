@@ -8,6 +8,7 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
+<<<<<<< HEAD
 				<Option working_dir="D:/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
@@ -20,10 +21,35 @@
 			<Target title="parallel_programming">
 				<Option output="D:/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/parallel_programming.exe" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="D:/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug"/>
+=======
+				<Option working_dir="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="parallel_programming">
+				<Option output="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/parallel_programming" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug"/>
+>>>>>>> 5dfafda82c3bea527b03912fd7990bfaecad9509
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+<<<<<<< HEAD
 					<Add directory="D:/MPI/Include"/>
 					<Add directory="D:/MinGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
 					<Add directory="D:/MinGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32"/>
@@ -42,10 +68,33 @@
 			<Target title="parallel_programming/fast">
 				<Option output="D:/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/parallel_programming.exe" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="D:/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug"/>
+=======
+					<Add directory="/usr/include/mpich"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 parallel_programming"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="parallel_programming/fast">
+				<Option output="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/parallel_programming" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug"/>
+>>>>>>> 5dfafda82c3bea527b03912fd7990bfaecad9509
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+<<<<<<< HEAD
 					<Add directory="D:/MPI/Include"/>
 					<Add directory="D:/MinGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
 					<Add directory="D:/MinGW/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32"/>
@@ -86,6 +135,40 @@
 			<Option target="parallel_programming"/>
 		</Unit>
 		<Unit filename="D:/uestc_Internet_plus_course_project/parallel_programming/CMakeLists.txt">
+=======
+					<Add directory="/usr/include/mpich"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 parallel_programming/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/main.cpp">
+			<Option target="parallel_programming"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/CMakeLists.txt">
+>>>>>>> 5dfafda82c3bea527b03912fd7990bfaecad9509
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
