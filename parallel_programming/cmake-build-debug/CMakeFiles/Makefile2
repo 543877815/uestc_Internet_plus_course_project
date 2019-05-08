@@ -59,32 +59,19 @@ RM = /home/ubuntu/clion-2019.1.2/bin/cmake/linux/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-<<<<<<< HEAD
-CMAKE_SOURCE_DIR = D:\uestc_Internet_plus_course_project\parallel_programming
-
-# The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\uestc_Internet_plus_course_project\parallel_programming\cmake-build-debug
-=======
 CMAKE_SOURCE_DIR = /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug
->>>>>>> 5dfafda82c3bea527b03912fd7990bfaecad9509
 
 #=============================================================================
 # Target rules for target CMakeFiles/parallel_programming.dir
 
 # All Build rule for target.
 CMakeFiles/parallel_programming.dir/all:
-<<<<<<< HEAD
-	$(MAKE) -f CMakeFiles\parallel_programming.dir\build.make CMakeFiles/parallel_programming.dir/depend
-	$(MAKE) -f CMakeFiles\parallel_programming.dir\build.make CMakeFiles/parallel_programming.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\uestc_Internet_plus_course_project\parallel_programming\cmake-build-debug\CMakeFiles --progress-num=1,2 "Built target parallel_programming"
-=======
 	$(MAKE) -f CMakeFiles/parallel_programming.dir/build.make CMakeFiles/parallel_programming.dir/depend
 	$(MAKE) -f CMakeFiles/parallel_programming.dir/build.make CMakeFiles/parallel_programming.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target parallel_programming"
->>>>>>> 5dfafda82c3bea527b03912fd7990bfaecad9509
 .PHONY : CMakeFiles/parallel_programming.dir/all
 
 # Include target in all.
@@ -94,15 +81,9 @@ all: CMakeFiles/parallel_programming.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/parallel_programming.dir/rule: cmake_check_build_system
-<<<<<<< HEAD
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\uestc_Internet_plus_course_project\parallel_programming\cmake-build-debug\CMakeFiles 2
-	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/parallel_programming.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\uestc_Internet_plus_course_project\parallel_programming\cmake-build-debug\CMakeFiles 0
-=======
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/parallel_programming.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/CMakeFiles 0
->>>>>>> 5dfafda82c3bea527b03912fd7990bfaecad9509
 .PHONY : CMakeFiles/parallel_programming.dir/rule
 
 # Convenience name for target.

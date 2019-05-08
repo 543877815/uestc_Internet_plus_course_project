@@ -43,17 +43,10 @@ RM = /home/ubuntu/clion-2019.1.2/bin/cmake/linux/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-<<<<<<< HEAD
-CMAKE_SOURCE_DIR = D:\uestc_Internet_plus_course_project\parallel_programming
-
-# The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\uestc_Internet_plus_course_project\parallel_programming\cmake-build-debug
-=======
 CMAKE_SOURCE_DIR = /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug
->>>>>>> 5dfafda82c3bea527b03912fd7990bfaecad9509
 
 # Include any dependencies generated for this target.
 include CMakeFiles/parallel_programming.dir/depend.make
@@ -64,21 +57,6 @@ include CMakeFiles/parallel_programming.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/parallel_programming.dir/flags.make
 
-<<<<<<< HEAD
-CMakeFiles/parallel_programming.dir/main.cpp.obj: CMakeFiles/parallel_programming.dir/flags.make
-CMakeFiles/parallel_programming.dir/main.cpp.obj: CMakeFiles/parallel_programming.dir/includes_CXX.rsp
-CMakeFiles/parallel_programming.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\uestc_Internet_plus_course_project\parallel_programming\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/parallel_programming.dir/main.cpp.obj"
-	D:\MinGW\mingw32\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\parallel_programming.dir\main.cpp.obj -c D:\uestc_Internet_plus_course_project\parallel_programming\main.cpp
-
-CMakeFiles/parallel_programming.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/parallel_programming.dir/main.cpp.i"
-	D:\MinGW\mingw32\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\uestc_Internet_plus_course_project\parallel_programming\main.cpp > CMakeFiles\parallel_programming.dir\main.cpp.i
-
-CMakeFiles/parallel_programming.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/parallel_programming.dir/main.cpp.s"
-	D:\MinGW\mingw32\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\uestc_Internet_plus_course_project\parallel_programming\main.cpp -o CMakeFiles\parallel_programming.dir\main.cpp.s
-=======
 CMakeFiles/parallel_programming.dir/main.cpp.o: CMakeFiles/parallel_programming.dir/flags.make
 CMakeFiles/parallel_programming.dir/main.cpp.o: ../main.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/parallel_programming.dir/main.cpp.o"
@@ -91,7 +69,6 @@ CMakeFiles/parallel_programming.dir/main.cpp.i: cmake_force
 CMakeFiles/parallel_programming.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/parallel_programming.dir/main.cpp.s"
 	mpicxx $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/main.cpp -o CMakeFiles/parallel_programming.dir/main.cpp.s
->>>>>>> 5dfafda82c3bea527b03912fd7990bfaecad9509
 
 # Object files for target parallel_programming
 parallel_programming_OBJECTS = \
@@ -100,21 +77,11 @@ parallel_programming_OBJECTS = \
 # External object files for target parallel_programming
 parallel_programming_EXTERNAL_OBJECTS =
 
-<<<<<<< HEAD
-parallel_programming.exe: CMakeFiles/parallel_programming.dir/main.cpp.obj
-parallel_programming.exe: CMakeFiles/parallel_programming.dir/build.make
-parallel_programming.exe: CMakeFiles/parallel_programming.dir/linklibs.rsp
-parallel_programming.exe: CMakeFiles/parallel_programming.dir/objects1.rsp
-parallel_programming.exe: CMakeFiles/parallel_programming.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\uestc_Internet_plus_course_project\parallel_programming\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable parallel_programming.exe"
-	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\parallel_programming.dir\link.txt --verbose=$(VERBOSE)
-=======
 parallel_programming: CMakeFiles/parallel_programming.dir/main.cpp.o
 parallel_programming: CMakeFiles/parallel_programming.dir/build.make
 parallel_programming: CMakeFiles/parallel_programming.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable parallel_programming"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/parallel_programming.dir/link.txt --verbose=$(VERBOSE)
->>>>>>> 5dfafda82c3bea527b03912fd7990bfaecad9509
 
 # Rule to build all files generated by this target.
 CMakeFiles/parallel_programming.dir/build: parallel_programming
@@ -126,10 +93,6 @@ CMakeFiles/parallel_programming.dir/clean:
 .PHONY : CMakeFiles/parallel_programming.dir/clean
 
 CMakeFiles/parallel_programming.dir/depend:
-<<<<<<< HEAD
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\uestc_Internet_plus_course_project\parallel_programming D:\uestc_Internet_plus_course_project\parallel_programming D:\uestc_Internet_plus_course_project\parallel_programming\cmake-build-debug D:\uestc_Internet_plus_course_project\parallel_programming\cmake-build-debug D:\uestc_Internet_plus_course_project\parallel_programming\cmake-build-debug\CMakeFiles\parallel_programming.dir\DependInfo.cmake --color=$(COLOR)
-=======
 	cd /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/CMakeFiles/parallel_programming.dir/DependInfo.cmake --color=$(COLOR)
->>>>>>> 5dfafda82c3bea527b03912fd7990bfaecad9509
 .PHONY : CMakeFiles/parallel_programming.dir/depend
 

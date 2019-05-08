@@ -48,17 +48,10 @@ RM = /home/ubuntu/clion-2019.1.2/bin/cmake/linux/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-<<<<<<< HEAD
-CMAKE_SOURCE_DIR = D:\uestc_Internet_plus_course_project\parallel_programming
-
-# The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\uestc_Internet_plus_course_project\parallel_programming\cmake-build-debug
-=======
 CMAKE_SOURCE_DIR = /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug
->>>>>>> 5dfafda82c3bea527b03912fd7990bfaecad9509
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,15 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-<<<<<<< HEAD
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\uestc_Internet_plus_course_project\parallel_programming\cmake-build-debug\CMakeFiles D:\uestc_Internet_plus_course_project\parallel_programming\cmake-build-debug\CMakeFiles\progress.marks
-	$(MAKE) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\uestc_Internet_plus_course_project\parallel_programming\cmake-build-debug\CMakeFiles 0
-=======
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/CMakeFiles /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/CMakeFiles 0
->>>>>>> 5dfafda82c3bea527b03912fd7990bfaecad9509
 .PHONY : all
 
 # The main clean target
