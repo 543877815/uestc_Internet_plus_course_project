@@ -1,60 +1,119 @@
-#include "mpi.h"
-#include "stdio.h"
-#include "string.h"
-#include "math.h"
+#include <mpi.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-int isPrime(int n) {
-    int flag = 1;
-    for (int m = 2; m <= sqrt(n * 1.0); m++) {
-        if (n % m == 0) {
-            flag = 0;
-            break;
-        }
-    }
-    return flag;
-}
+/************************************************
+MPI_BCAST(buffer,count,datatype,root,comm)
+    IN/OUT¡¡buffer¡¡¡¡  Í¨ÐÅÏûÏ¢»º³åÇøµÄÆðÊ¼µØÖ·(¿É±ä)
+    IN¡¡¡¡¡¡ count¡¡  ¡¡ Í¨ÐÅÏûÏ¢»º³åÇøÖÐµÄÊý¾Ý¸öÊý(ÕûÐÍ)
+    IN ¡¡¡¡¡¡datatype ¡¡Í¨ÐÅÏûÏ¢»º³åÇøÖÐµÄÊý¾ÝÀàÐÍ(¾ä±ú)
+    IN¡¡¡¡¡¡ root¡¡  ¡¡¡¡·¢ËÍ¹ã²¥µÄ¸ùµÄÐòÁÐºÅ(ÕûÐÍ)
+    IN ¡¡¡¡¡¡comm   ¡¡¡¡Í¨ÐÅ×Ó(¾ä±ú)
+int MPI_Bcast(void* buffer,int count,MPI_Datatype datatype,int root, MPI_Comm comm)
+
+MPI_BCASTÊÇ´ÓÒ»¸öÐòÁÐºÅÎªrootµÄ½ø³Ì½«Ò»ÌõÏûÏ¢¹ã²¥·¢ËÍµ½×éÄÚµÄËùÓÐ½ø³Ì,
+°üÀ¨Ëü±¾ÉíÔÚÄÚ.µ÷ÓÃÊ±×éÄÚËùÓÐ³ÉÔ±¶¼Ê¹ÓÃÍ¬Ò»¸öcommºÍroot,
+Æä½á¹ûÊÇ½«¸ùµÄÍ¨ÐÅÏûÏ¢»º³åÇøÖÐµÄÏûÏ¢¿½±´µ½ÆäËûËùÓÐ½ø³ÌÖÐÈ¥.
+**********************************************/
+
+#define BLOCK_LOW(id, p, n) ((id) * (n) / (p))
+#define BLOCK_HIGH(id, p, n) (BLOCK_LOW((id) + 1, p, n) - 1)
+#define BLOCK_SIZE(id, p, n) (BLOCK_LOW((id) + 1) - BLOCK_LOW(id))
+#define BLCOK_OWNER(index, p, n) (((p)* (index) +1 ) -1 / (n))
+#define MIN(a, b) ((a)<(b)?(a):(b))
 
 int main(int argc, char *argv[]) {
-    int a, mypid, sum = 0, local = 0, size;
-    int flag;
-    double starttime1, endtime1, starttime2, endtime2, t1, t2;
+    int count;        /* Local prime count */
+    double elapsed_time; /* Parallel execution time */
+    int first;        /* Index of first multiple */
+    int global_count; /* Global prime count */
+    int high_value;   /* Highest value on this proc */
+    int id;           /* Process ID number */
+    int index;        /* Index of current prime */
+    int low_value;    /* Lowest value on this proc */
+    char *marked;       /* Portion of 2,...,'n' */
+    int n, m;            /* Sieving from 2, ..., 'n' */
+    int p;            /* Number of processes */
+    int proc0_size;   /* Size of proc 0's subarray */
+    int prime;        /* Current prime */
+    int size;         /* Elements in 'marked' */
+
+    // ³õÊ¼»¯
+    // MPI³ÌÐòÆô¶¯Ê±¡°×Ô¶¯¡±½¨Á¢Á½¸öÍ¨ÐÅÆ÷£º
+    // MPI_COMM_WORLD:°üº¬³ÌÐòÖÐËùÓÐMPI½ø³Ì
+    // MPI_COMM_SELF£ºÓÐµ¥¸ö½ø³Ì¶À×Ô¹¹³É£¬½ö°üº¬×Ô¼º
     MPI_Init(&argc, &argv);
-    MPI_Comm_rank(MPI_COMM_WORLD, &mypid);
-    MPI_Comm_size(MPI_COMM_WORLD, &size);
-    if (mypid == 0) {
-        scanf("%d", &a);
+
+    // MPI_BarrierÊÇMPIÖÐµÄÒ»¸öº¯Êý½Ó¿Ú
+    // ±íÊ¾×èÖ¹µ÷ÓÃÖ±µ½communicatorÖÐËùÓÐ½ø³ÌÍê³Éµ÷ÓÃ
+    MPI_Barrier(MPI_COMM_WORLD);
+
+    // MPI_COMM_RANK µÃµ½±¾½ø³ÌµÄ½ø³ÌºÅ£¬½ø³ÌºÅÈ¡Öµ·¶Î§Îª 0, ¡­, np-1
+    MPI_Comm_rank(MPI_COMM_WORLD, &id);
+
+    // MPI_COMM_SIZE µÃµ½ËùÓÐ²Î¼ÓÔËËãµÄ½ø³ÌµÄ¸öÊý
+    MPI_Comm_size(MPI_COMM_WORLD, &p);
+
+    // MPI_WTIME·µ»ØÒ»¸öÓÃ¸¡µãÊý±íÊ¾µÄÃëÊý
+    // Ëü±íÊ¾´Ó¹ýÈ¥Ä³Ò»Ê±¿Ìµ½µ÷ÓÃÊ±¿ÌËù¾­ÀúµÄÊ±¼ä
+    elapsed_time = -MPI_Wtime();
+
+    // ²ÎÊý¸öÊýÎª2£ºÎÄ¼þÃûÒÔ¼°ÎÊÌâ¹æÄ£n
+    if (argc != 2) {
+        if (!id) printf("Command line: %s <m> \n", argv[0]);
+        // ½áÊøMPIÏµÍ³
+        MPI_Finalize();
+        exit(1);
     }
-    MPI_Bcast(&a, 1, MPI_INT, 0, MPI_COMM_WORLD);
-    starttime1 = MPI_Wtime();
-    for (int i = mypid * 2 + 1; i <= a; i += size * 2) //æ¯ä¸ªè¿›ç¨‹ç®—è‡ªå·±çš„ä»»åŠ¡ï¼Œä¿å­˜åœ¨localä¸­
-    {
-        local += isPrime(i);
 
+    // atoi(±íÊ¾ ascii to integer)ÊÇ°Ñ×Ö·û´®×ª»»³ÉÕûÐÍÊýµÄÒ»¸öº¯Êý
+    n = atoi(argv[1]);
+
+
+    low_value = 3 + 2 * (id * (n) / p);//½ø³ÌµÄµÚÒ»¸öÊý
+    high_value = 3 + 2 * ((id + 1) * (n) / p - 1);//½ø³ÌµÄ×îºóÒ»¸öÊý
+    size = (high_value - low_value) / 2 + 1;    //½ø³Ì´¦ÀíµÄÊý×é´óÐ¡
+
+    marked = (char *) malloc(size);
+    if (marked == NULL) {
+        printf("Cannot allocate enough memory \n");
+        MPI_Finalize();
+        exit(1);
     }
-    MPI_Reduce(&local, &sum, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);//è¿›è¡Œå½’çº¦ï¼Œå°±æ˜¯æŠŠæ‰€æœ‰è¿›ç¨‹çš„localåŠ èµ·æ¥ï¼Œå¾—åˆ°æ€»çš„ç´ æ•°ä¸ªæ•°
-    endtime1 = MPI_Wtime();
-    t1 = endtime1 - starttime1;
-    if (mypid == 0) {
-        printf("å¹¶è¡Œæ—¶é—´=%f\n", t1);
-        printf("å¹¶è¡Œç´ æ•°ä¸ªæ•°æ˜¯ï¼š %d\n", sum);
+
+
+    for (int i = 0; i < size; i++) {
+        marked[i] = 0;
     }
-
-
-    sum = 0;
-    starttime2 = MPI_Wtime();
-    if (mypid == 0) {
-
-        for (int i = 1; i <= a; i += 2) //æ¯ä¸ªè¿›ç¨‹ç®—è‡ªå·±çš„ä»»åŠ¡ï¼Œä¿å­˜åœ¨localä¸­
-        {
-            sum += isPrime(i);
+    if (!id) index = 0;
+    prime = 2;
+    do {
+        if (prime * prime > low_value) {
+            first = prime * prime - low_value;
+        } else {
+            if (!(low_value % prime)) first = 0;
+            else first = prime - (low_value % prime);
         }
-        endtime2 = MPI_Wtime();
-        t2 = endtime2 - starttime2;
-        printf("ä¸²è¡Œç´ æ•°ä¸ªæ•°æ˜¯ï¼š %d\n", sum);
+        for (int i = first; i < size; i += prime) marked[i] = i;
+        if (!id) {
+            while (marked[++index]); /* find the smallest unmarked */
+            prime = index + 2;
+        }
+        MPI_Bcast(&prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    } while (prime * prime <= n);
 
-        printf("ä¸²è¡Œæ—¶é—´=%f\n", t2);
-        printf("åŠ é€Ÿæ¯”æ˜¯ï¼š%.9f", double(t2) / double(t1));
+    count = 0;
+    for (int i = 0; i < size; i++)
+        if (!marked[i]) count++;
+    MPI_Reduce(&count, &global_count, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+    elapsed_time += MPI_Wtime();
+    if (!id) {
+        printf("%d primes are less than or equal to %d \n", global_count, n);
+        printf("Total elapsed time: %10.f\n", elapsed_time);
     }
     MPI_Finalize();
     return 0;
 }
+

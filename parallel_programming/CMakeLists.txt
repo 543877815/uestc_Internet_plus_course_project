@@ -10,4 +10,4 @@ include_directories(${MPI_INCLUDE_PATH})
 set(CMAKE_CXX_COMPILER mpicxx)
 set(CMAKE_C_COMPILER mpicc)
 
-add_executable(parallel_programming main.cpp)
+add_executable(main main.cpp)

@@ -27,8 +27,8 @@
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="parallel_programming">
-				<Option output="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/parallel_programming" prefix_auto="0" extension_auto="0"/>
+			<Target title="main">
+				<Option output="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/main" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -45,14 +45,14 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 parallel_programming"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 main"/>
 					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="parallel_programming/fast">
-				<Option output="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/parallel_programming" prefix_auto="0" extension_auto="0"/>
+			<Target title="main/fast">
+				<Option output="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/main" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -69,7 +69,7 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 parallel_programming/fast"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 main/fast"/>
 					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
@@ -87,7 +87,7 @@
 			</Target>
 		</Build>
 		<Unit filename="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/main.cpp">
-			<Option target="parallel_programming"/>
+			<Option target="main"/>
 		</Unit>
 		<Unit filename="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
