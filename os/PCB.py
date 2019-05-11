@@ -1,13 +1,23 @@
 class PCB:
-    def __init__(self, pid, priority, status='ready', parent=None, children=[], resources=[]):
+    def __init__(self, pid, priority):
         self._pid = pid
         # 0: init, 1: user, 2: system
         self._priority = priority
         # -1: none, 0: ready, 1:running, 2: blocked
-        self._status = status
-        self._parent = parent
-        self._children = children
-        self._resources = resources
+        self._status = 'ready'
+        self._parent = None
+        self._children = []
+        self._resources = []
+
+    def get_info(self):
+        return {
+            "pid": self._pid,
+            "priority": self._priority,
+            "status": self._status,
+            "parent": self._parent.get_pid() if self._parent is not None else None,
+            "children": [x.get_pid() for x in self._children],
+            "resources": self._resources
+        }
 
     def get_priority(self):
         return self._priority
@@ -17,6 +27,11 @@ class PCB:
 
     def get_parent(self):
         return self._parent
+
+    def delete_children(self, pid):
+        children = [x for x in self._children if x.get_pid() == pid]
+        child_delete = children[0]
+        self._children.pop(self._children.index(child_delete))
 
     def set_children(self, children):
         self._children.append(children)
@@ -32,4 +47,3 @@ class PCB:
 
     def set_status(self, status):
         self._status = status
-        pass
