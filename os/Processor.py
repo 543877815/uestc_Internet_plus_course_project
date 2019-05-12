@@ -21,15 +21,20 @@ class Processor:
             self._running_list.append(new_pcb)
             new_pcb.set_status("running")
             self._ready_list.pop()
+            # 格式调整
+            print(pid)
         else:
             new_pcb.set_parent(self._running_list[0])
             self._running_list[0].set_children(new_pcb)
-        # 创建成功后打印进程pid
-        print(pid)
+            # 如果正在运行的进程是init，则新创建的进程马上调度
+            if self._running_list[0].get_priority() == 0:
+                self.schedule()
+            else:
+                # 格式调整
+                print(self._running_list[0].get_pid())
 
     def delete_process(self, pid):
         # 从所有队列中找到该pid的状态，从该状态的队列中删除
-        print(pid)
         processes = self.get_process_list()
         process = [x for x in processes if x.get_pid() == pid]
         if len(process) == 0:
@@ -48,9 +53,6 @@ class Processor:
             self._block_list.pop([x.get_pid() for x in self._block_list].index(pid))
         elif process_status == 'ready':
             self._ready_list.pop([x.get_pid() for x in self._ready_list].index(pid))
-
-        # 进行调度
-        self.schedule()
 
     def get_process_info(self, pid):
         processes = self.get_process_list()
@@ -83,17 +85,18 @@ class Processor:
         else:
             tasks = [x for x in self._ready_list if int(x.get_priority()) == 0]
 
-        # 调度
-        self._ready_list.append(self._running_list[0])
         # 如果为0则证明删除了正在运行的进程
         if len(self._running_list) == 0:
             self._running_list.append(tasks[0])
         else:
+            # 状态设置
+            self._running_list[0].set_status("ready")
+            # 调度
+            self._ready_list.append(self._running_list[0])
             self._running_list[0] = tasks[0]
         self._ready_list.pop(self._ready_list.index(tasks[0]))
 
         # 状态设置
-        self._running_list[0].set_status("ready")
         tasks[0].set_status("running")
 
         # 调度成功后打印进程pid

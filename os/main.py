@@ -26,7 +26,6 @@ if __name__ == '__main__':
             # create process
             if Xs[0] == 'cr':
                 pid = Xs[1]
-
                 priority = Xs[2]
                 # 只能创建优先级为1或者2的进程，init进程的优先级为0
                 if priority != '1' and priority != '2':
@@ -50,6 +49,8 @@ if __name__ == '__main__':
                     print("error, can not delete process init!")
                     continue
                 processor.delete_process(pid)
+                # 进行调度
+                processor.schedule()
             else:
                 print("syntax occur")
         else:
