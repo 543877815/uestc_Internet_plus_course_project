@@ -89,6 +89,10 @@ class Processor:
         if len(self._running_list) == 0:
             self._running_list.append(tasks[0])
         else:
+            # 如果就绪队列仅有init，则下一时间片仍然执行该进程
+            if tasks[0].get_pid() == 'init':
+                print(self._running_list[0].get_pid())
+                return
             # 状态设置
             self._running_list[0].set_status("ready")
             # 调度
@@ -101,3 +105,60 @@ class Processor:
 
         # 调度成功后打印进程pid
         print(self._running_list[0].get_pid())
+
+    def request_resource(self, resource, rid, request_status):
+        if self._running_list[0].get_pid() == 'init':
+            print("the process init can not request resource!")
+            return
+        request_status = int(request_status)
+        code = resource.request(self._running_list[0], rid, request_status)
+        # 资源请求成功
+        if code == 0:
+            resource = self._running_list[0].get_resource(rid)
+            # 若资源不存在则分配
+            if len(resource) == 0:
+                self._running_list[0].set_resources({
+                    "rid": rid,
+                    "status": request_status
+                })
+            # 若资源存在则进行叠加
+            else:
+                resource['status'] += request_status
+            # 打印当前正在进行的进程
+            print(self._running_list[0].get_pid())
+        # 修改为阻塞态, 添加到阻塞队列，移除运行队列，进行调度
+        elif code == 1:
+            for x in self._running_list:
+                self._block_list.append({
+                    "pid": x,
+                    "status": request_status
+                })
+                x.set_status("blocked")
+                self._running_list.pop(self._running_list.index(x))
+                self.schedule()
+        # 请求资源超过最大资源
+        elif code == -1:
+            print(self._running_list[0].get_pid())
+            return
+
+    def release_resource(self, resource, rid, release_status):
+        release_status = int(release_status)
+        if self._running_list[0].get_pid() == 'init':
+            print("the process init can not request resources!")
+            return
+        status_allocated = int(self._running_list[0].get_resource(rid)['status'])
+        if status_allocated >= release_status:
+            code = resource.release(self._running_list, rid, release_status)
+            if code == 0:
+                self._running_list[0].set_resources({
+                    "rid": rid,
+                    "status": status_allocated - release_status
+                })
+                # self._running_list[0].set_status(int(status_allocated) - int(status))
+            else:
+                pass
+        # elif status_allocated == release_status:
+        #     self._running_list[0].pop_resource(rid)
+        else:
+            print("error, the process '" + self._running_list[0].get_pid() + "' only request", resource.get_status(),
+                  "resource(s), your input has exceeded it")

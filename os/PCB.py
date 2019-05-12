@@ -19,6 +19,9 @@ class PCB:
             "resources": self._resources
         }
 
+    def request_resource(self):
+        pass
+
     def get_priority(self):
         return self._priority
 
@@ -47,3 +50,23 @@ class PCB:
 
     def set_status(self, status):
         self._status = status
+
+    def set_resources(self, resource):
+        resource_exist = [x for x in self._resources if resource['rid'] == x['rid']]
+        if len(resource_exist) == 0:
+            self._resources.append(resource)
+        else:
+            for x in resource_exist:
+                if resource['status'] == 0:
+                    self._resources.pop([y['rid'] for y in self._resources].index(x['rid']))
+                else:
+                    x['status'] = resource['status']
+
+    def get_resource(self, rid):
+        for x in self._resources:
+            if x['rid'] == rid:
+                return x
+        return []
+
+    def pop_resource(self, rid):
+        pass

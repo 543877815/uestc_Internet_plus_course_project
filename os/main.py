@@ -34,13 +34,35 @@ if __name__ == '__main__':
                 processor.create_process(pid, priority)
             # request resource
             elif Xs[0] == 'req':
-                print('request resource')
+                rid = Xs[1]
+                try:
+                    num = float(Xs[2])
+                except ValueError:
+                    print("error, the request number must be integer!")
+                else:
+                    if num.is_integer():
+                        processor.request_resource(resource, rid, num)
+                    else:
+                        print("error, the request number must be interger!")
+            # release resource
+            elif Xs[0] == 'rel':
+                rid = Xs[1]
+                try:
+                    num = float(Xs[2])
+                except ValueError:
+                    print("error, the release number must be integer!")
+                else:
+                    if num.is_integer():
+                        processor.release_resource(resource, rid, num)
+                    else:
+                        print("error, the release number must be interger!")
             else:
                 print("invalid syntax" + Xs[0])
         elif len(Xs) == 2:
             # show specified process
             if Xs[0] == 'lp':
-                processor.get_process_info(Xs[1])
+                pid = Xs[1]
+                processor.get_process_info(pid)
             # delete process
             elif Xs[0] == 'de':
                 # 不能删除 init 进程
@@ -67,7 +89,8 @@ if __name__ == '__main__':
                 print("blocked: " + str(blocked))
             # list all resources
             elif x == 'lr':
-                resource.get_rl()
+                request_list = resource.get_rl()
+                [print(x) for x in request_list]
             elif x == 'exit':
                 break
             else:
