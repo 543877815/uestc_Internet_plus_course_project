@@ -14,33 +14,47 @@ class Resource:
         self._resource_list.append(r4)
 
     def get_rl(self):
-        return [{"rid": x.get_rid(), "max": x.get_max(), "status": x.get_status(), "waiting_list": x.get_waiting_list(), "_allocated_list": x.get_allocated_list()}
+        return [{"rid": x.get_rid(), "max": x.get_max(), "status": x.get_status(), "waiting_list": x.get_waiting_list(),
+                 "_allocated_list": x.get_all_allocated_list()}
                 for x in self._resource_list]
 
-    def request(self, process, rid, status):
-        resources = [x for x in self._resource_list if x.get_rid() == rid]
-        resource = resources[0]
-        # 如果同一进程请求超过资源拥有的最大数量
-        if resource.get_max() < status:
+    def request(self, process, rid, request_status):
+        resource = [x for x in self._resource_list if x.get_rid() == rid][0]
+        # 如果资源拥有的最大数量小于同一进程请求
+        if resource.get_max() < request_status:
             print("request failed, the request number exceeds the max number of the resource!")
             return -1
-        # 如果请求资源小于等于剩余资源，则请求资源成功
-        if resource.get_status() >= status:
-            resource.set_status(int(resource.get_status()) - int(status))
-            resource.set_allocated_list(process.get_pid(), status)
+        # 如果剩余资源大于等于请求资源，则请求资源成功
+        if resource.get_status() >= request_status:
+            # 维护剩余资源状态
+            resource.set_status(status=resource.get_status() - request_status)
+            # 维护已分配资源状态
+            allocated_status = resource.get_allocated_status(pid=process.get_pid())
+            resource.set_allocated_list(process={
+                "pid": process.get_pid(),
+                "status": allocated_status + request_status
+            })
             return 0
         # 否则阻塞
         else:
-            resource.set_waiting_list(process.get_pid(), status)
+            resource.set_waiting_list(rid=process.get_pid(), status=request_status)
             return 1
 
-    def release(self, process, rid, status):
-        resources = [x for x in self._resource_list if x.get_rid() == rid]
-        resource = resources[0]
-        if int(resource.get_max()) - int(resource.get_status()) >= int(status):
-            resource.set_status(int(resource.get_status()) + int(status))
-            return 0
-        else:
-            # print("error, the process '" + pid + "' only request", resource.get_status(),
-            #       "resource(s), your input has exceeded it")
+    def release(self, process, rid, release_status):
+        resource = [x for x in self._resource_list if x.get_rid() == rid][0]
+        allocated_status = resource.get_allocated_status(pid=process.get_pid())
+        # 如果释放资源大于该进程已分配资源
+        if release_status > allocated_status:
+            print("request failed, the release number exceeds the number of the resource this process requested!")
             return -1
+        # 如果该进程已分配资源大于等于释放资源，则释放资源成功
+        else:
+            # 维护资源状态
+            resource.set_status(status=resource.get_status() + release_status)
+            # 维护已分配资源的状态
+            resource.set_allocated_list(process={
+                "pid": process.get_pid(),
+                "status": allocated_status - release_status
+            })
+            return 0
+
