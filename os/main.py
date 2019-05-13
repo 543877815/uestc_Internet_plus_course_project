@@ -72,8 +72,8 @@ def analysis(inputs):
                 print("error, can not delete process init!")
                 return 0
             processor.delete_process(resource=resource, pid=pid)
-            # 进行调度
-            processor.schedule()
+            # # 进行调度
+            # processor.schedule()
         # read file
         elif xs[0] == 'read':
             filename = xs[1]

@@ -52,10 +52,13 @@ class Processor:
         process_status = process.get_status()
         if process_status == 'running':
             self._running_list.pop([x.get_pid() for x in self._running_list].index(pid))
+            # 如果删除的进程是当前正在运行的进程则立即进行调度
+            self.schedule()
         elif process_status == 'blocked':
             self._block_list.pop([x.get_pid() for x in self._block_list].index(pid))
         elif process_status == 'ready':
             self._ready_list.pop([x.get_pid() for x in self._ready_list].index(pid))
+
 
     def get_process_info(self, pid):
         processes = self.get_process_list()
