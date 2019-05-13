@@ -29,24 +29,27 @@ class Processor:
             # 如果正在运行的进程是init，则新创建的进程马上调度
             if self._running_list[0].get_priority() == 0:
                 self.schedule()
-            else:
-                # 格式调整
-                print(self._running_list[0].get_pid())
 
-    def delete_process(self, pid):
+    def delete_process(self, resource, pid):
         # 从所有队列中找到该pid的状态，从该状态的队列中删除
-        processes = self.get_process_list()
-        process = [x for x in processes if x.get_pid() == pid]
-        if len(process) == 0:
+        processes = [x for x in self.get_process_list() if x.get_pid() == pid]
+        if len(processes) == 0:
             return
+        else:
+            process = processes[0]
         # 删除父母节点
-        process_parent = process[0].get_parent()
+        process_parent = process.get_parent()
         process_parent.delete_children(pid)
         # 级联删除
-        process_children = process[0].get_children()
-        [self.delete_process(x.get_pid()) for x in process_children]
+        process_children = process.get_children()
+        [self.delete_process(resource=resource, pid=x.get_pid()) for x in process_children]
+
+        # 将自己拥有的资源进行释放
+        for x in process.get_all_resource():
+            self.release_resource(process=process, resource=resource, rid=x['rid'], release_status=x['status'])
+
         # 根据状态查找对应的队列进行删除
-        process_status = process[0].get_status()
+        process_status = process.get_status()
         if process_status == 'running':
             self._running_list.pop([x.get_pid() for x in self._running_list].index(pid))
         elif process_status == 'blocked':
@@ -91,7 +94,6 @@ class Processor:
         else:
             # 如果就绪队列仅有init，则下一时间片仍然执行该进程
             if tasks[0].get_pid() == 'init':
-                print(self._running_list[0].get_pid())
                 return
             # 状态设置
             self._running_list[0].set_status("ready")
@@ -103,61 +105,71 @@ class Processor:
         # 状态设置
         tasks[0].set_status("running")
 
-        # 调度成功后打印进程pid
-        print(self._running_list[0].get_pid())
-
-    def request_resource(self, resource, rid, request_status):
+    def request_resource(self, resource, rid, request_status, process=None):
+        if process is None:
+            process = self._running_list[0]
         if self._running_list[0].get_pid() == 'init':
             print("the process init can not request resource!")
             return
         request_status = int(request_status)
-        code = resource.request(process=self._running_list[0], rid=rid, request_status=request_status)
+        code = resource.request(process=process, rid=rid, request_status=request_status)
         # 若资源请求成功，修改进程状态
         if code == 0:
-            process_resource = self._running_list[0].get_resource(rid=rid)
+            process_resource = process.get_resource(rid=rid)
             # 若资源不存在则分配
             if len(process_resource) == 0:
-                self._running_list[0].set_resources(resource={
+                process.set_resources(resource={
                     "rid": rid,
                     "status": request_status
                 })
             # 若资源存在则进行叠加
             else:
                 process_resource['status'] += request_status
-            # 打印当前正在进行的进程
-            print(self._running_list[0].get_pid())
         # 若资源不足，则修改当前进程为阻塞态, 添加到阻塞队列，移除运行队列，进行调度
         elif code == 1:
             for x in self._running_list:
-                self._block_list.append({
-                    "pid": x,
-                    "status": request_status
-                })
+                self._block_list.append(process)
                 x.set_status("blocked")
                 self._running_list.pop(self._running_list.index(x))
                 self.schedule()
-        # 请求资源超过最大资源，则打印当前进程的pid，只是为了调整输出格式
-        elif code == -1:
-            print(self._running_list[0].get_pid())
-            return
 
-    def release_resource(self, resource, rid, release_status):
-        if self._running_list[0].get_pid() == 'init':
-            print("the process init can not request resources!")
-            return
+    def release_resource(self, resource, rid, release_status, process=None):
         release_status = int(release_status)
         # 获取当前已分配的资源
-        status_allocated = int(self._running_list[0].get_resource(rid)['status'])
-        # 如果已分配资源大于等于释放资源，修改进程状态
+        if process is None:
+            process = self._running_list[0]
+        status_allocated = int(process.get_resource(rid)['status'])
+        pid = process.get_pid()
+        if pid == 'init':
+            print("the process init can not request resources!")
+            return
+        # 如果已分配资源大于等于要求释放资源，则释放资源，并修改进程状态
         if status_allocated >= release_status:
-            code = resource.release(process=self._running_list[0], rid=rid, release_status=release_status)
+            code = resource.release(process=process, rid=rid, release_status=release_status)
             if code == 0:
-                self._running_list[0].set_resources(resource={
+                process.set_resources(resource={
                     "rid": rid,
                     "status": status_allocated - release_status
                 })
-            # 打印当前正在进行的进程
-            print(self._running_list[0].get_pid())
+                # 遍历阻塞队列
+                for x in self._block_list:
+                    # 查看资源等待队列
+                    rcb = resource.get_rcb(rid=rid)
+                    # 标志位用于判断是否遇见阻塞队列
+                    flag = False
+                    for y in rcb.get_waiting_list():
+                        # 查看是否能唤醒并分配资源
+                        if y["pid"] == x.get_pid():
+                            # 标志位为真则证明有先到的进程被阻塞，且不满足唤醒条件，故而后续的队列不进行唤醒询问
+                            if flag: break
+                            if rcb.get_status() >= y['status']:
+                                x.set_status('ready')
+                                self._ready_list.append(x)
+                                self._block_list.pop(self._block_list.index(x))
+                                rcb.get_waiting_list().pop(rcb.get_waiting_list().index(y))
+                                resource.request(process=x, rid=rid, request_status=y['status'])
+                            else:
+                                flag = True
         else:
-            print("error, the process '" + self._running_list[0].get_pid() + "' only request", resource.get_status(),
+            print("error, the process '" + process.get_pid() + "' only request", resource.get_status(),
                   "resource(s), your input has exceeded it")

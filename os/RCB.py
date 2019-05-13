@@ -39,9 +39,9 @@ class RCB:
     def get_waiting_list(self):
         return self._waiting_list
 
-    def set_waiting_list(self, rid, status):
+    def set_waiting_list(self, pid, status):
         self._waiting_list.append({
-            "rid": rid,
+            "pid": pid,
             "status": status
         })
 

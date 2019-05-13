@@ -68,5 +68,5 @@ class PCB:
                 return x
         return []
 
-    def pop_resource(self, rid):
-        pass
+    def get_all_resource(self):
+        return self._resources

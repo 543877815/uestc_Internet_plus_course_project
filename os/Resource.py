@@ -20,10 +20,6 @@ class Resource:
 
     def request(self, process, rid, request_status):
         resource = [x for x in self._resource_list if x.get_rid() == rid][0]
-        # 如果资源拥有的最大数量小于同一进程请求
-        if resource.get_max() < request_status:
-            print("request failed, the request number exceeds the max number of the resource!")
-            return -1
         # 如果剩余资源大于等于请求资源，则请求资源成功
         if resource.get_status() >= request_status:
             # 维护剩余资源状态
@@ -37,7 +33,7 @@ class Resource:
             return 0
         # 否则阻塞
         else:
-            resource.set_waiting_list(rid=process.get_pid(), status=request_status)
+            resource.set_waiting_list(pid=process.get_pid(), status=request_status)
             return 1
 
     def release(self, process, rid, release_status):
@@ -57,4 +53,8 @@ class Resource:
                 "status": allocated_status - release_status
             })
             return 0
+
+    def get_rcb(self, rid):
+        resource = [x for x in self._resource_list if x.get_rid() == rid][0]
+        return resource
 
