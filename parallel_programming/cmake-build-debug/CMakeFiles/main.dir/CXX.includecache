@@ -8,15 +8,17 @@
 
 /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/main.cpp
 mpi.h
--
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/mpi.h
 math.h
--
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/math.h
 stdio.h
--
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/stdio.h
 stdlib.h
--
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/stdlib.h
 string.h
--
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/string.h
+error.h
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/error.h
 
 /usr/include/mpich/mpi.h
 stddef.h
