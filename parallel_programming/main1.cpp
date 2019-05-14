@@ -9,26 +9,26 @@ using namespace std;
 
 /************************************************
 MPI_BCAST(buffer,count,datatype,root,comm)
-    IN/OUT¡¡buffer¡¡¡¡  Í¨ÐÅÏûÏ¢»º³åÇøµÄÆðÊ¼µØÖ·(¿É±ä)
-    IN¡¡¡¡¡¡ count¡¡  ¡¡ Í¨ÐÅÏûÏ¢»º³åÇøÖÐµÄÊý¾Ý¸öÊý(ÕûÐÍ)
-    IN ¡¡¡¡¡¡datatype ¡¡Í¨ÐÅÏûÏ¢»º³åÇøÖÐµÄÊý¾ÝÀàÐÍ(¾ä±ú)
-    IN¡¡¡¡¡¡ root¡¡  ¡¡¡¡·¢ËÍ¹ã²¥µÄ¸ùµÄÐòÁÐºÅ(ÕûÐÍ)
-    IN ¡¡¡¡¡¡comm   ¡¡¡¡Í¨ÐÅ×Ó(¾ä±ú)
+    IN/OUTã€€bufferã€€ã€€  é€šä¿¡æ¶ˆæ¯ç¼“å†²åŒºçš„èµ·å§‹åœ°å€(å¯å˜)
+    INã€€ã€€ã€€ countã€€  ã€€ é€šä¿¡æ¶ˆæ¯ç¼“å†²åŒºä¸­çš„æ•°æ®ä¸ªæ•°(æ•´åž‹)
+    IN ã€€ã€€ã€€datatype ã€€é€šä¿¡æ¶ˆæ¯ç¼“å†²åŒºä¸­çš„æ•°æ®ç±»åž‹(å¥æŸ„)
+    INã€€ã€€ã€€ rootã€€  ã€€ã€€å‘é€å¹¿æ’­çš„æ ¹çš„åºåˆ—å·(æ•´åž‹)
+    IN ã€€ã€€ã€€comm   ã€€ã€€é€šä¿¡å­(å¥æŸ„)
 int MPI_Bcast(void* buffer,int count,MPI_Datatype datatype,int root, MPI_Comm comm)
 
-MPI_BCASTÊÇ´ÓÒ»¸öÐòÁÐºÅÎªrootµÄ½ø³Ì½«Ò»ÌõÏûÏ¢¹ã²¥·¢ËÍµ½×éÄÚµÄËùÓÐ½ø³Ì,
-°üÀ¨Ëü±¾ÉíÔÚÄÚ.µ÷ÓÃÊ±×éÄÚËùÓÐ³ÉÔ±¶¼Ê¹ÓÃÍ¬Ò»¸öcommºÍroot,
-Æä½á¹ûÊÇ½«¸ùµÄÍ¨ÐÅÏûÏ¢»º³åÇøÖÐµÄÏûÏ¢¿½±´µ½ÆäËûËùÓÐ½ø³ÌÖÐÈ¥.
+MPI_BCASTæ˜¯ä»Žä¸€ä¸ªåºåˆ—å·ä¸ºrootçš„è¿›ç¨‹å°†ä¸€æ¡æ¶ˆæ¯å¹¿æ’­å‘é€åˆ°ç»„å†…çš„æ‰€æœ‰è¿›ç¨‹,
+åŒ…æ‹¬å®ƒæœ¬èº«åœ¨å†….è°ƒç”¨æ—¶ç»„å†…æ‰€æœ‰æˆå‘˜éƒ½ä½¿ç”¨åŒä¸€ä¸ªcommå’Œroot,
+å…¶ç»“æžœæ˜¯å°†æ ¹çš„é€šä¿¡æ¶ˆæ¯ç¼“å†²åŒºä¸­çš„æ¶ˆæ¯æ‹·è´åˆ°å…¶ä»–æ‰€æœ‰è¿›ç¨‹ä¸­åŽ».
 
-¹æÔ¼º¯Êý MPI_Reduce()£¬½«Í¨ÐÅ×ÓÄÚ¸÷½ø³ÌµÄÍ¬Ò»¸ö±äÁ¿²ÎÓë¹æÔ¼¼ÆËã£¬²¢ÏòÖ¸¶¨µÄ½ø³ÌÊä³ö¼ÆËã½á¹û
+è§„çº¦å‡½æ•° MPI_Reduce()ï¼Œå°†é€šä¿¡å­å†…å„è¿›ç¨‹çš„åŒä¸€ä¸ªå˜é‡å‚ä¸Žè§„çº¦è®¡ç®—ï¼Œå¹¶å‘æŒ‡å®šçš„è¿›ç¨‹è¾“å‡ºè®¡ç®—ç»“æžœ
 MPI_METHOD MPI_Reduce(
-   _In_range_(!= , recvbuf) _In_opt_ const void* sendbuf,  // Ö¸ÏòÊäÈëÊý¾ÝµÄÖ¸Õë
-   _When_(root != MPI_PROC_NULL, _Out_opt_) void* recvbuf, // Ö¸ÏòÊä³öÊý¾ÝµÄÖ¸Õë£¬¼´¼ÆËã½á¹û´æ·ÅµÄµØ·½
-   _In_range_(>= , 0) int count,                           // Êý¾Ý³ß´ç£¬¿ÉÒÔ½øÐÐ¶à¸ö±êÁ¿»ò¶à¸öÏòÁ¿µÄ¹æÔ¼
-   _In_ MPI_Datatype datatype,                             // Êý¾ÝÀàÐÍ
-   _In_ MPI_Op op,                                         // ¹æÔ¼²Ù×÷ÀàÐÍ
-   _mpi_coll_rank_(root) int root,                         // Ä¿±ê½ø³ÌºÅ£¬´æ·Å¼ÆËã½á¹ûµÄ½ø³Ì
-   _In_ MPI_Comm comm                                      // Í¨ÐÅ×Ó
+   _In_range_(!= , recvbuf) _In_opt_ const void* sendbuf,  // æŒ‡å‘è¾“å…¥æ•°æ®çš„æŒ‡é’ˆ
+   _When_(root != MPI_PROC_NULL, _Out_opt_) void* recvbuf, // æŒ‡å‘è¾“å‡ºæ•°æ®çš„æŒ‡é’ˆï¼Œå³è®¡ç®—ç»“æžœå­˜æ”¾çš„åœ°æ–¹
+   _In_range_(>= , 0) int count,                           // æ•°æ®å°ºå¯¸ï¼Œå¯ä»¥è¿›è¡Œå¤šä¸ªæ ‡é‡æˆ–å¤šä¸ªå‘é‡çš„è§„çº¦
+   _In_ MPI_Datatype datatype,                             // æ•°æ®ç±»åž‹
+   _In_ MPI_Op op,                                         // è§„çº¦æ“ä½œç±»åž‹
+   _mpi_coll_rank_(root) int root,                         // ç›®æ ‡è¿›ç¨‹å·ï¼Œå­˜æ”¾è®¡ç®—ç»“æžœçš„è¿›ç¨‹
+   _In_ MPI_Comm comm                                      // é€šä¿¡å­
 );
 **********************************************/
 
@@ -54,51 +54,51 @@ int main(int argc, char *argv[]) {
     int prime;        /* Current prime */
     int size;         /* Elements in 'marked' */
 
-    // ³õÊ¼»¯
-    // MPI³ÌÐòÆô¶¯Ê±¡°×Ô¶¯¡±½¨Á¢Á½¸öÍ¨ÐÅÆ÷£º
-    // MPI_COMM_WORLD:°üº¬³ÌÐòÖÐËùÓÐMPI½ø³Ì
-    // MPI_COMM_SELF£ºÓÐµ¥¸ö½ø³Ì¶À×Ô¹¹³É£¬½ö°üº¬×Ô¼º
+    // åˆå§‹åŒ–
+    // MPIç¨‹åºå¯åŠ¨æ—¶â€œè‡ªåŠ¨â€å»ºç«‹ä¸¤ä¸ªé€šä¿¡å™¨ï¼š
+    // MPI_COMM_WORLD:åŒ…å«ç¨‹åºä¸­æ‰€æœ‰MPIè¿›ç¨‹
+    // MPI_COMM_SELFï¼šæœ‰å•ä¸ªè¿›ç¨‹ç‹¬è‡ªæž„æˆï¼Œä»…åŒ…å«è‡ªå·±
     MPI_Init(&argc, &argv);
 
-    // MPI_COMM_RANK µÃµ½±¾½ø³ÌµÄ½ø³ÌºÅ£¬½ø³ÌºÅÈ¡Öµ·¶Î§Îª 0, ¡­, np-1
+    // MPI_COMM_RANK å¾—åˆ°æœ¬è¿›ç¨‹çš„è¿›ç¨‹å·ï¼Œè¿›ç¨‹å·å–å€¼èŒƒå›´ä¸º 0, â€¦, np-1
     MPI_Comm_rank(MPI_COMM_WORLD, &id);
 
-    // MPI_COMM_SIZE µÃµ½ËùÓÐ²Î¼ÓÔËËãµÄ½ø³ÌµÄ¸öÊý
+    // MPI_COMM_SIZE å¾—åˆ°æ‰€æœ‰å‚åŠ è¿ç®—çš„è¿›ç¨‹çš„ä¸ªæ•°
     MPI_Comm_size(MPI_COMM_WORLD, &p);
 
-    // MPI_BarrierÊÇMPIÖÐµÄÒ»¸öº¯Êý½Ó¿Ú
-    // ±íÊ¾×èÖ¹µ÷ÓÃÖ±µ½communicatorÖÐËùÓÐ½ø³ÌÍê³Éµ÷ÓÃ
+    // MPI_Barrieræ˜¯MPIä¸­çš„ä¸€ä¸ªå‡½æ•°æŽ¥å£
+    // è¡¨ç¤ºé˜»æ­¢è°ƒç”¨ç›´åˆ°communicatorä¸­æ‰€æœ‰è¿›ç¨‹å®Œæˆè°ƒç”¨
     MPI_Barrier(MPI_COMM_WORLD);
 
-    // MPI_WTIME·µ»ØÒ»¸öÓÃ¸¡µãÊý±íÊ¾µÄÃëÊý
-    // Ëü±íÊ¾´Ó¹ýÈ¥Ä³Ò»Ê±¿Ìµ½µ÷ÓÃÊ±¿ÌËù¾­ÀúµÄÊ±¼ä
+    // MPI_WTIMEè¿”å›žä¸€ä¸ªç”¨æµ®ç‚¹æ•°è¡¨ç¤ºçš„ç§’æ•°
+    // å®ƒè¡¨ç¤ºä»Žè¿‡åŽ»æŸä¸€æ—¶åˆ»åˆ°è°ƒç”¨æ—¶åˆ»æ‰€ç»åŽ†çš„æ—¶é—´
 
     elapsed_time = -MPI_Wtime();
 
-    // ²ÎÊý¸öÊýÎª2£ºÎÄ¼þÃûÒÔ¼°ÎÊÌâ¹æÄ£n
+    // å‚æ•°ä¸ªæ•°ä¸º2ï¼šæ–‡ä»¶åä»¥åŠé—®é¢˜è§„æ¨¡n
     if (argc != 2) {
         if (!id) printf("Command line: %s <m> \n", argv[0]);
-        // ½áÊøMPIÏµÍ³
+        // ç»“æŸMPIç³»ç»Ÿ
         MPI_Finalize();
         exit(1);
     }
 
-    // ±íÊ¾ÕÒ <= nµÄËØÊý
+    // è¡¨ç¤ºæ‰¾ <= nçš„ç´ æ•°
     n = atoi(argv[1]);
-//    low_value = 2 + id * (n - 1) / p;//½ø³ÌµÄµÚÒ»¸öÊý
-//    high_value = 1 + (id + 1) * (n - 1) / p;//½ø³ÌµÄ×îºóÒ»¸öÊý
-//    size = high_value - low_value + 1;    //½ø³Ì´¦ÀíµÄÊý×é´óÐ¡
+//    low_value = 2 + id * (n - 1) / p;//è¿›ç¨‹çš„ç¬¬ä¸€ä¸ªæ•°
+//    high_value = 1 + (id + 1) * (n - 1) / p;//è¿›ç¨‹çš„æœ€åŽä¸€ä¸ªæ•°
+//    size = high_value - low_value + 1;    //è¿›ç¨‹å¤„ç†çš„æ•°ç»„å¤§å°
 
     int N = n - 1;
-    low_value = 2 + id * (N / p) + MIN(id, N % p);//½ø³ÌµÄµÚÒ»¸öÊý
-    high_value = 2 + (id + 1) * (N / p) + MIN(id + 1, N % p) - 1;//½ø³ÌµÄ×îºóÒ»¸öÊý
-    size = high_value - low_value + 1;    //½ø³Ì´¦ÀíµÄÊý×é´óÐ¡
+    low_value = 2 + id * (N / p) + MIN(id, N % p);//è¿›ç¨‹çš„ç¬¬ä¸€ä¸ªæ•°
+    high_value = 2 + (id + 1) * (N / p) + MIN(id + 1, N % p) - 1;//è¿›ç¨‹çš„æœ€åŽä¸€ä¸ªæ•°
+    size = high_value - low_value + 1;    //è¿›ç¨‹å¤„ç†çš„æ•°ç»„å¤§å°
 
 
     // Bail out if all the primes used for sieving are not all held by process 0
     proc0_size = (n - 1) / p;
 
-    // Èç¹ûÓÐÌ«¶à½ø³Ì
+    // å¦‚æžœæœ‰å¤ªå¤šè¿›ç¨‹
     if ((2 + proc0_size) < (int) sqrt((double) n)) {
         if (!id) printf("Too many processes \n");
         MPI_Finalize();
@@ -113,47 +113,47 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
-    // ÏÈ¼Ù¶¨ËùÓÐµÄÕûÊý¶¼ÊÇËØÊý
+    // å…ˆå‡å®šæ‰€æœ‰çš„æ•´æ•°éƒ½æ˜¯ç´ æ•°
     for (int i = 0; i < size; i++) marked[i] = 0;
 
-    // Ë÷Òý³õÊ¼»¯Îª0
+    // ç´¢å¼•åˆå§‹åŒ–ä¸º0
     if (!id) index = 0;
 
-    // ´Ó2¿ªÊ¼ËÑÑ°
+    // ä»Ž2å¼€å§‹æœå¯»
     prime = 2;
     do {
-        /*È·¶¨¸Ã½ø³ÌÖÐËØÊýµÄµÚÒ»¸ö±¶ÊýµÄÏÂ±ê */
-        // Èç¹û¸ÃËØÊýn*n>low_value£¬n*(n-i)¶¼±»±ê¼ÇÁË
-        // ¼´n*nÎª¸Ã½ø³ÌÖÐµÄµÚÒ»¸öËØÊý
-        // ÆäÏÂ±êÎªn*n-low_value
+        /*ç¡®å®šè¯¥è¿›ç¨‹ä¸­ç´ æ•°çš„ç¬¬ä¸€ä¸ªå€æ•°çš„ä¸‹æ ‡ */
+        // å¦‚æžœè¯¥ç´ æ•°n*n>low_valueï¼Œn*(n-i)éƒ½è¢«æ ‡è®°äº†
+        // å³n*nä¸ºè¯¥è¿›ç¨‹ä¸­çš„ç¬¬ä¸€ä¸ªç´ æ•°
+        // å…¶ä¸‹æ ‡ä¸ºn*n-low_value
         if (prime * prime > low_value) {
             first = prime * prime - low_value;
         } else {
-            // Èô×îÐ¡Öµlow_valueÎª¸ÃËØÊýµÄ±¶Êý
-            // ÔòµÚÒ»¸ö±¶ÊýÎªlow_value£¬¼´ÆäÏÂ±êÎª0
+            // è‹¥æœ€å°å€¼low_valueä¸ºè¯¥ç´ æ•°çš„å€æ•°
+            // åˆ™ç¬¬ä¸€ä¸ªå€æ•°ä¸ºlow_valueï¼Œå³å…¶ä¸‹æ ‡ä¸º0
             if (!(low_value % prime)) first = 0;
-                // Èô×îÐ¡Öµlow_value²»ÊÇ¸ÃËØÊýµÄ±¶Êý
-                // ÄÇÃ´µÚÒ»¸ö±¶ÊýµÄÏÂ±êÎª¸ÃËØÊý¼õÈ¥ÓàÊýµÄÖµ
+                // è‹¥æœ€å°å€¼low_valueä¸æ˜¯è¯¥ç´ æ•°çš„å€æ•°
+                // é‚£ä¹ˆç¬¬ä¸€ä¸ªå€æ•°çš„ä¸‹æ ‡ä¸ºè¯¥ç´ æ•°å‡åŽ»ä½™æ•°çš„å€¼
             else first = prime - (low_value % prime);
         }
 
-        // ´ÓµÚÒ»¸öËØÊý¿ªÊ¼£¬±ê¼Ç¸ÃËØÊýµÄ±¶ÊýÎª·ÇËØÊý
+        // ä»Žç¬¬ä¸€ä¸ªç´ æ•°å¼€å§‹ï¼Œæ ‡è®°è¯¥ç´ æ•°çš„å€æ•°ä¸ºéžç´ æ•°
         for (int i = first; i < size; i += prime) marked[i] = 1;
 
-        // Ö»ÓÐid=0µÄ½ø³Ì²Åµ÷ÓÃ£¬ÓÃÓÚÕÒµ½ÏÂÒ»ËØÊýµÄÎ»ÖÃ
+        // åªæœ‰id=0çš„è¿›ç¨‹æ‰è°ƒç”¨ï¼Œç”¨äºŽæ‰¾åˆ°ä¸‹ä¸€ç´ æ•°çš„ä½ç½®
         if (!id) {
             while (marked[++index]);
             prime = index + 2;
         }
 
-        // Ö»ÓÐid=0µÄ½ø³Ì²Åµ÷ÓÃ£¬ÓÃÓÚ½«ÏÂÒ»¸öËØÊý¹ã²¥³öÈ¥
+        // åªæœ‰id=0çš„è¿›ç¨‹æ‰è°ƒç”¨ï¼Œç”¨äºŽå°†ä¸‹ä¸€ä¸ªç´ æ•°å¹¿æ’­å‡ºåŽ»
         if (p > 1) {
             MPI_Bcast(&prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
         }
 
     } while (prime * prime <= n);
 
-    // ½«±ê¼Ç½á¹û·¢¸ø0ºÅ½ø³Ì
+    // å°†æ ‡è®°ç»“æžœå‘ç»™0å·è¿›ç¨‹
 //    printf("id: %d, low: %d, high: %d, size: %d\n", id, low_value, high_value, size);
     count = 0;
     for (int i = 0; i < size; i++)
@@ -174,7 +174,7 @@ int main(int argc, char *argv[]) {
     }
     MPI_Finalize();
 
-    // ÒÔ×·¼ÓµÄ·½Ê½´ò¿ªÎÄ¼þ
+    // ä»¥è¿½åŠ çš„æ–¹å¼æ‰“å¼€æ–‡ä»¶
 //    char str1[30] = "../output/record.init.";
 //    char str2[10] = ".txt";
 //    char filename[50];
