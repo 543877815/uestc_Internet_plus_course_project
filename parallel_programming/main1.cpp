@@ -85,15 +85,18 @@ int main(int argc, char *argv[]) {
 
     // 表示找 <= n的素数
     n = atoi(argv[1]);
-//    low_value = 2 + id * (n - 1) / p;//进程的第一个数
-//    high_value = 1 + (id + 1) * (n - 1) / p;//进程的最后一个数
-//    size = high_value - low_value + 1;    //进程处理的数组大小
 
-    int N = n - 1;
-    low_value = 2 + id * (N / p) + MIN(id, N % p);//进程的第一个数
-    high_value = 2 + (id + 1) * (N / p) + MIN(id + 1, N % p) - 1;//进程的最后一个数
-    size = high_value - low_value + 1;    //进程处理的数组大小
+//    int N = n - 1;
+//    low_value = 3 + id * (N / p) + MIN(id, N % p);//进程的第一个数
+//    high_value = 3 + (id + 1) * (N / p) + MIN(id + 1, N % p) - 2;//进程的最后一个数
+//    size = (high_value - low_value) / 2 + 1;    //进程处理的数组大小
 
+    if (n % 2 == 0) n = n - 1;
+    int low_index = id * ((n - 1) / 2) / p;
+    int high_index = (id + 1) * ((n - 1) / 2) / p;
+    low_value = low_index * 2 + 3;
+    high_value = high_index * 2 + 1;
+    size = (high_value - low_value) / 2 + 1;
 
     // Bail out if all the primes used for sieving are not all held by process 0
     proc0_size = (n - 1) / p;
@@ -119,22 +122,25 @@ int main(int argc, char *argv[]) {
     // 索引初始化为0
     if (!id) index = 0;
 
-    // 从2开始搜寻
-    prime = 2;
+    // 从3开始搜寻，first为第一个不是素数的位置
+    prime = 3;
     do {
         /*确定该进程中素数的第一个倍数的下标 */
         // 如果该素数n*n>low_value，n*(n-i)都被标记了
         // 即n*n为该进程中的第一个素数
-        // 其下标为n*n-low_value
+        // 其下标为n*n-low_value，并且由于数组大小减半所以除以2
         if (prime * prime > low_value) {
-            first = prime * prime - low_value;
+            first = (prime * prime - low_value) / 2;
         } else {
             // 若最小值low_value为该素数的倍数
             // 则第一个倍数为low_value，即其下标为0
             if (!(low_value % prime)) first = 0;
                 // 若最小值low_value不是该素数的倍数
-                // 那么第一个倍数的下标为该素数减去余数的值
-            else first = prime - (low_value % prime);
+                // 但是其余数为偶数，那么第一个非素数的索引为该素数剪去求余除以2
+            else if (low_value % prime % 2 == 0) first = prime - ((low_value % prime) / 2);
+                // 若最小值low_value不是该素数的倍数
+                // 那么第一个倍数的下标为该素数减去余数的值，并且由于数组大小减半所以除以2
+            else first = (prime - (low_value % prime)) / 2;
         }
 
         // 从第一个素数开始，标记该素数的倍数为非素数
@@ -143,7 +149,7 @@ int main(int argc, char *argv[]) {
         // 只有id=0的进程才调用，用于找到下一素数的位置
         if (!id) {
             while (marked[++index]);
-            prime = index + 2;
+            prime = index * 2 + 3; // 起始加偏移
         }
 
         // 只有id=0的进程才调用，用于将下一个素数广播出去
@@ -154,7 +160,7 @@ int main(int argc, char *argv[]) {
     } while (prime * prime <= n);
 
     // 将标记结果发给0号进程
-//    printf("id: %d, low: %d, high: %d, size: %d\n", id, low_value, high_value, size);
+    printf("id: %d, low: %d, high: %d, size: %d\n", id, low_value, high_value, size);
     count = 0;
     for (int i = 0; i < size; i++)
         if (marked[i] == 0) {
@@ -171,21 +177,23 @@ int main(int argc, char *argv[]) {
     if (!id) {
         printf("%d primes are less than or equal to %d \n", global_count, n);
         printf("Total elapsed time: %10.6f\n", elapsed_time);
+
+        // 以追加的方式打开文件
+        char str1[30] = "../output/record.remove_even.";
+        char str2[10] = ".txt";
+        char filename[50];
+        sprintf(filename, "%s%d%s", str1, p, str2);
+        FILE *fp;
+        if ((fp = fopen(filename, "a+")) == nullptr) {
+            printf("fail to open file");
+            exit(0);
+        }
+        fprintf(fp, "%d %d %10.6f\n", p, n, elapsed_time);
+        fclose(fp);
     }
     MPI_Finalize();
 
-    // 以追加的方式打开文件
-//    char str1[30] = "../output/record.init.";
-//    char str2[10] = ".txt";
-//    char filename[50];
-//    sprintf(filename, "%s%d%s", str1, p, str2);
-//    FILE *fp;
-//    if ((fp = fopen(filename,"a+")) == nullptr){
-//        printf("fail to open file");
-//        exit(0);
-//    }
-//    fprintf(fp, "%d %d %10.6f\n", p, n, elapsed_time);
-//    fclose(fp);
+
     return 0;
 }
 

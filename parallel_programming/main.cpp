@@ -142,8 +142,8 @@ int main(int argc, char *argv[]) {
 
         // 只有id=0的进程才调用，用于找到下一素数的位置
         if (!id) {
-            while (marked[++index]);
-            prime = index + 2;
+            while (marked[++index]); // 先自加再执行
+            prime = index + 2; // 起始加偏移
         }
 
         // 只有id=0的进程才调用，用于将下一个素数广播出去
@@ -162,7 +162,7 @@ int main(int argc, char *argv[]) {
 //            printf("%d ", i + low_value);
         }
 //    printf("\n");
-    if (p > 1) MPI_Reduce(&count, &global_count, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&count, &global_count, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
 
     // stop the timer
     elapsed_time += MPI_Wtime();
@@ -174,18 +174,20 @@ int main(int argc, char *argv[]) {
     }
     MPI_Finalize();
 
-    // 以追加的方式打开文件
-//    char str1[30] = "../output/record.init.";
-//    char str2[10] = ".txt";
-//    char filename[50];
-//    sprintf(filename, "%s%d%s", str1, p, str2);
-//    FILE *fp;
-//    if ((fp = fopen(filename,"a+")) == nullptr){
-//        printf("fail to open file");
-//        exit(0);
-//    }
-//    fprintf(fp, "%d %d %10.6f\n", p, n, elapsed_time);
-//    fclose(fp);
+    if (!id){
+        // 以追加的方式打开文件
+        char str1[30] = "../output/record.init.";
+        char str2[10] = ".txt";
+        char filename[50];
+        sprintf(filename, "%s%d%s", str1, p, str2);
+        FILE *fp;
+        if ((fp = fopen(filename,"a+")) == nullptr){
+            printf("fail to open file");
+            exit(0);
+        }
+        fprintf(fp, "%d %d %10.6f\n", p, n, elapsed_time);
+        fclose(fp);
+    }
     return 0;
 }
 

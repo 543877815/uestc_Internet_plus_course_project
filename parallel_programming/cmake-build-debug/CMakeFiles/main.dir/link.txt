@@ -1,1 +1,1 @@
-mpicxx  -g   CMakeFiles/main.dir/main.cpp.o  -o main 
+mpicxx  -g   CMakeFiles/main.dir/main1.cpp.o  -o main 

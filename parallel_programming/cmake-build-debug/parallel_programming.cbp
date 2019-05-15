@@ -86,7 +86,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/main.cpp">
+		<Unit filename="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/main1.cpp">
 			<Option target="main"/>
 		</Unit>
 		<Unit filename="/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/CMakeLists.txt">

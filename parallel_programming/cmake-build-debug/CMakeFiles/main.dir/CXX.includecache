@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/main.cpp
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/main1.cpp
 mpi.h
 /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/mpi.h
 math.h
