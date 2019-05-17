@@ -32,8 +32,8 @@ def analysis(inputs):
             rid = xs[1]
             try:
                 num = float(xs[2])
-            except ValueError:
-                print("error, the request number must be positive integer!")
+            except ValueError as e:
+                print(e)
                 return 0
             else:
                 if num.is_integer() and abs(num) == num:
@@ -46,8 +46,8 @@ def analysis(inputs):
             rid = xs[1]
             try:
                 num = float(xs[2])
-            except ValueError:
-                print("error, the release number must be positive integer!")
+            except ValueError as e:
+                print(e)
                 return 0
             else:
                 if num.is_integer() and abs(num) == num:
@@ -72,19 +72,22 @@ def analysis(inputs):
                 print("error, can not delete process init!")
                 return 0
             processor.delete_process(resource=resource, pid=pid)
-            # # 进行调度
-            # processor.schedule()
-        # read file
-        elif xs[0] == 'read':
+        # run file
+        elif xs[0] == 'run':
             filename = xs[1]
             if filename.endswith('.txt'):
-                file = open(filename)
                 try:
+                    file = open(filename)
                     text_lines = file.readlines()
                     for line in text_lines:
                         analysis(line)
-                finally:
                     file.close()
+                except IOError as e:
+                    print(e.strerror)
+                    return 0
+                else:
+                    file.close()
+                    return 0
             else:
                 print("the file show end with .txt")
             return 0
@@ -121,15 +124,16 @@ def analysis(inputs):
             print("release [rel <rid> <number>]")
             print("dispatch:")
             print("time out [to]")
-            print("file:")
-            print("read [filename]")
+            print("run test shell:")
+            print("run [filename]")
             print()
             return 0
         else:
             print("syntax occur")
             return 0
     for x in processor.get_running_list():
-        print("running:", x)
+        # print("running:", x)
+        print(x + " ", end='')
 
 
 if __name__ == '__main__':

@@ -15,7 +15,7 @@ class Processor:
             print("create failed, process '" + pid + "' existed!")
             return
         # 新创建的进程插入到RL队列的末尾
-        new_pcb = PCB(pid, priority)
+        new_pcb = PCB(pid, int(priority))
         self._ready_list.append(new_pcb)
         if len(self._running_list) == 0:
             self._running_list.append(new_pcb)
@@ -26,8 +26,8 @@ class Processor:
         else:
             new_pcb.set_parent(self._running_list[0])
             self._running_list[0].set_children(new_pcb)
-            # 如果正在运行的进程是init，则新创建的进程马上调度
-            if self._running_list[0].get_priority() == 0:
+            # 如果新创建进程比正在运行进程的优先级大，则发生抢占，即马上进行调度
+            if new_pcb.get_priority() > self._running_list[0].get_priority():
                 self.schedule()
 
     def delete_process(self, resource, pid):
@@ -58,7 +58,6 @@ class Processor:
             self._block_list.pop([x.get_pid() for x in self._block_list].index(pid))
         elif process_status == 'ready':
             self._ready_list.pop([x.get_pid() for x in self._ready_list].index(pid))
-
 
     def get_process_info(self, pid):
         processes = self.get_process_list()
@@ -154,25 +153,29 @@ class Processor:
                     "rid": rid,
                     "status": status_allocated - release_status
                 })
-                # 遍历阻塞队列
-                for x in self._block_list:
-                    # 查看资源等待队列
-                    rcb = resource.get_rcb(rid=rid)
-                    # 标志位用于判断是否遇见阻塞队列
+                # 遍历进程的阻塞队列
+                for priority in [2, 1]:
+                    # 根据优先级
+                    block_list = [x for x in self._block_list if x.get_priority() == priority]
                     flag = False
-                    for y in rcb.get_waiting_list():
-                        # 查看是否能唤醒并分配资源
-                        if y["pid"] == x.get_pid():
-                            # 标志位为真则证明有先到的进程被阻塞，且不满足唤醒条件，故而后续的队列不进行唤醒询问
-                            if flag: break
-                            if rcb.get_status() >= y['status']:
-                                x.set_status('ready')
-                                self._ready_list.append(x)
-                                self._block_list.pop(self._block_list.index(x))
-                                rcb.get_waiting_list().pop(rcb.get_waiting_list().index(y))
-                                resource.request(process=x, rid=rid, request_status=y['status'])
-                            else:
-                                flag = True
+                    for x in block_list:
+                        # 查看资源的等待队列
+                        rcb = resource.get_rcb(rid=rid)
+                        waiting_list = rcb.get_waiting_list()
+                        # 标志位用于判断是否遇见阻塞队列
+                        for y in waiting_list:
+                            # 查看是否能唤醒并分配资源
+                            if y["pid"] == x.get_pid():
+                                # 标志位为真则证明有先到的进程被阻塞，且不满足唤醒条件，故而后续的队列不进行唤醒询问
+                                if flag: return
+                                if rcb.get_status() >= y['status']:
+                                    x.set_status('ready')
+                                    self._ready_list.append(x)
+                                    self._block_list.pop(self._block_list.index(x))
+                                    rcb.get_waiting_list().pop(rcb.get_waiting_list().index(y))
+                                    resource.request(process=x, rid=rid, request_status=y['status'])
+                                else:
+                                    flag = True
         else:
             print("error, the process '" + process.get_pid() + "' only request", resource.get_status(),
                   "resource(s), your input has exceeded it")

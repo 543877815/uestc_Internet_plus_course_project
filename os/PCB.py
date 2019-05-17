@@ -2,7 +2,7 @@ class PCB:
     def __init__(self, pid, priority):
         self._pid = pid
         # 0: init, 1: user, 2: system
-        self._priority = priority
+        self._priority = int(priority)
         # -1: none, 0: ready, 1:running, 2: blocked
         self._status = 'ready'
         self._parent = None
@@ -18,9 +18,6 @@ class PCB:
             "children": [x.get_pid() for x in self._children],
             "resources": self._resources
         }
-
-    def request_resource(self):
-        pass
 
     def get_priority(self):
         return self._priority

@@ -1,4 +1,0 @@
-/home/ubuntu/clion-2019.1.2/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming
--- Configuring done
--- Generating done
--- Build files have been written to: /home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug

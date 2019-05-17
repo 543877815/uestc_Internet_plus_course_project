@@ -1,1 +1,0 @@
-mpicxx  -g   CMakeFiles/parallel_programming.dir/main.cpp.o  -o parallel_programming 
