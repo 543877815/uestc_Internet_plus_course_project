@@ -39,23 +39,20 @@ MPI_METHOD MPI_Reduce(
 #define MIN(a, b) ((a)<(b)?(a):(b))
 
 int main(int argc, char *argv[]) {
-    int count;              /* Local prime count */
-    double elapsed_time;    /* Parallel execution time */
-    int first;              /* Index of first multiple */
-    int global_count;       /* Global prime count */
-    int high_value;         /* Highest value on this proc */
-    int id;                 /* Process ID number */
-    int index;              /* Index of current prime */
-    int low_value;          /* Lowest value on this proc */
-    char *marked;           /* Portion of 2,...,'n' */
-    int n;                  /* Sieving from 2, ..., 'n' */
-    int p;                  /* Number of processes */
-    int proc0_size;         /* Size of proc 0's subarray */
-    int prime;              /* Current prime */
-    int size;               /* Elements in 'marked' */
-    int low_index;          /* Lowest index on this proc */
-    int high_index;         /* Highest index on this proc */
-
+    int count;        /* Local prime count */
+    double elapsed_time; /* Parallel execution time */
+    int first;        /* Index of first multiple */
+    int global_count; /* Global prime count */
+    int high_value;   /* Highest value on this proc */
+    int id;           /* Process ID number */
+    int index;        /* Index of current prime */
+    int low_value;    /* Lowest value on this proc */
+    char *marked;       /* Portion of 2,...,'n' */
+    int n;            /* Sieving from 2, ..., 'n' */
+    int p;            /* Number of processes */
+    int proc0_size;   /* Size of proc 0's subarray */
+    int prime;        /* Current prime */
+    int size;         /* Elements in 'marked' */
 
     // 初始化
     // MPI程序启动时“自动”建立两个通信器：
@@ -89,12 +86,17 @@ int main(int argc, char *argv[]) {
     // 表示找 <= n的素数
     n = atoi(argv[1]);
 
-    int N = (n - 1) / 2;
-    low_index = id * (N / p) + MIN(id, N % p); // 进程的第一个数的索引
-    high_index = (id + 1) * (N / p) + MIN(id + 1, N % p) - 1; // 进程的最后一个数的索引
-    low_value = low_index * 2 + 3; //进程的第一个数
-    high_value = (high_index + 1) * 2 + 1;//进程的最后一个数
-    size = (high_value - low_value) / 2 + 1;    //进程处理的数组大小
+//    int N = n - 1;
+//    low_value = 3 + id * (N / p) + MIN(id, N % p);//进程的第一个数
+//    high_value = 3 + (id + 1) * (N / p) + MIN(id + 1, N % p) - 2;//进程的最后一个数
+//    size = (high_value - low_value) / 2 + 1;    //进程处理的数组大小
+
+    if (n % 2 == 0) n = n - 1;
+    int low_index = id * ((n - 1) / 2) / p;
+    int high_index = (id + 1) * ((n - 1) / 2) / p;
+    low_value = low_index * 2 + 3;
+    high_value = high_index * 2 + 1;
+    size = (high_value - low_value) / 2 + 1;
 
     // Bail out if all the primes used for sieving are not all held by process 0
     proc0_size = (n - 1) / p;
@@ -163,8 +165,10 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < size; i++)
         if (marked[i] == 0) {
             count++;
+//            printf("%d ", i + low_value);
         }
-    MPI_Reduce(&count, &global_count, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+//    printf("\n");
+    if (p > 1) MPI_Reduce(&count, &global_count, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
 
     // stop the timer
     elapsed_time += MPI_Wtime();

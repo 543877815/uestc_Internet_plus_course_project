@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/main1.cpp" "/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/CMakeFiles/main.dir/main1.cpp.o"
+  "/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/main3.cpp" "/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/CMakeFiles/main.dir/main3.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

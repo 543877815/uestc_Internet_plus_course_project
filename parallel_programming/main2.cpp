@@ -151,16 +151,13 @@ int main(int argc, char *argv[]) {
         }
 
         // 从第一个素数开始，标记该素数的倍数为非素数
-        for (int i = first; i < sub_size; i += prime) sub_marked[i] = 1;
+        for (int i = first; i < size; i += prime) sub_marked[i] = 1;
 
         while (sub_marked[++index]);
         prime = index * 2 + 3; // 起始加偏移
 
     } while (prime * prime <= sub_n);
 
-    /*
-     * 大数组
-     */
     int N = (n - 1) / 2;
     low_index = id * (N / p) + MIN(id, N % p); // 进程的第一个数的索引
     high_index = (id + 1) * (N / p) + MIN(id + 1, N % p) - 1; // 进程的最后一个数的索引
@@ -168,116 +165,57 @@ int main(int argc, char *argv[]) {
     high_value = (high_index + 1) * 2 + 1;//进程的最后一个数
     size = (high_value - low_value) / 2 + 1;    //进程处理的数组大小
 
-    int LEVEL1_CACHE_size = 32768;
-    int LEVEL2_CACHE_size = 262144;
-    int LEVEL3_CACHE_size = 10485760;
-
-    int LEVEL1_CACHE_int = LEVEL1_CACHE_size / 4;
-    int LEVEL2_CACHE_int = LEVEL2_CACHE_size / 4;
-    int LEVEL3_CACHE_int = LEVEL3_CACHE_size / 4;
-
-    int Block_size = LEVEL3_CACHE_int / p;
-    int Block_num = size / Block_size;
-    int Block_remain = size % Block_size;
-
-    int Block_id = 0;
-    int Block_N = Block_size - 1;
-    int Block_low_index = Block_id * Block_size + MIN(Block_id, Block_remain);
-    int Block_high_index = (Block_id + 1) * Block_size + MIN(Block_id + 1, Block_remain) - 1;
-    int Block_low_value = Block_low_index * 2 + 3;
-    int Block_high_value = (Block_high_index + 1) * 2 + 1;
-    int Block_count;
-
     // allocate this process 's share of the array
-    marked = (char *) malloc(Block_size);
+    marked = (char *) malloc(size);
     if (marked == nullptr) {
         printf("Cannot allocate enough memory \n");
         MPI_Finalize();
         exit(1);
     }
 
+    // 先假定所有的整数都是素数
+    for (int i = 0; i < size; i++) marked[i] = 0;
+
     // 索引初始化为0
     index = 0;
 
-    // 总计数
-    count = 0;
-
+    // 从3开始搜寻，first为第一个不是素数的位置
+    prime = 3;
     do {
-
-        // 从3开始搜寻，first为第一个不是素数的位置
-        prime = 3;
-
-        // 块计数
-        Block_count = 0;
-
-        // 先假定块中的整数都是素数
-        for (int i = 0; i < Block_size; i++) marked[i] = 0;
-
-        // 在块内找素数
-        do {
-
-            /*确定该进程中素数的第一个倍数的下标 */
-            // 如果该素数n*n>low_value，n*(n-i)都被标记了
-            // 即n*n为该进程中的第一个素数
-            // 其下标为n*n-low_value，并且由于数组大小减半所以除以2
-            if (prime * prime > Block_low_value) {
-                first = (prime * prime - Block_low_value) / 2;
-            } else {
-                // 若最小值low_value为该素数的倍数
-                // 则第一个倍数为low_value，即其下标为0
-                if (!(Block_low_value % prime)) first = 0;
-                    // 若最小值low_value不是该素数的倍数
-                    // 但是其余数为偶数，那么第一个非素数的索引为该素数剪去求余除以2
-                else if (Block_low_value % prime % 2 == 0) first = prime - ((Block_low_value % prime) / 2);
-                    // 若最小值low_value不是该素数的倍数
-                    // 那么第一个倍数的下标为该素数减去余数的值，并且由于数组大小减半所以除以2
-                else first = (prime - (Block_low_value % prime)) / 2;
-            }
-
-            // 从第一个素数开始，标记该素数的倍数为非素数
-            for (int i = first; i < Block_size; i += prime) marked[i] = 1;
-
-            // 用于找到下一素数的位置
-            while (sub_marked[++index]);
-
-            prime = index * 2 + 3; // 起始加偏移
-
-        } while (prime * prime <= n);
-
-        // 统计块内计数
-        for (int i = 0; i < Block_size; i++) {
-            if (marked[i] == 0) {
-                Block_count++;
-            }
-        }
-
-        // 汇总总体计数
-        count += Block_count;
-
-        if (id == 0) {
-            printf("block_id: %d, block_low_index: %d, block_low_value: %d , block_high_index: %d, block_high_value: %d , Block_size: %d, Block_count: %d\n",
-                   Block_id, Block_low_index, Block_low_value, Block_high_index, Block_high_value,
-                   Block_size, Block_count);
-        }
-
-        // 处理下一个块
-        Block_id++;
-        Block_low_index = Block_id * Block_size + MIN(Block_id, Block_remain);
-        Block_high_index = (Block_id + 1) * Block_size + MIN(Block_id + 1, Block_remain) - 1;
-        Block_low_value = Block_low_index * 2 + 3;
-        if (Block_id == Block_num - 1) {
-            Block_high_value = high_value;
-//            Block_size = (Block_high_value - Block_low_value) / 2 + 1;
-
+        /*确定该进程中素数的第一个倍数的下标 */
+        // 如果该素数n*n>low_value，n*(n-i)都被标记了
+        // 即n*n为该进程中的第一个素数
+        // 其下标为n*n-low_value，并且由于数组大小减半所以除以2
+        if (prime * prime > low_value) {
+            first = (prime * prime - low_value) / 2;
         } else {
-            Block_high_value = (Block_high_index + 1) * 2 + 1;
+            // 若最小值low_value为该素数的倍数
+            // 则第一个倍数为low_value，即其下标为0
+            if (!(low_value % prime)) first = 0;
+                // 若最小值low_value不是该素数的倍数
+                // 但是其余数为偶数，那么第一个非素数的索引为该素数剪去求余除以2
+            else if (low_value % prime % 2 == 0) first = prime - ((low_value % prime) / 2);
+                // 若最小值low_value不是该素数的倍数
+                // 那么第一个倍数的下标为该素数减去余数的值，并且由于数组大小减半所以除以2
+            else first = (prime - (low_value % prime)) / 2;
         }
 
-    } while (Block_id < Block_num);
+        // 从第一个素数开始，标记该素数的倍数为非素数
+        for (int i = first; i < size; i += prime) marked[i] = 1;
+
+        // 只有id=0的进程才调用，用于找到下一素数的位置
+        while (sub_marked[++index]);
+        prime = index * 2 + 3; // 起始加偏移
+
+    } while (prime * prime <= n);
 
     // 将标记结果发给0号进程
     printf("id: %d, low: %d, high: %d, size: %d\n", id, low_value, high_value, size);
-
+    count = 0;
+    for (int i = 0; i < size; i++)
+        if (marked[i] == 0) {
+            count++;
+        }
     MPI_Reduce(&count, &global_count, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
 
     // stop the timer
@@ -289,17 +227,17 @@ int main(int argc, char *argv[]) {
         printf("Total elapsed time: %10.6f\n", elapsed_time);
 
         // 以追加的方式打开文件
-//        char str1[30] = "../output/record.cancel_Bcast.";
-//        char str2[10] = ".txt";
-//        char filename[50];
-//        sprintf(filename, "%s%d%s", str1, p, str2);
-//        FILE *fp;
-//        if ((fp = fopen(filename, "a+")) == nullptr) {
-//            printf("fail to open file");
-//            exit(0);
-//        }
-//        fprintf(fp, "%d %d %10.6f\n", p, n, elapsed_time);
-//        fclose(fp);
+        char str1[40] = "../output/record.cancel_Bcast.";
+        char str2[10] = ".txt";
+        char filename[50];
+        sprintf(filename, "%s%d%s", str1, p, str2);
+        FILE *fp;
+        if ((fp = fopen(filename, "a+")) == nullptr) {
+            printf("fail to open file");
+            exit(0);
+        }
+        fprintf(fp, "%d %d %10.6f\n", p, n, elapsed_time);
+        fclose(fp);
     }
     MPI_Finalize();
 
