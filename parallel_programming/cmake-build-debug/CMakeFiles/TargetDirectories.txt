@@ -1,0 +1,3 @@
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/CMakeFiles/main.dir
+/home/ubuntu/uestc_Internet_plus_course_project/parallel_programming/cmake-build-debug/CMakeFiles/edit_cache.dir

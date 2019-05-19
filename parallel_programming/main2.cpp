@@ -211,6 +211,7 @@ int main(int argc, char *argv[]) {
 
     // stop the timer
     elapsed_time += MPI_Wtime();
+    MPI_Finalize();
 
     // print the results
     if (!id) {
@@ -230,7 +231,6 @@ int main(int argc, char *argv[]) {
         fprintf(fp, "%d %d %10.6f\n", p, n, elapsed_time);
         fclose(fp);
     }
-    MPI_Finalize();
 
 
     return 0;
