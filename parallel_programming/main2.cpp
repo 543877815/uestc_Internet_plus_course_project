@@ -202,7 +202,8 @@ int main(int argc, char *argv[]) {
         if (marked[i] == 0) {
             count++;
         }
-    printf("id: %d, low: %d, high: %d, size: %d count: %d\n", id, low_value, high_value, size,count);
+
+//    printf("id: %d, low: %d, high: %d, size: %d count: %d\n", id, low_value, high_value, size,count);
 
     MPI_Reduce(&count, &global_count, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
 
@@ -216,20 +217,18 @@ int main(int argc, char *argv[]) {
         printf("Total elapsed time: %10.6f\n", elapsed_time);
 
         // 以追加的方式打开文件
-        char str1[40] = "../output/record.cancel_Bcast.";
-        char str2[10] = ".txt";
-        char filename[50];
-		sprintf_s(filename, "%s%d%s", str1, p, str2);
-        FILE *fp;
-		if ((fp = fopen_s(&fp, filename, "a+")) == nullptr) {
-            printf("fail to open file");
-            exit(0);
-        }
-        fprintf(fp, "%d %d %10.6f\n", p, n, elapsed_time);
-        fclose(fp);
+//        char str1[40] = "../output/record.cancel_Bcast.";
+//        char str2[10] = ".txt";
+//        char filename[50];
+//        sprintf(filename, "%s%d%s", str1, p, str2);
+//        FILE *fp;
+//        if ((fp = fopen(filename, "a+")) == nullptr) {
+//            printf("fail to open file");
+//            exit(0);
+//        }
+//        fprintf(fp, "%d %d %10.6f\n", p, n, elapsed_time);
+//        fclose(fp);
     }
-
-
     return 0;
 }
 
