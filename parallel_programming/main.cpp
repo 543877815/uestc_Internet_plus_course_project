@@ -1,18 +1,19 @@
-#include <mpi.h>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "mpi.h"
+#include "math.h"
+#include "stdio.h"
+#include "stdlib.h"
+#include "string.h"
+#include "error.h"
 
 using namespace std;
 
 /************************************************
 MPI_BCAST(buffer,count,datatype,root,comm)
-IN/OUT　buffer　　  通信消息缓冲区的起始地址(可变)
-IN　　　 count　  　 通信消息缓冲区中的数据个数(整型)
-IN 　　　datatype 　通信消息缓冲区中的数据类型(句柄)
-IN　　　 root　  　　发送广播的根的序列号(整型)
-IN 　　　comm   　　通信子(句柄)
+    IN/OUT　buffer　　  通信消息缓冲区的起始地址(可变)
+    IN　　　 count　  　 通信消息缓冲区中的数据个数(整型)
+    IN 　　　datatype 　通信消息缓冲区中的数据类型(句柄)
+    IN　　　 root　  　　发送广播的根的序列号(整型)
+    IN 　　　comm   　　通信子(句柄)
 int MPI_Bcast(void* buffer,int count,MPI_Datatype datatype,int root, MPI_Comm comm)
 
 MPI_BCAST是从一个序列号为root的进程将一条消息广播发送到组内的所有进程,
@@ -21,16 +22,15 @@ MPI_BCAST是从一个序列号为root的进程将一条消息广播发送到组�
 
 规约函数 MPI_Reduce()，将通信子内各进程的同一个变量参与规约计算，并向指定的进程输出计算结果
 MPI_METHOD MPI_Reduce(
-_In_range_(!= , recvbuf) _In_opt_ const void* sendbuf,  // 指向输入数据的指针
-_When_(root != MPI_PROC_NULL, _Out_opt_) void* recvbuf, // 指向输出数据的指针，即计算结果存放的地方
-_In_range_(>= , 0) int count,                           // 数据尺寸，可以进行多个标量或多个向量的规约
-_In_ MPI_Datatype datatype,                             // 数据类型
-_In_ MPI_Op op,                                         // 规约操作类型
-_mpi_coll_rank_(root) int root,                         // 目标进程号，存放计算结果的进程
-_In_ MPI_Comm comm                                      // 通信子
+   _In_range_(!= , recvbuf) _In_opt_ const void* sendbuf,  // 指向输入数据的指针
+   _When_(root != MPI_PROC_NULL, _Out_opt_) void* recvbuf, // 指向输出数据的指针，即计算结果存放的地方
+   _In_range_(>= , 0) int count,                           // 数据尺寸，可以进行多个标量或多个向量的规约
+   _In_ MPI_Datatype datatype,                             // 数据类型
+   _In_ MPI_Op op,                                         // 规约操作类型
+   _mpi_coll_rank_(root) int root,                         // 目标进程号，存放计算结果的进程
+   _In_ MPI_Comm comm                                      // 通信子
 );
 **********************************************/
-
 #define MIN(a, b) ((a)<(b)?(a):(b))
 
 int main(int argc, char *argv[]) {
@@ -38,24 +38,18 @@ int main(int argc, char *argv[]) {
     double elapsed_time;    /* Parallel execution time */
     int first;              /* Index of first multiple */
     int global_count;       /* Global prime count */
-    char *marked;           /* Portion of 2,...,'n' */
+    int high_value;         /* Highest value on this proc */
     int id;                 /* Process ID number */
     int index;              /* Index of current prime */
-    int low_index;          /* Lowest index on this proc */
     int low_value;          /* Lowest value on this proc */
-    int high_index;         /* Highest index on this proc */
-    int high_value;         /* Highest value on this proc */
+    char *marked;           /* Portion of 2,...,'n' */
     int n;                  /* Sieving from 2, ..., 'n' */
     int p;                  /* Number of processes */
     int proc0_size;         /* Size of proc 0's subarray */
     int prime;              /* Current prime */
     int size;               /* Elements in 'marked' */
-    int sub_size;           /* size of sub_array */
-    char *sub_marked;       /* sub_mark array */
-    int sub_low_index;      /* Lowest index on sub_array */
-    int sub_low_value;      /* Lowest array on sub_array */
-    int sub_high_index;     /* Highest index on sub_array */
-    int sub_high_value;     /* Highest index on sub_array */
+    int low_index;          /* Lowest index on this proc */
+    int high_index;         /* Highest index on this proc */
 
     // 初始化
     // MPI程序启动时“自动”建立两个通信器：
@@ -89,6 +83,14 @@ int main(int argc, char *argv[]) {
     // 表示找 <= n的素数
     n = atoi(argv[1]);
 
+    int N = n - 1;
+    low_index = id * (N / p) + MIN(id, N % p); // 进程的第一个数的索引
+    high_index = (id + 1) * (N / p) + MIN(id + 1, N % p) - 1; // 进程的最后一个数的索引
+    low_value = 2 + low_index; //进程的第一个数
+    high_value = 2 + high_index;//进程的最后一个数
+    size = high_value - low_value + 1;    //进程处理的数组大小
+
+
     // Bail out if all the primes used for sieving are not all held by process 0
     proc0_size = (n - 1) / p;
 
@@ -98,61 +100,6 @@ int main(int argc, char *argv[]) {
         MPI_Finalize();
         exit(1);
     }
-
-    /*
-    * 先找前sqrt(n)内的素数
-    */
-    int sub_n = (int) sqrt((double) n);
-    int sub_N = (sub_n - 1) / 2;
-
-    sub_low_index = 0 * (sub_N / p) + MIN(0, sub_N % p); // 进程的第一个数的索引
-    sub_high_index = 1 * (sub_N / p) + MIN(1, sub_N % p) - 1; // 进程的最后一个数的索引
-    sub_low_value = sub_low_index * 2 + 3; //进程的第一个数
-    sub_high_value = (sub_high_index + 1) * 2 + 1;//进程的最后一个数
-    sub_size = (sub_high_value - sub_low_value) / 2 + 1;    //进程处理的数组大小
-
-    // Bail out if all the primes used for sieving are not all held by process 0
-    proc0_size = (sub_n - 1) / p;
-
-    // 如果有太多进程
-    if ((2 + proc0_size) < (int) sqrt((double) sub_n)) {
-        if (!id) printf("Too many processes \n");
-        MPI_Finalize();
-        exit(1);
-    }
-
-    sub_marked = (char *) malloc(sub_n);
-    if (sub_marked == nullptr) {
-        printf("Cannot allocate enough memory \n");
-        MPI_Finalize();
-        exit(1);
-    }
-
-    // 先假定所有的整数都是素数
-    for (int i = 0; i < sub_size; i++) sub_marked[i] = 0;
-
-    // 索引初始化为0
-    index = 0;
-
-    prime = 3;
-    do {
-        // 从小数组开始标只会命中第一个条件
-        first = (prime * prime - sub_low_value) / 2;
-        // 从第一个素数开始，标记该素数的倍数为非素数
-        for (int i = first; i < sub_size; i += prime) {
-            sub_marked[i] = 1;
-
-        }
-        while (sub_marked[++index]);
-        prime = index * 2 + 3; // 起始加偏移
-    } while (prime * prime <= sub_n);
-
-    int N = (n - 1) / 2;
-    low_index = id * (N / p) + MIN(id, N % p); // 进程的第一个数的索引
-    high_index = (id + 1) * (N / p) + MIN(id + 1, N % p) - 1; // 进程的最后一个数的索引
-    low_value = low_index * 2 + 3; //进程的第一个数
-    high_value = (high_index + 1) * 2 + 1;//进程的最后一个数
-    size = (high_value - low_value) / 2 + 1;    //进程处理的数组大小
 
     // allocate this process 's share of the array
     marked = (char *) malloc(size);
@@ -166,35 +113,39 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < size; i++) marked[i] = 0;
 
     // 索引初始化为0
-    index = 0;
+    if (!id) index = 0;
 
-    // 从3开始搜寻，first为第一个不是素数的位置
-    prime = 3;
+    // 从2开始搜寻
+    prime = 2;
     do {
         /*确定该进程中素数的第一个倍数的下标 */
         // 如果该素数n*n>low_value，n*(n-i)都被标记了
         // 即n*n为该进程中的第一个素数
-        // 其下标为n*n-low_value，并且由于数组大小减半所以除以2
+        // 其下标为n*n-low_value
         if (prime * prime > low_value) {
-            first = (prime * prime - low_value) / 2;
+            first = prime * prime - low_value;
         } else {
             // 若最小值low_value为该素数的倍数
             // 则第一个倍数为low_value，即其下标为0
             if (!(low_value % prime)) first = 0;
                 // 若最小值low_value不是该素数的倍数
-                // 但是其余数为偶数，那么第一个非素数的索引为该素数剪去求余除以2
-            else if (low_value % prime % 2 == 0) first = prime - ((low_value % prime) / 2);
-                // 若最小值low_value不是该素数的倍数
-                // 那么第一个倍数的下标为该素数减去余数的值，并且由于数组大小减半所以除以2
-            else first = (prime - (low_value % prime)) / 2;
+                // 那么第一个倍数的下标为该素数减去余数的值
+            else first = prime - (low_value % prime);
         }
 
         // 从第一个素数开始，标记该素数的倍数为非素数
         for (int i = first; i < size; i += prime) marked[i] = 1;
 
-        while (sub_marked[++index]);
-        prime = index * 2 + 3;
+        // 只有id=0的进程才调用，用于找到下一素数的位置
+        if (!id) {
+            while (marked[++index]); // 先自加再执行
+            prime = index + 2; // 起始加偏移
+        }
 
+        // 只有id=0的进程才调用，用于将下一个素数广播出去
+        if (p > 1) {
+            MPI_Bcast(&prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
+        }
 
     } while (prime * prime <= n);
 
@@ -204,27 +155,26 @@ int main(int argc, char *argv[]) {
         if (marked[i] == 0) {
             count++;
         }
-
-//	printf("id: %d, low: %d, high: %d, size: %d count: %d\n", id, low_value, high_value, size, count);
-
     MPI_Reduce(&count, &global_count, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
 
     // stop the timer
     elapsed_time += MPI_Wtime();
-    MPI_Finalize();
 
     // print the results
     if (!id) {
         printf("%d primes are less than or equal to %d \n", global_count, n);
         printf("Total elapsed time: %10.6f\n", elapsed_time);
+    }
+    MPI_Finalize();
 
+    if (!id){
         // 以追加的方式打开文件
-//        char str1[40] = "./output/record.init.";
+//        char str1[30] = "../output/record.init.";
 //        char str2[10] = ".txt";
 //        char filename[50];
 //        sprintf(filename, "%s%d%s", str1, p, str2);
 //        FILE *fp;
-//        if ((fp = fopen(filename, "a+")) == nullptr) {
+//        if ((fp = fopen(filename,"a+")) == nullptr){
 //            printf("fail to open file");
 //            exit(0);
 //        }
@@ -233,3 +183,4 @@ int main(int argc, char *argv[]) {
     }
     return 0;
 }
+
