@@ -51,7 +51,6 @@ int main(int argc, char *argv[]) {
     int proc0_size;         /* Size of proc 0's subarray */
     int prime;              /* Current prime */
     int size;               /* Elements in 'marked' */
-    int sub_size;           /* size of sub_array */
     char *sub_marked;       /* sub_mark array */
     int sub_low_index;      /* Lowest index on sub_array */
     int sub_low_value;      /* Lowest array on sub_array */
@@ -112,7 +111,6 @@ int main(int argc, char *argv[]) {
     sub_high_index = 1 * (sub_N / p) + MIN(1, sub_N % p) - 1; // 进程的最后一个数的索引
     sub_low_value = sub_low_index * 2 + 3; //进程的第一个数
     sub_high_value = (sub_high_index + 1) * 2 + 1;//进程的最后一个数
-    sub_size = (sub_high_value - sub_low_value) / 2 + 1;    //进程处理的数组大小
 
     sub_marked = (char *) malloc(sub_n);
     if (sub_marked == nullptr) {
@@ -122,7 +120,7 @@ int main(int argc, char *argv[]) {
     }
 
     // 先假定所有的整数都是素数
-    for (int i = 0; i < sub_size; i++) sub_marked[i] = 0;
+    for (int i = 0; i < sub_n; i++) sub_marked[i] = 0;
 
     // 索引初始化为0
     index = 0;
@@ -132,7 +130,7 @@ int main(int argc, char *argv[]) {
         // 从小数组开始标只会命中第一个条件
         first = (prime * prime - sub_low_value) / 2;
         // 从第一个素数开始，标记该素数的倍数为非素数
-        for (int i = first; i < sub_size; i += prime) {
+        for (int i = first; i < sub_n; i += prime) {
             sub_marked[i] = 1;
 
         }
