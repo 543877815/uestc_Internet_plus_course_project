@@ -32,10 +32,6 @@ MPI_METHOD MPI_Reduce(
 );
 **********************************************/
 
-#define BLOCK_LOW(id, p, n) ((id) * (n) / (p))
-#define BLOCK_HIGH(id, p, n) (BLOCK_LOW((id) + 1, p, n) - 1)
-#define BLOCK_SIZE(id, p, n) (BLOCK_LOW((id) + 1) - BLOCK_LOW(id))
-#define BLCOK_OWNER(index, p, n) (((p)* (index) +1 ) -1 / (n))
 #define MIN(a, b) ((a)<(b)?(a):(b))
 
 int main(int argc, char *argv[]) {

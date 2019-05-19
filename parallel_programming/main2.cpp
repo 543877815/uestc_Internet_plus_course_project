@@ -32,10 +32,6 @@ MPI_METHOD MPI_Reduce(
 );
 **********************************************/
 
-#define BLOCK_LOW(id, p, n) ((id) * (n) / (p))
-#define BLOCK_HIGH(id, p, n) (BLOCK_LOW((id) + 1, p, n) - 1)
-#define BLOCK_SIZE(id, p, n) (BLOCK_LOW((id) + 1) - BLOCK_LOW(id))
-#define BLCOK_OWNER(index, p, n) (((p)* (index) +1 ) -1 / (n))
 #define MIN(a, b) ((a)<(b)?(a):(b))
 
 int main(int argc, char *argv[]) {
@@ -111,11 +107,21 @@ int main(int argc, char *argv[]) {
     int sub_n = (int) sqrt((double) n);
     int sub_N = (sub_n - 1) / 2;
 
-    sub_low_index = 0 * (sub_N / p) + MIN(id, sub_N % p); // 进程的第一个数的索引
-    sub_high_index = 1 * (sub_N / p) + MIN(id + 1, sub_N % p) - 1; // 进程的最后一个数的索引
+    sub_low_index = 0 * (sub_N / p) + MIN(0, sub_N % p); // 进程的第一个数的索引
+    sub_high_index = 1 * (sub_N / p) + MIN(1, sub_N % p) - 1; // 进程的最后一个数的索引
     sub_low_value = sub_low_index * 2 + 3; //进程的第一个数
     sub_high_value = (sub_high_index + 1) * 2 + 1;//进程的最后一个数
     sub_size = (sub_high_value - sub_low_value) / 2 + 1;    //进程处理的数组大小
+
+    // Bail out if all the primes used for sieving are not all held by process 0
+    proc0_size = (sub_n - 1) / p;
+
+    // 如果有太多进程
+    if ((2 + proc0_size) < (int) sqrt((double)sub_n)) {
+        if (!id) printf("Too many processes \n");
+        MPI_Finalize();
+        exit(1);
+    }
 
     sub_marked = (char *) malloc(sub_n);
     if (sub_marked == nullptr) {
@@ -132,30 +138,15 @@ int main(int argc, char *argv[]) {
 
     prime = 3;
     do {
-        /*确定该进程中素数的第一个倍数的下标 */
-        // 如果该素数n*n>low_value，n*(n-i)都被标记了
-        // 即n*n为该进程中的第一个素数
-        // 其下标为n*n-low_value，并且由于数组大小减半所以除以2
-        if (prime * prime > sub_low_value) {
-            first = (prime * prime - sub_low_value) / 2;
-        } else {
-            // 若最小值low_value为该素数的倍数
-            // 则第一个倍数为low_value，即其下标为0
-            if (!(sub_low_value % prime)) first = 0;
-                // 若最小值low_value不是该素数的倍数
-                // 但是其余数为偶数，那么第一个非素数的索引为该素数剪去求余除以2
-            else if (sub_low_value % prime % 2 == 0) first = prime - ((sub_low_value % prime) / 2);
-                // 若最小值low_value不是该素数的倍数
-                // 那么第一个倍数的下标为该素数减去余数的值，并且由于数组大小减半所以除以2
-            else first = (prime - (sub_low_value % prime)) / 2;
-        }
-
+        // 从小数组开始标只会命中第一个条件
+        first = (prime * prime - sub_low_value) / 2;
         // 从第一个素数开始，标记该素数的倍数为非素数
-        for (int i = first; i < size; i += prime) sub_marked[i] = 1;
+        for (int i = first; i < sub_size; i += prime) {
+            sub_marked[i] = 1;
 
+        }
         while (sub_marked[++index]);
         prime = index * 2 + 3; // 起始加偏移
-
     } while (prime * prime <= sub_n);
 
     int N = (n - 1) / 2;
@@ -203,19 +194,19 @@ int main(int argc, char *argv[]) {
         // 从第一个素数开始，标记该素数的倍数为非素数
         for (int i = first; i < size; i += prime) marked[i] = 1;
 
-        // 只有id=0的进程才调用，用于找到下一素数的位置
         while (sub_marked[++index]);
-        prime = index * 2 + 3; // 起始加偏移
+        prime = index * 2 + 3;
 
     } while (prime * prime <= n);
 
     // 将标记结果发给0号进程
-    printf("id: %d, low: %d, high: %d, size: %d\n", id, low_value, high_value, size);
     count = 0;
     for (int i = 0; i < size; i++)
         if (marked[i] == 0) {
             count++;
         }
+    printf("id: %d, low: %d, high: %d, size: %d count: %d\n", id, low_value, high_value, size,count);
+
     MPI_Reduce(&count, &global_count, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
 
     // stop the timer
