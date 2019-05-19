@@ -39,11 +39,8 @@ class RCB:
     def get_waiting_list(self):
         return self._waiting_list
 
-    def set_waiting_list(self, pid, status):
-        self._waiting_list.append({
-            "pid": pid,
-            "status": status
-        })
+    def set_waiting_list(self, process):
+        self._waiting_list.append(process)
 
     def getinfo(self):
         return self._rid, self._status, self._waiting_list
