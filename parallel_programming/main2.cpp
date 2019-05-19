@@ -1,9 +1,8 @@
-#include "mpi.h"
-#include "math.h"
-#include "stdio.h"
-#include "stdlib.h"
-#include "string.h"
-#include "error.h"
+#include <mpi.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 using namespace std;
 
@@ -220,9 +219,9 @@ int main(int argc, char *argv[]) {
         char str1[40] = "../output/record.cancel_Bcast.";
         char str2[10] = ".txt";
         char filename[50];
-        sprintf(filename, "%s%d%s", str1, p, str2);
+		sprintf_s(filename, "%s%d%s", str1, p, str2);
         FILE *fp;
-        if ((fp = fopen(filename, "a+")) == nullptr) {
+		if ((fp = fopen_s(&fp, filename, "a+")) == nullptr) {
             printf("fail to open file");
             exit(0);
         }
