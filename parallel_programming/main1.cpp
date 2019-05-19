@@ -153,7 +153,8 @@ int main(int argc, char *argv[]) {
     } while (prime * prime <= n);
 
     // 将标记结果发给0号进程
-    printf("id: %d, low: %d, high: %d, size: %d\n", id, low_value, high_value, size);
+//    printf("id: %d, low: %d, high: %d, size: %d\n", id, low_value, high_value, size);
+
     count = 0;
     for (int i = 0; i < size; i++)
         if (marked[i] == 0) {
@@ -168,7 +169,6 @@ int main(int argc, char *argv[]) {
     if (!id) {
         printf("%d primes are less than or equal to %d \n", global_count, n);
         printf("Total elapsed time: %10.6f\n", elapsed_time);
-
         // 以追加的方式打开文件
 //        char str1[30] = "../output/record.remove_even.";
 //        char str2[10] = ".txt";
