@@ -150,7 +150,6 @@ int main(int argc, char *argv[]) {
     int LEVEL1_CACHE_size = 32768;      // default 32768
     int LEVEL2_CACHE_size = 262144;     // default 262144
     int LEVEL3_CACHE_size = 9485760;    // default 10485760
-    int offset = 1000000;
 
     int LEVEL1_CACHE_int = LEVEL1_CACHE_size / 4;
     int LEVEL2_CACHE_int = LEVEL2_CACHE_size / 4;
@@ -259,29 +258,25 @@ int main(int argc, char *argv[]) {
 
     // stop the timer
     elapsed_time += MPI_Wtime();
-
+    MPI_Finalize();
     // print the results
     if (!id) {
         printf("%d primes are less than or equal to %d \n", global_count, n);
         printf("Total elapsed time: %10.6f\n", elapsed_time);
 
         // 以追加的方式打开文件
-        char str1[40] = "../output/record.cache.";
-        char str2[10] = ".txt";
-        char filename[50];
-        sprintf_s(filename, "%s%d%s", str1, p, str2);
-        FILE *fp;
-        if ((fp = fopen_s(filename, "a+")) == nullptr) {
-            printf("fail to open file");
-            exit(0);
-        }
-        fprintf(fp, "%d %d %10.6f\n", p, n, elapsed_time);
-        fclose(fp);
+//        char str1[40] = "../output/record.cache.";
+//        char str2[10] = ".txt";
+//        char filename[50];
+//        sprintf(filename, "%s%d%s", str1, p, str2);
+//        FILE *fp;
+//        if ((fp = fopen(filename, "a+")) == nullptr) {
+//            printf("fail to open file");
+//            exit(0);
+//        }
+//        fprintf(fp, "%d %d %10.6f\n", p, n, elapsed_time);
+//        fclose(fp);
     }
-
-    MPI_Finalize();
-
-
     return 0;
 }
 
