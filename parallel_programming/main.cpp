@@ -1,240 +1,186 @@
-#include <mpi.h>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "mpi.h"
+#include "math.h"
+#include "stdio.h"
+#include "stdlib.h"
+#include "string.h"
+#include "error.h"
 
 using namespace std;
 
 /************************************************
 MPI_BCAST(buffer,count,datatype,root,comm)
-IN/OUT¡¡buffer¡¡¡¡  Í¨ĞÅÏûÏ¢»º³åÇøµÄÆğÊ¼µØÖ·(¿É±ä)
-IN¡¡¡¡¡¡ count¡¡  ¡¡ Í¨ĞÅÏûÏ¢»º³åÇøÖĞµÄÊı¾İ¸öÊı(ÕûĞÍ)
-IN ¡¡¡¡¡¡datatype ¡¡Í¨ĞÅÏûÏ¢»º³åÇøÖĞµÄÊı¾İÀàĞÍ(¾ä±ú)
-IN¡¡¡¡¡¡ root¡¡  ¡¡¡¡·¢ËÍ¹ã²¥µÄ¸ùµÄĞòÁĞºÅ(ÕûĞÍ)
-IN ¡¡¡¡¡¡comm   ¡¡¡¡Í¨ĞÅ×Ó(¾ä±ú)
+    IN/OUTã€€bufferã€€ã€€  é€šä¿¡æ¶ˆæ¯ç¼“å†²åŒºçš„èµ·å§‹åœ°å€(å¯å˜)
+    INã€€ã€€ã€€ countã€€  ã€€ é€šä¿¡æ¶ˆæ¯ç¼“å†²åŒºä¸­çš„æ•°æ®ä¸ªæ•°(æ•´å‹)
+    IN ã€€ã€€ã€€datatype ã€€é€šä¿¡æ¶ˆæ¯ç¼“å†²åŒºä¸­çš„æ•°æ®ç±»å‹(å¥æŸ„)
+    INã€€ã€€ã€€ rootã€€  ã€€ã€€å‘é€å¹¿æ’­çš„æ ¹çš„åºåˆ—å·(æ•´å‹)
+    IN ã€€ã€€ã€€comm   ã€€ã€€é€šä¿¡å­(å¥æŸ„)
 int MPI_Bcast(void* buffer,int count,MPI_Datatype datatype,int root, MPI_Comm comm)
 
-MPI_BCASTÊÇ´ÓÒ»¸öĞòÁĞºÅÎªrootµÄ½ø³Ì½«Ò»ÌõÏûÏ¢¹ã²¥·¢ËÍµ½×éÄÚµÄËùÓĞ½ø³Ì,
-°üÀ¨Ëü±¾ÉíÔÚÄÚ.µ÷ÓÃÊ±×éÄÚËùÓĞ³ÉÔ±¶¼Ê¹ÓÃÍ¬Ò»¸öcommºÍroot,
-Æä½á¹ûÊÇ½«¸ùµÄÍ¨ĞÅÏûÏ¢»º³åÇøÖĞµÄÏûÏ¢¿½±´µ½ÆäËûËùÓĞ½ø³ÌÖĞÈ¥.
+MPI_BCASTæ˜¯ä»ä¸€ä¸ªåºåˆ—å·ä¸ºrootçš„è¿›ç¨‹å°†ä¸€æ¡æ¶ˆæ¯å¹¿æ’­å‘é€åˆ°ç»„å†…çš„æ‰€æœ‰è¿›ç¨‹,
+åŒ…æ‹¬å®ƒæœ¬èº«åœ¨å†….è°ƒç”¨æ—¶ç»„å†…æ‰€æœ‰æˆå‘˜éƒ½ä½¿ç”¨åŒä¸€ä¸ªcommå’Œroot,
+å…¶ç»“æœæ˜¯å°†æ ¹çš„é€šä¿¡æ¶ˆæ¯ç¼“å†²åŒºä¸­çš„æ¶ˆæ¯æ‹·è´åˆ°å…¶ä»–æ‰€æœ‰è¿›ç¨‹ä¸­å».
 
-¹æÔ¼º¯Êı MPI_Reduce()£¬½«Í¨ĞÅ×ÓÄÚ¸÷½ø³ÌµÄÍ¬Ò»¸ö±äÁ¿²ÎÓë¹æÔ¼¼ÆËã£¬²¢ÏòÖ¸¶¨µÄ½ø³ÌÊä³ö¼ÆËã½á¹û
+è§„çº¦å‡½æ•° MPI_Reduce()ï¼Œå°†é€šä¿¡å­å†…å„è¿›ç¨‹çš„åŒä¸€ä¸ªå˜é‡å‚ä¸è§„çº¦è®¡ç®—ï¼Œå¹¶å‘æŒ‡å®šçš„è¿›ç¨‹è¾“å‡ºè®¡ç®—ç»“æœ
 MPI_METHOD MPI_Reduce(
-_In_range_(!= , recvbuf) _In_opt_ const void* sendbuf,  // Ö¸ÏòÊäÈëÊı¾İµÄÖ¸Õë
-_When_(root != MPI_PROC_NULL, _Out_opt_) void* recvbuf, // Ö¸ÏòÊä³öÊı¾İµÄÖ¸Õë£¬¼´¼ÆËã½á¹û´æ·ÅµÄµØ·½
-_In_range_(>= , 0) int count,                           // Êı¾İ³ß´ç£¬¿ÉÒÔ½øĞĞ¶à¸ö±êÁ¿»ò¶à¸öÏòÁ¿µÄ¹æÔ¼
-_In_ MPI_Datatype datatype,                             // Êı¾İÀàĞÍ
-_In_ MPI_Op op,                                         // ¹æÔ¼²Ù×÷ÀàĞÍ
-_mpi_coll_rank_(root) int root,                         // Ä¿±ê½ø³ÌºÅ£¬´æ·Å¼ÆËã½á¹ûµÄ½ø³Ì
-_In_ MPI_Comm comm                                      // Í¨ĞÅ×Ó
+   _In_range_(!= , recvbuf) _In_opt_ const void* sendbuf,  // æŒ‡å‘è¾“å…¥æ•°æ®çš„æŒ‡é’ˆ
+   _When_(root != MPI_PROC_NULL, _Out_opt_) void* recvbuf, // æŒ‡å‘è¾“å‡ºæ•°æ®çš„æŒ‡é’ˆï¼Œå³è®¡ç®—ç»“æœå­˜æ”¾çš„åœ°æ–¹
+   _In_range_(>= , 0) int count,                           // æ•°æ®å°ºå¯¸ï¼Œå¯ä»¥è¿›è¡Œå¤šä¸ªæ ‡é‡æˆ–å¤šä¸ªå‘é‡çš„è§„çº¦
+   _In_ MPI_Datatype datatype,                             // æ•°æ®ç±»å‹
+   _In_ MPI_Op op,                                         // è§„çº¦æ“ä½œç±»å‹
+   _mpi_coll_rank_(root) int root,                         // ç›®æ ‡è¿›ç¨‹å·ï¼Œå­˜æ”¾è®¡ç®—ç»“æœçš„è¿›ç¨‹
+   _In_ MPI_Comm comm                                      // é€šä¿¡å­
 );
 **********************************************/
-
 #define MIN(a, b) ((a)<(b)?(a):(b))
 
 int main(int argc, char *argv[]) {
-	int count;              /* Local prime count */
-	double elapsed_time;    /* Parallel execution time */
-	int first;              /* Index of first multiple */
-	int global_count;       /* Global prime count */
-	char *marked;           /* Portion of 2,...,'n' */
-	int id;                 /* Process ID number */
-	int index;              /* Index of current prime */
-	int low_index;          /* Lowest index on this proc */
-	int low_value;          /* Lowest value on this proc */
-	int high_index;         /* Highest index on this proc */
-	int high_value;         /* Highest value on this proc */
-	int n;                  /* Sieving from 2, ..., 'n' */
-	int p;                  /* Number of processes */
-	int proc0_size;         /* Size of proc 0's subarray */
-	int prime;              /* Current prime */
-	int size;               /* Elements in 'marked' */
-	int sub_size;           /* size of sub_array */
-	char *sub_marked;       /* sub_mark array */
-	int sub_low_index;      /* Lowest index on sub_array */
-	int sub_low_value;      /* Lowest array on sub_array */
-	int sub_high_index;     /* Highest index on sub_array */
-	int sub_high_value;     /* Highest index on sub_array */
+    int count;              /* Local prime count */
+    double elapsed_time;    /* Parallel execution time */
+    int first;              /* Index of first multiple */
+    int global_count;       /* Global prime count */
+    int high_value;         /* Highest value on this proc */
+    int id;                 /* Process ID number */
+    int index;              /* Index of current prime */
+    int low_value;          /* Lowest value on this proc */
+    char *marked;           /* Portion of 2,...,'n' */
+    int n;                  /* Sieving from 2, ..., 'n' */
+    int p;                  /* Number of processes */
+    int proc0_size;         /* Size of proc 0's subarray */
+    int prime;              /* Current prime */
+    int size;               /* Elements in 'marked' */
+    int low_index;          /* Lowest index on this proc */
+    int high_index;         /* Highest index on this proc */
 
-	// ³õÊ¼»¯
-	// MPI³ÌĞòÆô¶¯Ê±¡°×Ô¶¯¡±½¨Á¢Á½¸öÍ¨ĞÅÆ÷£º
-	// MPI_COMM_WORLD:°üº¬³ÌĞòÖĞËùÓĞMPI½ø³Ì
-	// MPI_COMM_SELF£ºÓĞµ¥¸ö½ø³Ì¶À×Ô¹¹³É£¬½ö°üº¬×Ô¼º
-	MPI_Init(&argc, &argv);
+    // åˆå§‹åŒ–
+    // MPIç¨‹åºå¯åŠ¨æ—¶â€œè‡ªåŠ¨â€å»ºç«‹ä¸¤ä¸ªé€šä¿¡å™¨ï¼š
+    // MPI_COMM_WORLD:åŒ…å«ç¨‹åºä¸­æ‰€æœ‰MPIè¿›ç¨‹
+    // MPI_COMM_SELFï¼šæœ‰å•ä¸ªè¿›ç¨‹ç‹¬è‡ªæ„æˆï¼Œä»…åŒ…å«è‡ªå·±
+    MPI_Init(&argc, &argv);
 
-	// MPI_COMM_RANK µÃµ½±¾½ø³ÌµÄ½ø³ÌºÅ£¬½ø³ÌºÅÈ¡Öµ·¶Î§Îª 0, ¡­, np-1
-	MPI_Comm_rank(MPI_COMM_WORLD, &id);
+    // MPI_COMM_RANK å¾—åˆ°æœ¬è¿›ç¨‹çš„è¿›ç¨‹å·ï¼Œè¿›ç¨‹å·å–å€¼èŒƒå›´ä¸º 0, â€¦, np-1
+    MPI_Comm_rank(MPI_COMM_WORLD, &id);
 
-	// MPI_COMM_SIZE µÃµ½ËùÓĞ²Î¼ÓÔËËãµÄ½ø³ÌµÄ¸öÊı
-	MPI_Comm_size(MPI_COMM_WORLD, &p);
+    // MPI_COMM_SIZE å¾—åˆ°æ‰€æœ‰å‚åŠ è¿ç®—çš„è¿›ç¨‹çš„ä¸ªæ•°
+    MPI_Comm_size(MPI_COMM_WORLD, &p);
 
-	// MPI_BarrierÊÇMPIÖĞµÄÒ»¸öº¯Êı½Ó¿Ú
-	// ±íÊ¾×èÖ¹µ÷ÓÃÖ±µ½communicatorÖĞËùÓĞ½ø³ÌÍê³Éµ÷ÓÃ
-	MPI_Barrier(MPI_COMM_WORLD);
+    // MPI_Barrieræ˜¯MPIä¸­çš„ä¸€ä¸ªå‡½æ•°æ¥å£
+    // è¡¨ç¤ºé˜»æ­¢è°ƒç”¨ç›´åˆ°communicatorä¸­æ‰€æœ‰è¿›ç¨‹å®Œæˆè°ƒç”¨
+    MPI_Barrier(MPI_COMM_WORLD);
 
-	// MPI_WTIME·µ»ØÒ»¸öÓÃ¸¡µãÊı±íÊ¾µÄÃëÊı
-	// Ëü±íÊ¾´Ó¹ıÈ¥Ä³Ò»Ê±¿Ìµ½µ÷ÓÃÊ±¿ÌËù¾­ÀúµÄÊ±¼ä
+    // MPI_WTIMEè¿”å›ä¸€ä¸ªç”¨æµ®ç‚¹æ•°è¡¨ç¤ºçš„ç§’æ•°
+    // å®ƒè¡¨ç¤ºä»è¿‡å»æŸä¸€æ—¶åˆ»åˆ°è°ƒç”¨æ—¶åˆ»æ‰€ç»å†çš„æ—¶é—´
 
-	elapsed_time = -MPI_Wtime();
+    elapsed_time = -MPI_Wtime();
 
-	// ²ÎÊı¸öÊıÎª2£ºÎÄ¼şÃûÒÔ¼°ÎÊÌâ¹æÄ£n
-	if (argc != 2) {
-		if (!id) printf("Command line: %s <m> \n", argv[0]);
-		// ½áÊøMPIÏµÍ³
-		MPI_Finalize();
-		exit(1);
-	}
+    // å‚æ•°ä¸ªæ•°ä¸º2ï¼šæ–‡ä»¶åä»¥åŠé—®é¢˜è§„æ¨¡n
+    if (argc != 2) {
+        if (!id) printf("Command line: %s <m> \n", argv[0]);
+        // ç»“æŸMPIç³»ç»Ÿ
+        MPI_Finalize();
+        exit(1);
+    }
 
-	// ±íÊ¾ÕÒ <= nµÄËØÊı
-	n = atoi(argv[1]);
+    // è¡¨ç¤ºæ‰¾ <= nçš„ç´ æ•°
+    n = atoi(argv[1]);
 
-	// Bail out if all the primes used for sieving are not all held by process 0
-	proc0_size = (n - 1) / p;
-
-	// Èç¹ûÓĞÌ«¶à½ø³Ì
-	if ((2 + proc0_size) < (int)sqrt((double)n)) {
-		if (!id) printf("Too many processes \n");
-		MPI_Finalize();
-		exit(1);
-	}
-
-	/*
-	* ÏÈÕÒÇ°sqrt(n)ÄÚµÄËØÊı
-	*/
-	int sub_n = (int)sqrt((double)n);
-	int sub_N = (sub_n - 1) / 2;
-
-	sub_low_index = 0 * (sub_N / p) + MIN(0, sub_N % p); // ½ø³ÌµÄµÚÒ»¸öÊıµÄË÷Òı
-	sub_high_index = 1 * (sub_N / p) + MIN(1, sub_N % p) - 1; // ½ø³ÌµÄ×îºóÒ»¸öÊıµÄË÷Òı
-	sub_low_value = sub_low_index * 2 + 3; //½ø³ÌµÄµÚÒ»¸öÊı
-	sub_high_value = (sub_high_index + 1) * 2 + 1;//½ø³ÌµÄ×îºóÒ»¸öÊı
-	sub_size = (sub_high_value - sub_low_value) / 2 + 1;    //½ø³Ì´¦ÀíµÄÊı×é´óĞ¡
-
-	// Bail out if all the primes used for sieving are not all held by process 0
-	proc0_size = (sub_n - 1) / p;
-
-	// Èç¹ûÓĞÌ«¶à½ø³Ì
-	if ((2 + proc0_size) < (int)sqrt((double)sub_n)) {
-		if (!id) printf("Too many processes \n");
-		MPI_Finalize();
-		exit(1);
-	}
-
-	sub_marked = (char *)malloc(sub_n);
-	if (sub_marked == nullptr) {
-		printf("Cannot allocate enough memory \n");
-		MPI_Finalize();
-		exit(1);
-	}
-
-	// ÏÈ¼Ù¶¨ËùÓĞµÄÕûÊı¶¼ÊÇËØÊı
-	for (int i = 0; i < sub_size; i++) sub_marked[i] = 0;
-
-	// Ë÷Òı³õÊ¼»¯Îª0
-	index = 0;
-
-	prime = 3;
-	do {
-		// ´ÓĞ¡Êı×é¿ªÊ¼±êÖ»»áÃüÖĞµÚÒ»¸öÌõ¼ş
-		first = (prime * prime - sub_low_value) / 2;
-		// ´ÓµÚÒ»¸öËØÊı¿ªÊ¼£¬±ê¼Ç¸ÃËØÊıµÄ±¶ÊıÎª·ÇËØÊı
-		for (int i = first; i < sub_size; i += prime) {
-			sub_marked[i] = 1;
-
-		}
-		while (sub_marked[++index]);
-		prime = index * 2 + 3; // ÆğÊ¼¼ÓÆ«ÒÆ
-	} while (prime * prime <= sub_n);
-
-	int N = (n - 1) / 2;
-	low_index = id * (N / p) + MIN(id, N % p); // ½ø³ÌµÄµÚÒ»¸öÊıµÄË÷Òı
-	high_index = (id + 1) * (N / p) + MIN(id + 1, N % p) - 1; // ½ø³ÌµÄ×îºóÒ»¸öÊıµÄË÷Òı
-	low_value = low_index * 2 + 3; //½ø³ÌµÄµÚÒ»¸öÊı
-	high_value = (high_index + 1) * 2 + 1;//½ø³ÌµÄ×îºóÒ»¸öÊı
-	size = (high_value - low_value) / 2 + 1;    //½ø³Ì´¦ÀíµÄÊı×é´óĞ¡
-
-	// allocate this process 's share of the array
-	marked = (char *)malloc(size);
-	if (marked == nullptr) {
-		printf("Cannot allocate enough memory \n");
-		MPI_Finalize();
-		exit(1);
-	}
-
-	// ÏÈ¼Ù¶¨ËùÓĞµÄÕûÊı¶¼ÊÇËØÊı
-	for (int i = 0; i < size; i++) marked[i] = 0;
-
-	// Ë÷Òı³õÊ¼»¯Îª0
-	index = 0;
-
-	// ´Ó3¿ªÊ¼ËÑÑ°£¬firstÎªµÚÒ»¸ö²»ÊÇËØÊıµÄÎ»ÖÃ
-	prime = 3;
-	do {
-		/*È·¶¨¸Ã½ø³ÌÖĞËØÊıµÄµÚÒ»¸ö±¶ÊıµÄÏÂ±ê */
-		// Èç¹û¸ÃËØÊın*n>low_value£¬n*(n-i)¶¼±»±ê¼ÇÁË
-		// ¼´n*nÎª¸Ã½ø³ÌÖĞµÄµÚÒ»¸öËØÊı
-		// ÆäÏÂ±êÎªn*n-low_value£¬²¢ÇÒÓÉÓÚÊı×é´óĞ¡¼õ°ëËùÒÔ³ıÒÔ2
-		if (prime * prime > low_value) {
-			first = (prime * prime - low_value) / 2;
-		}
-		else {
-			// Èô×îĞ¡Öµlow_valueÎª¸ÃËØÊıµÄ±¶Êı
-			// ÔòµÚÒ»¸ö±¶ÊıÎªlow_value£¬¼´ÆäÏÂ±êÎª0
-			if (!(low_value % prime)) first = 0;
-			// Èô×îĞ¡Öµlow_value²»ÊÇ¸ÃËØÊıµÄ±¶Êı
-			// µ«ÊÇÆäÓàÊıÎªÅ¼Êı£¬ÄÇÃ´µÚÒ»¸ö·ÇËØÊıµÄË÷ÒıÎª¸ÃËØÊı¼ôÈ¥ÇóÓà³ıÒÔ2
-			else if (low_value % prime % 2 == 0) first = prime - ((low_value % prime) / 2);
-			// Èô×îĞ¡Öµlow_value²»ÊÇ¸ÃËØÊıµÄ±¶Êı
-			// ÄÇÃ´µÚÒ»¸ö±¶ÊıµÄÏÂ±êÎª¸ÃËØÊı¼õÈ¥ÓàÊıµÄÖµ£¬²¢ÇÒÓÉÓÚÊı×é´óĞ¡¼õ°ëËùÒÔ³ıÒÔ2
-			else first = (prime - (low_value % prime)) / 2;
-		}
-
-		// ´ÓµÚÒ»¸öËØÊı¿ªÊ¼£¬±ê¼Ç¸ÃËØÊıµÄ±¶ÊıÎª·ÇËØÊı
-		for (int i = first; i < size; i += prime) marked[i] = 1;
-
-		while (sub_marked[++index]);
-		prime = index * 2 + 3;
-		
-
-	} while (prime * prime <= n);
-
-	// ½«±ê¼Ç½á¹û·¢¸ø0ºÅ½ø³Ì
-	count = 0;
-	for (int i = 0; i < size; i++)
-	if (marked[i] == 0) {
-		count++;
-	}
-	printf("id: %d, low: %d, high: %d, size: %d count: %d\n", id, low_value, high_value, size, count);
-
-	MPI_Reduce(&count, &global_count, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
-
-	// stop the timer
-	elapsed_time += MPI_Wtime();
-	MPI_Finalize();
-
-	// print the results
-	if (!id) {
-		printf("%d primes are less than or equal to %d \n", global_count, n);
-		printf("Total elapsed time: %10.6f\n", elapsed_time);
-
-		// ÒÔ×·¼ÓµÄ·½Ê½´ò¿ªÎÄ¼ş
-		char str1[40] = "./output/record.cancel_Bcast.";
-		char str2[10] = ".txt";
-		char filename[50];
-		sprintf_s(filename, "%s%d%s", str1, p, str2);
-		FILE *fp;
-		int err = fopen_s(&fp, filename, "a+");
-		if (err == 0) {
-			fprintf(fp, "%d %d %10.6f\n", p, n, elapsed_time);
-			fclose(fp);
-		}
-		else{
-			printf("fail to open file");
-			exit(0);
-		}
-	}
+    int N = n - 1;
+    low_index = id * (N / p) + MIN(id, N % p); // è¿›ç¨‹çš„ç¬¬ä¸€ä¸ªæ•°çš„ç´¢å¼•
+    high_index = (id + 1) * (N / p) + MIN(id + 1, N % p) - 1; // è¿›ç¨‹çš„æœ€åä¸€ä¸ªæ•°çš„ç´¢å¼•
+    low_value = 2 + low_index; //è¿›ç¨‹çš„ç¬¬ä¸€ä¸ªæ•°
+    high_value = 2 + high_index;//è¿›ç¨‹çš„æœ€åä¸€ä¸ªæ•°
+    size = high_value - low_value + 1;    //è¿›ç¨‹å¤„ç†çš„æ•°ç»„å¤§å°
 
 
-	return 0;
+    // Bail out if all the primes used for sieving are not all held by process 0
+    proc0_size = (n - 1) / p;
+
+    // å¦‚æœæœ‰å¤ªå¤šè¿›ç¨‹
+    if ((2 + proc0_size) < (int) sqrt((double) n)) {
+        if (!id) printf("Too many processes \n");
+        MPI_Finalize();
+        exit(1);
+    }
+
+    // allocate this process 's share of the array
+    marked = (char *) malloc(size);
+    if (marked == nullptr) {
+        printf("Cannot allocate enough memory \n");
+        MPI_Finalize();
+        exit(1);
+    }
+
+    // å…ˆå‡å®šæ‰€æœ‰çš„æ•´æ•°éƒ½æ˜¯ç´ æ•°
+    for (int i = 0; i < size; i++) marked[i] = 0;
+
+    // ç´¢å¼•åˆå§‹åŒ–ä¸º0
+    if (!id) index = 0;
+
+    // ä»2å¼€å§‹æœå¯»
+    prime = 2;
+    do {
+        /*ç¡®å®šè¯¥è¿›ç¨‹ä¸­ç´ æ•°çš„ç¬¬ä¸€ä¸ªå€æ•°çš„ä¸‹æ ‡ */
+        // å¦‚æœè¯¥ç´ æ•°n*n>low_valueï¼Œn*(n-i)éƒ½è¢«æ ‡è®°äº†
+        // å³n*nä¸ºè¯¥è¿›ç¨‹ä¸­çš„ç¬¬ä¸€ä¸ªç´ æ•°
+        // å…¶ä¸‹æ ‡ä¸ºn*n-low_value
+        if (prime * prime > low_value) {
+            first = prime * prime - low_value;
+        } else {
+            // è‹¥æœ€å°å€¼low_valueä¸ºè¯¥ç´ æ•°çš„å€æ•°
+            // åˆ™ç¬¬ä¸€ä¸ªå€æ•°ä¸ºlow_valueï¼Œå³å…¶ä¸‹æ ‡ä¸º0
+            if (!(low_value % prime)) first = 0;
+                // è‹¥æœ€å°å€¼low_valueä¸æ˜¯è¯¥ç´ æ•°çš„å€æ•°
+                // é‚£ä¹ˆç¬¬ä¸€ä¸ªå€æ•°çš„ä¸‹æ ‡ä¸ºè¯¥ç´ æ•°å‡å»ä½™æ•°çš„å€¼
+            else first = prime - (low_value % prime);
+        }
+
+        // ä»ç¬¬ä¸€ä¸ªç´ æ•°å¼€å§‹ï¼Œæ ‡è®°è¯¥ç´ æ•°çš„å€æ•°ä¸ºéç´ æ•°
+        for (int i = first; i < size; i += prime) marked[i] = 1;
+
+        // åªæœ‰id=0çš„è¿›ç¨‹æ‰è°ƒç”¨ï¼Œç”¨äºæ‰¾åˆ°ä¸‹ä¸€ç´ æ•°çš„ä½ç½®
+        if (!id) {
+            while (marked[++index]); // å…ˆè‡ªåŠ å†æ‰§è¡Œ
+            prime = index + 2; // èµ·å§‹åŠ åç§»
+        }
+
+        // åªæœ‰id=0çš„è¿›ç¨‹æ‰è°ƒç”¨ï¼Œç”¨äºå°†ä¸‹ä¸€ä¸ªç´ æ•°å¹¿æ’­å‡ºå»
+        if (p > 1) {
+            MPI_Bcast(&prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
+        }
+
+    } while (prime * prime <= n);
+
+    // å°†æ ‡è®°ç»“æœå‘ç»™0å·è¿›ç¨‹
+    count = 0;
+    for (int i = 0; i < size; i++)
+        if (marked[i] == 0) {
+            count++;
+        }
+    MPI_Reduce(&count, &global_count, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+
+    // stop the timer
+    elapsed_time += MPI_Wtime();
+
+    // print the results
+    if (!id) {
+        printf("%d primes are less than or equal to %d \n", global_count, n);
+        printf("Total elapsed time: %10.6f\n", elapsed_time);
+    }
+    MPI_Finalize();
+
+    if (!id){
+        // ä»¥è¿½åŠ çš„æ–¹å¼æ‰“å¼€æ–‡ä»¶
+//        char str1[30] = "../output/record.init.";
+//        char str2[10] = ".txt";
+//        char filename[50];
+//        sprintf(filename, "%s%d%s", str1, p, str2);
+//        FILE *fp;
+//        if ((fp = fopen(filename,"a+")) == nullptr){
+//            printf("fail to open file");
+//            exit(0);
+//        }
+//        fprintf(fp, "%d %d %10.6f\n", p, n, elapsed_time);
+//        fclose(fp);
+    }
+    return 0;
 }
+
