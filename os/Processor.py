@@ -17,18 +17,10 @@ class Processor:
         # 新创建的进程插入到RL队列的末尾
         new_pcb = PCB(pid, int(priority))
         self._ready_list.append(new_pcb)
-        if len(self._running_list) == 0:
-            self._running_list.append(new_pcb)
-            new_pcb.set_status("running")
-            self._ready_list.pop()
-            # 格式调整
-            print(pid)
-        else:
+        if len(self._running_list) != 0:
             new_pcb.set_parent(self._running_list[0])
             self._running_list[0].set_children(new_pcb)
-            # 如果新创建进程比正在运行进程的优先级大，则发生抢占，即马上进行调度
-            if new_pcb.get_priority() > self._running_list[0].get_priority():
-                self.schedule()
+        self.schedule()
 
     def delete_process(self, resource, pid):
         # 从所有队列中找到该pid的状态，从该状态的队列中删除
@@ -53,11 +45,11 @@ class Processor:
         if process_status == 'running':
             self._running_list.pop([x.get_pid() for x in self._running_list].index(pid))
             # 如果删除的进程是当前正在运行的进程则立即进行调度
-            self.schedule()
         elif process_status == 'blocked':
             self._block_list.pop([x.get_pid() for x in self._block_list].index(pid))
         elif process_status == 'ready':
             self._ready_list.pop([x.get_pid() for x in self._ready_list].index(pid))
+        self.schedule()
 
     def get_process_info(self, pid):
         processes = self.get_process_list()
@@ -90,22 +82,32 @@ class Processor:
         else:
             tasks = [x for x in self._ready_list if int(x.get_priority()) == 0]
 
-        # 如果为0则证明删除了正在运行的进程
+        # 如果运行队列为空
         if len(self._running_list) == 0:
             self._running_list.append(tasks[0])
-        else:
-            # 如果就绪队列仅有init，则下一时间片仍然执行该进程
-            if tasks[0].get_pid() == 'init':
-                return
-            # 状态设置
-            self._running_list[0].set_status("ready")
-            # 调度
-            self._ready_list.append(self._running_list[0])
-            self._running_list[0] = tasks[0]
-        self._ready_list.pop(self._ready_list.index(tasks[0]))
+            tasks[0].set_status("running")
+            self._ready_list.pop(self._ready_list.index(tasks[0]))
+            return
 
-        # 状态设置
-        tasks[0].set_status("running")
+        # 如果优先级大于正在运行的进程则进行抢占
+        if tasks[0].get_priority() > self._running_list[0].get_priority():
+            # 取出正在运行的队列
+            self._running_list[0].set_status("ready")
+            self._ready_list.append(self._running_list[0])
+            self._running_list.pop()
+
+            # 运行该进程
+            tasks[0].set_status("running")
+            self._ready_list.pop(self._ready_list.index(tasks[0]))
+            self._running_list.append(tasks[0])
+        else:
+            return
+
+    def time_out(self):
+        self._running_list[0].set_status("ready")
+        self._ready_list.append(self._running_list[0])
+        self._running_list.pop()
+        self.schedule()
 
     def request_resource(self, resource, rid, request_status, process=None):
         if process is None:
@@ -133,7 +135,7 @@ class Processor:
                 self._block_list.append(process)
                 x.set_status("blocked")
                 self._running_list.pop(self._running_list.index(x))
-                self.schedule()
+        self.schedule()
 
     def release_resource(self, resource, rid, release_status, process=None):
         release_status = int(release_status)
@@ -175,10 +177,9 @@ class Processor:
                                     rcb.get_waiting_list().pop(rcb.get_waiting_list().index(y))
                                     resource.request(process=x, rid=rid, request_status=y['status'])
                                     # 如果被唤醒的进程优先级大于正在进行资源优先级则进行调度
-                                    if x.get_priority() > self._running_list[0].get_priority():
-                                        self.schedule()
                                 else:
                                     flag = True
         else:
             print("error, the process '" + process.get_pid() + "' only request", resource.get_status(),
                   "resource(s), your input has exceeded it")
+        self.schedule()
