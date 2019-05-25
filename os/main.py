@@ -1,14 +1,30 @@
 import re
+import sys
 from Resource import Resource
 from Processor import Processor
 
-
-def systeminit():
+def system_init():
     processor_temp = Processor()
     resource_temp = Resource()
     processor_temp.create_process('init', 0)
+    for x in processor_temp.get_running_list():
+        print(x + " ", end='')
     return processor_temp, resource_temp
 
+
+def read_test_shell(filename):
+    try:
+        file = open(filename)
+        text_lines = file.readlines()
+        for line in text_lines:
+            analysis(line)
+        file.close()
+    except IOError as e:
+        print(e.strerror)
+        return 0
+    else:
+        file.close()
+        return 0
 
 def analysis(inputs):
     # 去除输入两边空格
@@ -75,29 +91,14 @@ def analysis(inputs):
         # run file
         elif xs[0] == 'run':
             filename = xs[1]
-            if filename.endswith('.txt'):
-                try:
-                    file = open(filename)
-                    text_lines = file.readlines()
-                    for line in text_lines:
-                        analysis(line)
-                    file.close()
-                except IOError as e:
-                    print(e.strerror)
-                    return 0
-                else:
-                    file.close()
-                    return 0
-            else:
-                print("the file show end with .txt")
-            return 0
+            read_test_shell(filename)
         else:
             print("syntax occur")
             return 0
     else:
         # time out
         if inputs == 'to':
-            processor.schedule()
+            processor.time_out()
         # list all process
         elif inputs == 'lp':
             running, ready, blocked = processor.get_running_list(), \
@@ -137,6 +138,18 @@ def analysis(inputs):
 
 
 if __name__ == '__main__':
+<<<<<<< HEAD
+    processor, resource = system_init()
+    if len(sys.argv) == 2:
+        filename = sys.argv[1]
+        read_test_shell(filename)
+    if len(sys.argv) == 1:
+        while (True):
+            X = input("")
+            code = analysis(X)
+            if code == -1:
+                break
+=======
     print("Process init is running")
     processor, resource = systeminit()
     while (True):
@@ -144,3 +157,4 @@ if __name__ == '__main__':
         code = analysis(X)
         if code == -1:
             break
+>>>>>>> master
