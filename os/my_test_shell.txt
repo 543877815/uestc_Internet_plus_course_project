@@ -14,7 +14,8 @@ to
 req R2 1
 to
 req R3 3
-req R4 5
+req R4 3
+req R4 3
 to
 req R1 1
 cr G 2

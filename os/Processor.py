@@ -174,6 +174,9 @@ class Processor:
                                     self._block_list.pop(self._block_list.index(x))
                                     rcb.get_waiting_list().pop(rcb.get_waiting_list().index(y))
                                     resource.request(process=x, rid=rid, request_status=y['status'])
+                                    # 如果被唤醒的进程优先级大于正在进行资源优先级则进行调度
+                                    if x.get_priority() > self._running_list[0].get_priority():
+                                        self.schedule()
                                 else:
                                     flag = True
         else:
