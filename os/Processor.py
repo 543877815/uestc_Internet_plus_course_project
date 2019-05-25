@@ -71,6 +71,9 @@ class Processor:
     def get_running_list(self):
         return [x.get_pid() for x in self._running_list]
 
+    def time_out(self):
+        self.schedule()
+
     def schedule(self):
         # 选取优先级最高而且到达时间最早的进程
         system = [x for x in self._ready_list if int(x.get_priority()) == 2]

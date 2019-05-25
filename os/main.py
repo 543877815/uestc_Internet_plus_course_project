@@ -138,6 +138,7 @@ def analysis(inputs):
 
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     processor, resource = system_init()
     if len(sys.argv) == 2:
         filename = sys.argv[1]
@@ -148,3 +149,12 @@ if __name__ == '__main__':
             code = analysis(X)
             if code == -1:
                 break
+=======
+    print("Process init is running")
+    processor, resource = systeminit()
+    while (True):
+        X = input()
+        code = analysis(X)
+        if code == -1:
+            break
+>>>>>>> master

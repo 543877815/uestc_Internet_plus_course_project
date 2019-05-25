@@ -1,5 +1,7 @@
 # uestc-Internet_plus-course-project
 
+如果想要分开下载可以使用chrome的插件[Enhanced Github](https://chrome.google.com/webstore/detail/anlikcnbgdeidpacdbdljnabclhahhmd)
+
 电子科技大学互联网+课程课设作业
 
 包括
