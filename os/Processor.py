@@ -112,9 +112,9 @@ class Processor:
     def request_resource(self, resource, rid, request_status, process=None):
         if process is None:
             process = self._running_list[0]
-        if self._running_list[0].get_pid() == 'init':
-            print("the process init can not request resource!")
-            return
+        # if self._running_list[0].get_pid() == 'init':
+        #     print("the process init can not request resource!")
+        #     return
         request_status = int(request_status)
         code = resource.request(process=process, rid=rid, request_status=request_status)
         # 若资源请求成功，修改进程状态
@@ -144,9 +144,9 @@ class Processor:
             process = self._running_list[0]
         status_allocated = int(process.get_resource(rid)['status'])
         pid = process.get_pid()
-        if pid == 'init':
-            print("the process init can not request resources!")
-            return
+        # if pid == 'init':
+        #     print("the process init can not request resources!")
+        #     return
         # 如果已分配资源大于等于要求释放资源，则释放资源，并修改进程状态
         if status_allocated >= release_status:
             code = resource.release(process=process, rid=rid, release_status=release_status)
