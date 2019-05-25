@@ -79,6 +79,9 @@ class Processor:
     def get_running_list(self):
         return [x.get_pid() for x in self._running_list]
 
+    def time_out(self):
+        self.schedule()
+
     def schedule(self):
         # 选取优先级最高而且到达时间最早的进程
         system = [x for x in self._ready_list if int(x.get_priority()) == 2]
@@ -174,6 +177,9 @@ class Processor:
                                     self._block_list.pop(self._block_list.index(x))
                                     rcb.get_waiting_list().pop(rcb.get_waiting_list().index(y))
                                     resource.request(process=x, rid=rid, request_status=y['status'])
+                                    # 如果被唤醒的进程优先级大于正在进行资源优先级则进行调度
+                                    if x.get_priority() > self._running_list[0].get_priority():
+                                        self.schedule()
                                 else:
                                     flag = True
         else:

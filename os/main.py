@@ -140,7 +140,7 @@ if __name__ == '__main__':
     print("Process init is running")
     processor, resource = systeminit()
     while (True):
-        X = input("- ")
+        X = input()
         code = analysis(X)
         if code == -1:
             break
