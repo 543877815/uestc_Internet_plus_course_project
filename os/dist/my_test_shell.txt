@@ -1,0 +1,31 @@
+cr A 1
+cr B 1
+cr C 1
+to
+cr D 1
+cr E 1
+cr F 1
+to
+to
+to
+req R1 1
+req R2 1
+to
+req R2 1
+to
+req R3 3
+req R4 3
+req R4 3
+to
+req R1 1
+cr G 2
+req R1 1
+de B
+req R3 2
+cr H 2
+cr I 2
+to
+req R3 3
+req R3 2
+rel R3 1
+to
