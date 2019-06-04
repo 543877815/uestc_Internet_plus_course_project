@@ -1,0 +1,19 @@
+cr x 1
+cr p 1
+cr q 1
+cr r 1
+to
+to
+to
+req R1 1
+to
+req R2 1
+to
+req R3 2
+to
+to
+rel R1 1
+to
+req R3 3
+de p
+to
