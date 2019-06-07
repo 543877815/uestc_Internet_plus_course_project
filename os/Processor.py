@@ -41,6 +41,14 @@ class Processor:
         for x in process.get_all_resource():
             self.release_resource(process=process, resource=resource, rid=x['rid'], release_status=x['status'])
 
+        # 将资源等待队列记录清除
+        for x in resource._resource_list:
+            x.set_waiting_list(process={
+                    "pid": process.get_pid(),
+                    "priority": process.get_priority(),
+                    "status": 0
+                })
+
         # 根据状态查找对应的队列进行删除
         process_status = process.get_status()
         if process_status == 'running':
@@ -147,9 +155,6 @@ class Processor:
             return
         status_allocated = int(process.get_resource(rid)['status'])
         pid = process.get_pid()
-        # if pid == 'init':
-        #     print("the process init can not request resources!")
-        #     return
         # 如果已分配资源大于等于要求释放资源，则释放资源，并修改进程状态
         if status_allocated >= release_status:
             code = resource.release(process=process, rid=rid, release_status=release_status)
@@ -184,7 +189,6 @@ class Processor:
                                 self._block_list.pop(self._block_list.index(x))
                                 rcb.get_waiting_list().pop(rcb.get_waiting_list().index(y))
                                 resource.request(process=x, rid=rid, request_status=y['status'])
-                                # 如果被唤醒的进程优先级大于正在进行资源优先级则进行调度
                             else:
                                 flag = True
         else:

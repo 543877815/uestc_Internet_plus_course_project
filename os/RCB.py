@@ -40,7 +40,15 @@ class RCB:
         return self._waiting_list
 
     def set_waiting_list(self, process):
-        self._waiting_list.append(process)
+        waiting_exist = [x for x in self._waiting_list if process['pid'] == x['pid']]
+        if len(waiting_exist) == 0 and process['status'] != 0:
+            self._waiting_list.append(process)
+        else:
+            for x in waiting_exist:
+                if process['status'] == 0:
+                    self._waiting_list.pop([y['pid'] for y in self._waiting_list].index(x['pid']))
+                else:
+                    x['status'] = process['status']
 
     def getinfo(self):
         return self._rid, self._status, self._waiting_list
