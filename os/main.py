@@ -87,7 +87,7 @@ def analysis(inputs):
             if pid == 'init':
                 print("error, can not delete process init!")
                 return 0
-            processor.delete_process(resource=resource, pid=pid)
+            processor.delete_process(resource=resource, pid=pid, time=0)
         # run file
         elif xs[0] == 'run':
             filename = xs[1]

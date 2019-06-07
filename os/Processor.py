@@ -23,7 +23,7 @@ class Processor:
             self._running_list[0].set_children(new_pcb)
         self.schedule()
 
-    def delete_process(self, resource, pid):
+    def delete_process(self, resource, pid, time):
         # 从所有队列中找到该pid的状态，从该状态的队列中删除
         processes = [x for x in self.get_process_list() if x.get_pid() == pid]
         if len(processes) == 0:
@@ -32,10 +32,10 @@ class Processor:
             process = processes[0]
         # 删除父母节点
         process_parent = process.get_parent()
-        process_parent.delete_children(pid)
+        process_parent.delete_children(pid=pid)
         # 级联删除
         process_children = process.get_children()
-        [self.delete_process(resource=resource, pid=x.get_pid()) for x in process_children]
+        [self.delete_process(resource=resource, pid=x.get_pid(), time=time+1) for x in process_children]
 
         # 将自己拥有的资源进行释放
         for x in process.get_all_resource():
@@ -58,7 +58,8 @@ class Processor:
             self._block_list.pop([x.get_pid() for x in self._block_list].index(pid))
         elif process_status == 'ready':
             self._ready_list.pop([x.get_pid() for x in self._ready_list].index(pid))
-        self.schedule()
+        if time == 0:
+            self.schedule()
 
     def get_process_info(self, pid):
         processes = self.get_process_list()
