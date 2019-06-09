@@ -63,12 +63,6 @@ class Resource:
                     "priority": process.get_priority(),
                     "status": allocated_status - release_status
                 })
-                # 维护等待资源的状态
-                resource.set_waiting_list(process={
-                    "pid": process.get_pid(),
-                    "priority": process.get_priority(),
-                    "status": allocated_status - release_status
-                })
                 return 0
         else:
             print("Resource", rid, "not exist!")

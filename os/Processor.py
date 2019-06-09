@@ -51,9 +51,9 @@ class Processor:
 
         # 根据状态查找对应的队列进行删除
         process_status = process.get_status()
+        # 如果删除的进程是当前正在运行的进程则立即进行调度
         if process_status == 'running':
             self._running_list.pop([x.get_pid() for x in self._running_list].index(pid))
-            # 如果删除的进程是当前正在运行的进程则立即进行调度
         elif process_status == 'blocked':
             self._block_list.pop([x.get_pid() for x in self._block_list].index(pid))
         elif process_status == 'ready':
@@ -145,7 +145,7 @@ class Processor:
                 self._block_list.append(process)
                 x.set_status("blocked")
                 self._running_list.pop(self._running_list.index(x))
-        self.schedule()
+            self.schedule()
 
     def release_resource(self, resource, rid, release_status, process=None):
         release_status = int(release_status)
@@ -190,9 +190,9 @@ class Processor:
                                 self._block_list.pop(self._block_list.index(x))
                                 rcb.get_waiting_list().pop(rcb.get_waiting_list().index(y))
                                 resource.request(process=x, rid=rid, request_status=y['status'])
+                                self.schedule()
                             else:
                                 flag = True
         else:
             print("error, the process '" + process.get_pid() + "' only request", resource.get_status(),
                   "resource(s), your input has exceeded it")
-        self.schedule()
