@@ -1,0 +1,147 @@
+% pythonhighlight.sty
+% Copyright (c) 2009--2011, Olivier Verdier All rights reserved.
+% https://github.com/olivierverdier/python-latex-highlighting
+% 
+% Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+%
+% Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+% Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+% Neither the name of "pythonhighlighting" nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{pythonhighlight}[2011/09/19 python code highlighting; provided by Olivier Verdier <olivier.verdier@gmail.com>]
+
+
+\RequirePackage{listings}
+\RequirePackage{xcolor}
+
+\renewcommand*{\lstlistlistingname}{Code Listings}
+\renewcommand*{\lstlistingname}{Code Listing}
+\definecolor{gray}{gray}{0.5}
+\colorlet{commentcolour}{green!50!black}
+
+\colorlet{stringcolour}{red!60!black}
+\colorlet{keywordcolour}{magenta!90!black}
+\colorlet{exceptioncolour}{yellow!50!red}
+\colorlet{commandcolour}{blue!60!black}
+\colorlet{numpycolour}{blue!60!green}
+\colorlet{literatecolour}{magenta!90!black}
+\colorlet{promptcolour}{green!50!black}
+\colorlet{specmethodcolour}{violet}
+
+\newcommand*{\framemargin}{3ex}
+
+\newcommand*{\literatecolour}{\textcolor{literatecolour}}
+
+\newcommand*{\pythonprompt}{\textcolor{promptcolour}{{>}{>}{>}}}
+
+\lstdefinestyle{mypython}{
+%\lstset{
+%keepspaces=true,
+language=python,
+showtabs=true,
+tab=,
+tabsize=2,
+basicstyle=\ttfamily\footnotesize,%\setstretch{.5},
+stringstyle=\color{stringcolour},
+showstringspaces=false,
+alsoletter={1234567890},
+otherkeywords={\%, \}, \{, \&, \|},
+keywordstyle=\color{keywordcolour}\bfseries,
+emph={and,break,class,continue,def,yield,del,elif ,else,%
+except,exec,finally,for,from,global,if,import,in,%
+lambda,not,or,pass,print,raise,return,try,while,assert,with},
+emphstyle=\color{blue}\bfseries,
+emph={[2]True, False, None},
+emphstyle=[2]\color{keywordcolour},
+emph={[3]object,type,isinstance,copy,deepcopy,zip,enumerate,reversed,list,set,len,dict,tuple,xrange,append,execfile,real,imag,reduce,str,repr},
+emphstyle=[3]\color{commandcolour},
+emph={Exception,NameError,IndexError,SyntaxError,TypeError,ValueError,OverflowError,ZeroDivisionError},
+emphstyle=\color{exceptioncolour}\bfseries,
+%upquote=true,
+morecomment=[s]{"""}{"""},
+commentstyle=\color{commentcolour}\slshape,
+%emph={[4]1, 2, 3, 4, 5, 6, 7, 8, 9, 0},
+emph={[4]ode, fsolve, sqrt, exp, sin, cos,arctan, arctan2, arccos, pi,  array, norm, solve, dot, arange, isscalar, max, sum, flatten, shape, reshape, find, any, all, abs, plot, linspace, legend, quad, polyval,polyfit, hstack, concatenate,vstack,column_stack,empty,zeros,ones,rand,vander,grid,pcolor,eig,eigs,eigvals,svd,qr,tan,det,logspace,roll,min,mean,cumsum,cumprod,diff,vectorize,lstsq,cla,eye,xlabel,ylabel,squeeze},
+emphstyle=[4]\color{numpycolour},
+emph={[5]__init__,__add__,__mul__,__div__,__sub__,__call__,__getitem__,__setitem__,__eq__,__ne__,__nonzero__,__rmul__,__radd__,__repr__,__str__,__get__,__truediv__,__pow__,__name__,__future__,__all__},
+emphstyle=[5]\color{specmethodcolour},
+emph={[6]assert,yield},
+emphstyle=[6]\color{keywordcolour}\bfseries,
+emph={[7]range},
+emphstyle={[7]\color{keywordcolour}\bfseries},
+% emph={[7]self},
+% emphstyle=[7]\bfseries,
+literate=*%
+{:}{{\literatecolour:}}{1}%
+{=}{{\literatecolour=}}{1}%
+{-}{{\literatecolour-}}{1}%
+{+}{{\literatecolour+}}{1}%
+{*}{{\literatecolour*}}{1}%
+{**}{{\literatecolour{**}}}2%
+{/}{{\literatecolour/}}{1}%
+{//}{{\literatecolour{//}}}2%
+{!}{{\literatecolour!}}{1}%
+%{(}{{\literatecolour(}}{1}%
+%{)}{{\literatecolour)}}{1}%
+{[}{{\literatecolour[}}{1}%
+{]}{{\literatecolour]}}{1}%
+{<}{{\literatecolour<}}{1}%
+{>}{{\literatecolour>}}{1}%
+{>>>}{\pythonprompt}{3}%
+,%
+%aboveskip=.5ex,
+frame=trbl,
+%frameround=tttt,
+%framesep=.3ex,
+rulecolor=\color{black!40},
+%framexleftmargin=\framemargin,
+%framextopmargin=.1ex,
+%framexbottommargin=.1ex,
+%framexrightmargin=\framemargin,
+%framexleftmargin=1mm, framextopmargin=1mm, frame=shadowbox, rulesepcolor=\color{blue},#1
+%frame=tb,
+backgroundcolor=\color{white},
+breakindent=.5\textwidth,frame=single,breaklines=true%
+%}
+}
+
+\newcommand*{\inputpython}[3]{\lstinputlisting[firstline=#2,lastline=#3,firstnumber=#2,frame=single,breakindent=.5\textwidth,frame=single,breaklines=true,style=mypython]{#1}}
+
+\lstnewenvironment{python}[1][]{\lstset{style=mypython}}{}
+
+\lstdefinestyle{mypythoninline}{
+style=mypython,%
+basicstyle=\ttfamily,%
+keywordstyle=\color{keywordcolour},%
+emphstyle={[7]\color{keywordcolour}},%
+emphstyle=\color{exceptioncolour},%
+literate=*%
+{:}{{\literatecolour:}}{2}%
+{=}{{\literatecolour=}}{2}%
+{-}{{\literatecolour-}}{2}%
+{+}{{\literatecolour+}}{2}%
+{*}{{\literatecolour*}}2%
+{**}{{\literatecolour{**}}}3%
+{/}{{\literatecolour/}}{2}%
+{//}{{\literatecolour{//}}}{2}%
+{!}{{\literatecolour!}}{2}%
+%{(}{{\literatecolour(}}{2}%
+%{)}{{\literatecolour)}}{2}%
+{[}{{\literatecolour[}}{2}%
+{]}{{\literatecolour]}}{2}%
+{<}{{\literatecolour<}}{2}%
+{<=}{{\literatecolour{<=}}}3%
+{>}{{\literatecolour>}}{2}%
+{>=}{{\literatecolour{>=}}}3%
+{==}{{\literatecolour{==}}}3%
+{!=}{{\literatecolour{!=}}}3%
+{+=}{{\literatecolour{+=}}}3%
+{-=}{{\literatecolour{-=}}}3%
+{*=}{{\literatecolour{*=}}}3%
+{/=}{{\literatecolour{/=}}}3%
+%% emphstyle=\color{blue},%
+}
+
+\newcommand*{\pyth}{\lstinline[style=mypythoninline]}
