@@ -52,14 +52,14 @@ large_blur_image = my_imfilter(large_blur_image, large_1d_blur_filter.T)
 plt.imshow(large_blur_image)
 done = save_image(resultsDir + os.sep + 'large_blur_image.jpg', large_blur_image)
 
-## Slow (naive) version of large blur
+# # Slow (naive) version of large blur
 # import time
 # large_blur_filter = np.dot(large_1d_blur_filter, large_1d_blur_filter.T)
 # t = time.time()
 # large_blur_image = my_imfilter(test_image, large_blur_filter);
 # t = time.time() - t
 # print('{:f} seconds'.format(t))
-##
+# #
 
 '''
 Oriented filter (Sobel operator)

@@ -21,7 +21,6 @@ def gen_hybrid_image_cv(image1, image2, cutoff_frequency):
      - Use my_imfilter to create 'low_frequencies' and 'high_frequencies'.
      - Combine them to create 'hybrid_image'.
     """
-    print("hee")
     assert image1.shape[0] == image2.shape[0]
     assert image1.shape[1] == image2.shape[1]
     assert image1.shape[2] == image2.shape[2]

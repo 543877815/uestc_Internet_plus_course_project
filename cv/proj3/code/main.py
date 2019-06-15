@@ -56,13 +56,13 @@ def projSceneRecBoW():
     # Step 0: Set up parameters, category list, and image paths.
     # Uncomment various feature and classifier combinations to test them.
 
-    #FEATURE = 'tiny image'
-    #FEATURE = 'bag of words'
-    FEATURE = 'placeholder'
+    # FEATURE = 'tiny image'
+    FEATURE = 'bag of words'
+    # FEATURE = 'placeholder'
 
-    #CLASSIFIER = 'nearest neighbor'
+    CLASSIFIER = 'nearest neighbor'
     #CLASSIFIER = 'support vector machine'
-    CLASSIFIER = 'placeholder'
+    # CLASSIFIER = 'placeholder'
 
     # This is the path the script will look at to load images from.
     data_path = '../data/'

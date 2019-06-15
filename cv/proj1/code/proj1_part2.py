@@ -15,8 +15,8 @@ from helpers import vis_hybrid_image, load_image, save_image, my_imfilter, gen_h
 
 ## Setup
 # Read images and convert to floating point format
-image1 = load_image('../data/dog.bmp')
-image2 = load_image('../data/cat.bmp')
+image1 = load_image('../data/bird.bmp')
+image2 = load_image('../data/plane.bmp')
 
 # display the dog and cat images
 # plt.figure(figsize=(3,3)); plt.imshow((image1*255).astype(np.uint8));#
@@ -34,7 +34,7 @@ image2 = load_image('../data/cat.bmp')
 # blur that will remove high frequencies. You may tune this per image pair
 # to achieve better results.
 cutoff_frequency = 7
-low_frequencies, high_frequencies, hybrid_image = gen_hybrid_image(image1, image2, cutoff_frequency)
+low_frequencies, high_frequencies, hybrid_image = gen_hybrid_image_cv(image1, image2, cutoff_frequency)
 
 ## Visualize and save outputs ##
 plt.figure(); plt.imshow((low_frequencies*255).astype(np.uint8));
