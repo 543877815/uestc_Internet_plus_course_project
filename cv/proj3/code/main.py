@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import numpy as np
 import os
+import pickle
 
 from helpers import get_image_paths
 from student import get_tiny_images, build_vocabulary, get_bags_of_words, \
@@ -60,8 +61,8 @@ def projSceneRecBoW():
     FEATURE = 'bag of words'
     # FEATURE = 'placeholder'
 
-    CLASSIFIER = 'nearest neighbor'
-    #CLASSIFIER = 'support vector machine'
+    # CLASSIFIER = 'nearest neighbor'
+    CLASSIFIER = 'support vector machine'
     # CLASSIFIER = 'placeholder'
 
     # This is the path the script will look at to load images from.
@@ -118,24 +119,50 @@ def projSceneRecBoW():
         # you need to re-generate the vocab (for example if you change its size
         # or the length of your feature vectors), simply delete the vocab.npy
         # file and re-run main.py
-        if not os.path.isfile('vocab.npy'):
-            print('No existing visual word vocabulary found. Computing one from training images.')
+        # if not os.path.isfile('vocab.npy'):
+        #     print('No existing visual word vocabulary found. Computing one from training images.')
 
-            #Larger values will work better (to a point), but are slower to compute
-            vocab_size = 200
+        #     #Larger values will work better (to a point), but are slower to compute
+        #     vocab_size = 400
 
-            # YOU CODE build_vocabulary (see student.py)
-            vocab = build_vocabulary(train_image_paths, vocab_size)
-            np.save('vocab.npy', vocab)
+        #     # YOU CODE build_vocabulary (see student.py)
+        #     vocab = build_vocabulary(train_image_paths, vocab_size)
+        #     np.save('vocab.npy', vocab)
 
         # YOU CODE get_bags_of_words.m (see student.py)
-        train_image_feats = get_bags_of_words(train_image_paths)
+        # train_image_feats = get_bags_of_words(train_image_paths)
         # You may want to write out train_image_features here as a *.npy and
         # load it up later if you want to just test your classifiers without
         # re-computing features
 
-        test_image_feats  = get_bags_of_words(test_image_paths)
+        # test_image_feats  = get_bags_of_words(test_image_paths)
         # Same goes here for test image features.
+
+
+        if os.path.isfile('vocab.pkl') is False:
+            print('No existing visual word vocabulary found. Computing one from training images\n')
+            vocab_size = 400   ### Vocab_size is up to you. Larger values will work better (to a point) but be slower to comput.
+            vocab = build_vocabulary(train_image_paths, vocab_size)
+            with open('vocab.pkl', 'wb') as handle:
+                pickle.dump(vocab, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+        if os.path.isfile('train_image_feats.pkl') is False:
+            # YOU CODE get_bags_of_sifts.py
+            train_image_feats = get_bags_of_words(train_image_paths);
+            with open('train_image_feats.pkl', 'wb') as handle:
+                pickle.dump(train_image_feats, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        else:
+            with open('train_image_feats.pkl', 'rb') as handle:
+                train_image_feats = pickle.load(handle)
+
+        if os.path.isfile('test_image_feats.pkl') is False:
+            test_image_feats  = get_bags_of_words(test_image_paths);
+            with open('test_image_feats.pkl', 'wb') as handle:
+                pickle.dump(test_image_feats, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        else:
+            with open('test_image_feats.pkl', 'rb') as handle:
+                test_image_feats = pickle.load(handle)
+
 
     elif FEATURE.lower() == 'placeholder':
         train_image_feats = []
