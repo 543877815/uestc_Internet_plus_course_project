@@ -61,8 +61,8 @@ def projSceneRecBoW():
     FEATURE = 'bag of words'
     # FEATURE = 'placeholder'
 
-    # CLASSIFIER = 'nearest neighbor'
-    CLASSIFIER = 'support vector machine'
+    CLASSIFIER = 'nearest neighbor'
+    # CLASSIFIER = 'support vector machine'
     # CLASSIFIER = 'placeholder'
 
     # This is the path the script will look at to load images from.
@@ -137,7 +137,6 @@ def projSceneRecBoW():
 
         # test_image_feats  = get_bags_of_words(test_image_paths)
         # Same goes here for test image features.
-
 
         if os.path.isfile('vocab.pkl') is False:
             print('No existing visual word vocabulary found. Computing one from training images\n')

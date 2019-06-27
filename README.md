@@ -31,6 +31,9 @@
 
 大三下
 
-并行程序设计导论（这个不支持windows系统，我是在ubuntu 16.04的环境下进行开发的，原因见[我的博客](https://543877815.github.io/2019/04/25/ubuntu%E4%B8%8B%E8%BF%90%E8%A1%8CMPI/)
+并行程序设计导论，思路见[我的博客](https://543877815.github.io/2019/04/25/ubuntu%E4%B8%8B%E8%BF%90%E8%A1%8CMPI/)
 
-计算机操作系统（实验1和实验2）
+计算机操作系统（实验1和实验2）测试用例见https://github.com/502408764/os-test-shell
+
+计算机视觉，数据见链接：https://pan.baidu.com/s/17WGQLeO-2FVE8gukGDGCjA 提取码：z52p 
+

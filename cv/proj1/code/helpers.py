@@ -147,7 +147,6 @@ def gen_hybrid_image(image1, image2, cutoff_frequency):
     
     # Your code here:
     large_blur_image1 = my_imfilter1(image1, large_1d_blur_filter)
-    # large_blur_image1 = my_imfilter(large_blur_image1, large_1d_blur_filter.T)
     low_frequencies = large_blur_image1
 
     # (2) Remove the low frequencies from image2. The easiest way to do this is to

@@ -53,7 +53,7 @@ def get_tiny_images(image_paths):
     #TODO: Implement this function!
     image_feats = []
     size = 16
-    for image_path in tqdm(image_paths, desc="Imaging-SIFT"):
+    for image_path in tqdm(image_paths, desc="Image-tiny"):
         image = cv2.imread(image_path)
         image = cv2.resize(image, (size, size))
         # column vector
@@ -244,7 +244,6 @@ def svm_classify(train_image_feats, train_labels, test_image_feats):
     '''
 
     # TODO: Implement this function!
-    # Best Training Score = 0.652 with parameters {'C': 10.0, 'gamma': 1.0, 'kernel': 'rbf'}
     clf = svm.SVC(C=100, gamma='scale', decision_function_shape="ovr")
     clf.fit(train_image_feats, train_labels)
     predicted_categories = clf.predict(test_image_feats)
@@ -318,7 +317,7 @@ def nearest_neighbor_classify(train_image_feats, train_labels, test_image_feats)
     # 3) Pick the most common label from the k
     # 4) Store that label in a list
 
-    k = 1
+    k = 7
     distances = cdist(test_image_feats, train_image_feats, 'euclidean')
     predicted_categories = []
     for i in range(len(distances)):
