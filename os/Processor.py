@@ -18,6 +18,7 @@ class Processor:
         new_pcb = PCB(pid, int(priority))
         self._ready_list.append(new_pcb)
         # 如果创建的不是init进程
+        
         if len(self._running_list) != 0:
             new_pcb.set_parent(self._running_list[0])
             self._running_list[0].set_children(new_pcb)
@@ -38,8 +39,10 @@ class Processor:
         [self.delete_process(resource=resource, pid=x.get_pid(), time=time+1) for x in process_children]
 
         # 将自己拥有的资源进行释放
-        for x in process.get_all_resource():
-            self.release_resource(process=process, resource=resource, rid=x['rid'], release_status=x['status'])
+        resources = process.get_all_resource()
+        if len(resources)!=0:
+            for i in range(len(resources)):
+                self.release_resource(process=process, resource=resource, rid=resources[0]['rid'], release_status=resources[0]['status'])
 
         # 将资源等待队列记录清除
         for x in resource._resource_list:
@@ -148,7 +151,6 @@ class Processor:
             self.schedule()
 
     def release_resource(self, resource, rid, release_status, process=None):
-        print(rid)
         release_status = int(release_status)
         # 获取当前已分配的资源
         if process is None:

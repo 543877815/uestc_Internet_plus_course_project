@@ -21,7 +21,6 @@ imports:
  &#8226;   <a href="#Processor">Processor</a>
  &#8226;   <a href="#Resource">Resource</a>
  &#8226;   <a href="#__future__">__future__</a>
- &#8226;   <a href="#_abc">_abc</a>
  &#8226;   <a href="#_ast">_ast</a>
  &#8226;   <a href="#_bisect">_bisect</a>
  &#8226;   <a href="#_blake2">_blake2</a>
@@ -39,6 +38,8 @@ imports:
  &#8226;   <a href="#_compat_pickle">_compat_pickle</a>
  &#8226;   <a href="#_compression">_compression</a>
  &#8226;   <a href="#_datetime">_datetime</a>
+ &#8226;   <a href="#_dummy_thread">_dummy_thread</a>
+ &#8226;   <a href="#_dummy_threading">_dummy_threading</a>
  &#8226;   <a href="#_frozen_importlib">_frozen_importlib</a>
  &#8226;   <a href="#_frozen_importlib_external">_frozen_importlib_external</a>
  &#8226;   <a href="#_functools">_functools</a>
@@ -54,7 +55,6 @@ imports:
  &#8226;   <a href="#_operator">_operator</a>
  &#8226;   <a href="#_pickle">_pickle</a>
  &#8226;   <a href="#_posixsubprocess">_posixsubprocess</a>
- &#8226;   <a href="#_py_abc">_py_abc</a>
  &#8226;   <a href="#_random">_random</a>
  &#8226;   <a href="#_sha1">_sha1</a>
  &#8226;   <a href="#_sha256">_sha256</a>
@@ -100,6 +100,7 @@ imports:
  &#8226;   <a href="#difflib">difflib</a>
  &#8226;   <a href="#dis">dis</a>
  &#8226;   <a href="#doctest">doctest</a>
+ &#8226;   <a href="#dummy_threading">dummy_threading</a>
  &#8226;   <a href="#email">email</a>
  &#8226;   <a href="#email._encoded_words">email._encoded_words</a>
  &#8226;   <a href="#email._header_value_parser">email._header_value_parser</a>
@@ -271,6 +272,7 @@ imports:
  &#8226;   <a href="#importlib.util">importlib.util</a>
  &#8226;   <a href="#inspect">inspect</a>
  &#8226;   <a href="#io">io</a>
+ &#8226;   <a href="#ipaddress">ipaddress</a>
  &#8226;   <a href="#itertools">itertools</a>
  &#8226;   <a href="#java">java</a>
  &#8226;   <a href="#keyword">keyword</a>
@@ -310,7 +312,6 @@ imports:
  &#8226;   <a href="#readline">readline</a>
  &#8226;   <a href="#reprlib">reprlib</a>
  &#8226;   <a href="#resource">resource</a>
- &#8226;   <a href="#runpy">runpy</a>
  &#8226;   <a href="#select">select</a>
  &#8226;   <a href="#selectors">selectors</a>
  &#8226;   <a href="#shlex">shlex</a>
@@ -340,7 +341,6 @@ imports:
  &#8226;   <a href="#tracemalloc">tracemalloc</a>
  &#8226;   <a href="#tty">tty</a>
  &#8226;   <a href="#types">types</a>
- &#8226;   <a href="#typing">typing</a>
  &#8226;   <a href="#unicodedata">unicodedata</a>
  &#8226;   <a href="#unittest">unittest</a>
  &#8226;   <a href="#unittest.case">unittest.case</a>
@@ -388,8 +388,8 @@ imported by:
   <a target="code" href="" type="text/plain"><tt>'org.python'</tt></a>
 <span class="moduletype">MissingModule</span>  <div class="import">
 imported by:
-    <a href="#main.py">main.py</a>
- &#8226;   <a href="#pickle">pickle</a>
+    <a href="#copy">copy</a>
+ &#8226;   <a href="#main.py">main.py</a>
  &#8226;   <a href="#xml.sax">xml.sax</a>
 
   </div>
@@ -464,17 +464,6 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="_abc"></a>
-  <tt>_abc</tt> <span class="moduletype"><i>(builtin module)</i></span>  <div class="import">
-imported by:
-    <a href="#abc">abc</a>
- &#8226;   <a href="#main.py">main.py</a>
-
-  </div>
-
-</div>
-
-<div class="node">
   <a name="_ast"></a>
   <tt>_ast</tt> <span class="moduletype"><i>(builtin module)</i></span>  <div class="import">
 imported by:
@@ -519,7 +508,8 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#locale">locale</a>
+    <a href="#encodings">encodings</a>
+ &#8226;   <a href="#locale">locale</a>
  &#8226;   <a href="#main.py">main.py</a>
 
   </div>
@@ -659,12 +649,9 @@ imported by:
     <a href="#collections">collections</a>
  &#8226;   <a href="#collections.abc">collections.abc</a>
  &#8226;   <a href="#contextlib">contextlib</a>
- &#8226;   <a href="#locale">locale</a>
  &#8226;   <a href="#main.py">main.py</a>
  &#8226;   <a href="#os">os</a>
  &#8226;   <a href="#random">random</a>
- &#8226;   <a href="#types">types</a>
- &#8226;   <a href="#weakref">weakref</a>
 
   </div>
 
@@ -713,6 +700,39 @@ imports:
   <div class="import">
 imported by:
     <a href="#datetime">datetime</a>
+ &#8226;   <a href="#main.py">main.py</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="_dummy_thread"></a>
+  <a target="code" href="///D:/anaconda3%202018.12/lib/_dummy_thread.py" type="text/plain"><tt>_dummy_thread</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#time">time</a>
+ &#8226;   <a href="#traceback">traceback</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#_strptime">_strptime</a>
+ &#8226;   <a href="#dummy_threading">dummy_threading</a>
+ &#8226;   <a href="#main.py">main.py</a>
+ &#8226;   <a href="#reprlib">reprlib</a>
+ &#8226;   <a href="#tempfile">tempfile</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="_dummy_threading"></a>
+  <a target="code" href="" type="text/plain"><tt>_dummy_threading</tt></a>
+<span class="moduletype">MissingModule</span>  <div class="import">
+imported by:
+    <a href="#dummy_threading">dummy_threading</a>
  &#8226;   <a href="#main.py">main.py</a>
 
   </div>
@@ -785,7 +805,6 @@ imported by:
 imported by:
     <a href="#importlib">importlib</a>
  &#8226;   <a href="#importlib.machinery">importlib.machinery</a>
- &#8226;   <a href="#importlib.util">importlib.util</a>
  &#8226;   <a href="#main.py">main.py</a>
 
   </div>
@@ -924,23 +943,6 @@ imports:
 imported by:
     <a href="#main.py">main.py</a>
  &#8226;   <a href="#subprocess">subprocess</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="_py_abc"></a>
-  <a target="code" href="///D:/anaconda3%202018.12/lib/_py_abc.py" type="text/plain"><tt>_py_abc</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#_weakrefset">_weakrefset</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#abc">abc</a>
- &#8226;   <a href="#main.py">main.py</a>
 
   </div>
 
@@ -1095,7 +1097,8 @@ imported by:
   <a target="code" href="///D:/anaconda3%202018.12/lib/_strptime.py" type="text/plain"><tt>_strptime</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#_thread">_thread</a>
+    <a href="#_dummy_thread">_dummy_thread</a>
+ &#8226;   <a href="#_thread">_thread</a>
  &#8226;   <a href="#calendar">calendar</a>
  &#8226;   <a href="#datetime">datetime</a>
  &#8226;   <a href="#locale">locale</a>
@@ -1205,7 +1208,7 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#_py_abc">_py_abc</a>
+    <a href="#abc">abc</a>
  &#8226;   <a href="#main.py">main.py</a>
  &#8226;   <a href="#threading">threading</a>
  &#8226;   <a href="#weakref">weakref</a>
@@ -1218,8 +1221,7 @@ imported by:
   <a name="_winapi"></a>
   <tt>_winapi</tt> <span class="moduletype"><i>(builtin module)</i></span>  <div class="import">
 imported by:
-    <a href="#encodings">encodings</a>
- &#8226;   <a href="#main.py">main.py</a>
+    <a href="#main.py">main.py</a>
  &#8226;   <a href="#subprocess">subprocess</a>
 
   </div>
@@ -1243,8 +1245,7 @@ imported by:
   <a target="code" href="///D:/anaconda3%202018.12/lib/abc.py" type="text/plain"><tt>abc</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#_abc">_abc</a>
- &#8226;   <a href="#_py_abc">_py_abc</a>
+    <a href="#_weakrefset">_weakrefset</a>
 
   </div>
   <div class="import">
@@ -1259,7 +1260,6 @@ imported by:
  &#8226;   <a href="#main.py">main.py</a>
  &#8226;   <a href="#os">os</a>
  &#8226;   <a href="#selectors">selectors</a>
- &#8226;   <a href="#typing">typing</a>
 
   </div>
 
@@ -1270,13 +1270,13 @@ imported by:
   <a target="code" href="///D:/anaconda3%202018.12/lib/argparse.py" type="text/plain"><tt>argparse</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#copy">copy</a>
+    <a href="#collections">collections</a>
+ &#8226;   <a href="#copy">copy</a>
  &#8226;   <a href="#gettext">gettext</a>
  &#8226;   <a href="#os">os</a>
  &#8226;   <a href="#re">re</a>
  &#8226;   <a href="#sys">sys</a>
  &#8226;   <a href="#textwrap">textwrap</a>
- &#8226;   <a href="#warnings">warnings</a>
 
   </div>
   <div class="import">
@@ -1292,7 +1292,6 @@ imported by:
  &#8226;   <a href="#tarfile">tarfile</a>
  &#8226;   <a href="#tokenize">tokenize</a>
  &#8226;   <a href="#unittest.main">unittest.main</a>
- &#8226;   <a href="#zipfile">zipfile</a>
 
   </div>
 
@@ -1451,6 +1450,7 @@ imports:
     <a href="#_bz2">_bz2</a>
  &#8226;   <a href="#_compression">_compression</a>
  &#8226;   <a href="#builtins">builtins</a>
+ &#8226;   <a href="#dummy_threading">dummy_threading</a>
  &#8226;   <a href="#io">io</a>
  &#8226;   <a href="#os">os</a>
  &#8226;   <a href="#threading">threading</a>
@@ -1718,7 +1718,8 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#ast">ast</a>
+    <a href="#argparse">argparse</a>
+ &#8226;   <a href="#ast">ast</a>
  &#8226;   <a href="#collections.abc">collections.abc</a>
  &#8226;   <a href="#contextlib">contextlib</a>
  &#8226;   <a href="#difflib">difflib</a>
@@ -1728,7 +1729,10 @@ imported by:
  &#8226;   <a href="#email.feedparser">email.feedparser</a>
  &#8226;   <a href="#enum">enum</a>
  &#8226;   <a href="#functools">functools</a>
+ &#8226;   <a href="#http.client">http.client</a>
  &#8226;   <a href="#inspect">inspect</a>
+ &#8226;   <a href="#locale">locale</a>
+ &#8226;   <a href="#logging">logging</a>
  &#8226;   <a href="#main.py">main.py</a>
  &#8226;   <a href="#pkgutil">pkgutil</a>
  &#8226;   <a href="#platform">platform</a>
@@ -1742,10 +1746,12 @@ imported by:
  &#8226;   <a href="#threading">threading</a>
  &#8226;   <a href="#tokenize">tokenize</a>
  &#8226;   <a href="#traceback">traceback</a>
- &#8226;   <a href="#typing">typing</a>
+ &#8226;   <a href="#tracemalloc">tracemalloc</a>
  &#8226;   <a href="#unittest.case">unittest.case</a>
  &#8226;   <a href="#unittest.util">unittest.util</a>
  &#8226;   <a href="#urllib.parse">urllib.parse</a>
+ &#8226;   <a href="#urllib.request">urllib.request</a>
+ &#8226;   <a href="#weakref">weakref</a>
 
   </div>
 
@@ -1762,13 +1768,9 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#http.client">http.client</a>
- &#8226;   <a href="#inspect">inspect</a>
- &#8226;   <a href="#logging">logging</a>
+    <a href="#inspect">inspect</a>
  &#8226;   <a href="#main.py">main.py</a>
- &#8226;   <a href="#selectors">selectors</a>
- &#8226;   <a href="#tracemalloc">tracemalloc</a>
- &#8226;   <a href="#typing">typing</a>
+ &#8226;   <a href="#types">types</a>
 
   </div>
 
@@ -1793,7 +1795,6 @@ imported by:
  &#8226;   <a href="#importlib.util">importlib.util</a>
  &#8226;   <a href="#main.py">main.py</a>
  &#8226;   <a href="#plistlib">plistlib</a>
- &#8226;   <a href="#typing">typing</a>
  &#8226;   <a href="#unittest.case">unittest.case</a>
  &#8226;   <a href="#urllib.request">urllib.request</a>
 
@@ -1806,8 +1807,8 @@ imported by:
   <a target="code" href="///D:/anaconda3%202018.12/lib/copy.py" type="text/plain"><tt>copy</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#copyreg">copyreg</a>
- &#8226;   <a href="#org">org</a>
+    <a href="#'org.python'">'org.python'</a>
+ &#8226;   <a href="#copyreg">copyreg</a>
  &#8226;   <a href="#types">types</a>
  &#8226;   <a href="#weakref">weakref</a>
 
@@ -1863,7 +1864,6 @@ imported by:
  &#8226;   <a href="#calendar">calendar</a>
  &#8226;   <a href="#email.utils">email.utils</a>
  &#8226;   <a href="#http.cookiejar">http.cookiejar</a>
- &#8226;   <a href="#http.server">http.server</a>
  &#8226;   <a href="#main.py">main.py</a>
  &#8226;   <a href="#plistlib">plistlib</a>
 
@@ -1944,6 +1944,30 @@ imported by:
  &#8226;   <a href="#heapq">heapq</a>
  &#8226;   <a href="#main.py">main.py</a>
  &#8226;   <a href="#pickle">pickle</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="dummy_threading"></a>
+  <a target="code" href="///D:/anaconda3%202018.12/lib/dummy_threading.py" type="text/plain"><tt>dummy_threading</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#_dummy_thread">_dummy_thread</a>
+ &#8226;   <a href="#_dummy_threading">_dummy_threading</a>
+ &#8226;   <a href="#sys">sys</a>
+ &#8226;   <a href="#threading">threading</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#bz2">bz2</a>
+ &#8226;   <a href="#http.cookiejar">http.cookiejar</a>
+ &#8226;   <a href="#main.py">main.py</a>
+ &#8226;   <a href="#socketserver">socketserver</a>
+ &#8226;   <a href="#subprocess">subprocess</a>
+ &#8226;   <a href="#zipfile">zipfile</a>
 
   </div>
 
@@ -2442,7 +2466,7 @@ imported by:
   <a target="code" href="///D:/anaconda3%202018.12/lib/encodings/__init__.py" type="text/plain"><tt>encodings</tt></a>
 <span class="moduletype">Package</span>  <div class="import">
 imports:
-    <a href="#_winapi">_winapi</a>
+    <a href="#_bootlocale">_bootlocale</a>
  &#8226;   <a href="#codecs">codecs</a>
  &#8226;   <a href="#encodings">encodings</a>
  &#8226;   <a href="#encodings.aliases">encodings.aliases</a>
@@ -5009,9 +5033,10 @@ imported by:
 imports:
     <a href="#_collections">_collections</a>
  &#8226;   <a href="#collections">collections</a>
+ &#8226;   <a href="#functools">functools</a>
+ &#8226;   <a href="#operator">operator</a>
  &#8226;   <a href="#sys">sys</a>
  &#8226;   <a href="#types">types</a>
- &#8226;   <a href="#warnings">warnings</a>
 
   </div>
   <div class="import">
@@ -5020,7 +5045,6 @@ imported by:
  &#8226;   <a href="#inspect">inspect</a>
  &#8226;   <a href="#main.py">main.py</a>
  &#8226;   <a href="#plistlib">plistlib</a>
- &#8226;   <a href="#py_compile">py_compile</a>
  &#8226;   <a href="#re">re</a>
  &#8226;   <a href="#signal">signal</a>
  &#8226;   <a href="#socket">socket</a>
@@ -5037,8 +5061,10 @@ imported by:
     <a href="#gettext">gettext</a>
  &#8226;   <a href="#gzip">gzip</a>
  &#8226;   <a href="#main.py">main.py</a>
+ &#8226;   <a href="#os">os</a>
  &#8226;   <a href="#shutil">shutil</a>
  &#8226;   <a href="#socket">socket</a>
+ &#8226;   <a href="#socketserver">socketserver</a>
  &#8226;   <a href="#ssl">ssl</a>
  &#8226;   <a href="#subprocess">subprocess</a>
  &#8226;   <a href="#tempfile">tempfile</a>
@@ -5104,7 +5130,6 @@ imports:
  &#8226;   <a href="#collections">collections</a>
  &#8226;   <a href="#reprlib">reprlib</a>
  &#8226;   <a href="#types">types</a>
- &#8226;   <a href="#typing">typing</a>
  &#8226;   <a href="#weakref">weakref</a>
 
   </div>
@@ -5114,10 +5139,11 @@ imported by:
  &#8226;   <a href="#email._encoded_words">email._encoded_words</a>
  &#8226;   <a href="#email.charset">email.charset</a>
  &#8226;   <a href="#encodings.cp65001">encodings.cp65001</a>
+ &#8226;   <a href="#enum">enum</a>
  &#8226;   <a href="#fnmatch">fnmatch</a>
- &#8226;   <a href="#http.server">http.server</a>
  &#8226;   <a href="#importlib.util">importlib.util</a>
  &#8226;   <a href="#inspect">inspect</a>
+ &#8226;   <a href="#ipaddress">ipaddress</a>
  &#8226;   <a href="#linecache">linecache</a>
  &#8226;   <a href="#locale">locale</a>
  &#8226;   <a href="#main.py">main.py</a>
@@ -5129,7 +5155,6 @@ imported by:
  &#8226;   <a href="#tempfile">tempfile</a>
  &#8226;   <a href="#tracemalloc">tracemalloc</a>
  &#8226;   <a href="#types">types</a>
- &#8226;   <a href="#typing">typing</a>
  &#8226;   <a href="#unittest.case">unittest.case</a>
  &#8226;   <a href="#unittest.loader">unittest.loader</a>
  &#8226;   <a href="#unittest.result">unittest.result</a>
@@ -5230,12 +5255,12 @@ imports:
     <a href="#builtins">builtins</a>
  &#8226;   <a href="#copy">copy</a>
  &#8226;   <a href="#errno">errno</a>
+ &#8226;   <a href="#io">io</a>
  &#8226;   <a href="#locale">locale</a>
  &#8226;   <a href="#os">os</a>
  &#8226;   <a href="#re">re</a>
  &#8226;   <a href="#struct">struct</a>
  &#8226;   <a href="#sys">sys</a>
- &#8226;   <a href="#warnings">warnings</a>
 
   </div>
   <div class="import">
@@ -5412,11 +5437,12 @@ imported by:
   <a target="code" href="///D:/anaconda3%202018.12/lib/http/client.py" type="text/plain"><tt>http.client</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#collections.abc">collections.abc</a>
+    <a href="#collections">collections</a>
  &#8226;   <a href="#email.message">email.message</a>
  &#8226;   <a href="#email.parser">email.parser</a>
  &#8226;   <a href="#http">http</a>
  &#8226;   <a href="#io">io</a>
+ &#8226;   <a href="#os">os</a>
  &#8226;   <a href="#re">re</a>
  &#8226;   <a href="#socket">socket</a>
  &#8226;   <a href="#ssl">ssl</a>
@@ -5443,6 +5469,7 @@ imports:
     <a href="#calendar">calendar</a>
  &#8226;   <a href="#copy">copy</a>
  &#8226;   <a href="#datetime">datetime</a>
+ &#8226;   <a href="#dummy_threading">dummy_threading</a>
  &#8226;   <a href="#http">http</a>
  &#8226;   <a href="#http.client">http.client</a>
  &#8226;   <a href="#io">io</a>
@@ -5473,9 +5500,7 @@ imports:
  &#8226;   <a href="#base64">base64</a>
  &#8226;   <a href="#binascii">binascii</a>
  &#8226;   <a href="#copy">copy</a>
- &#8226;   <a href="#datetime">datetime</a>
  &#8226;   <a href="#email.utils">email.utils</a>
- &#8226;   <a href="#functools">functools</a>
  &#8226;   <a href="#html">html</a>
  &#8226;   <a href="#http">http</a>
  &#8226;   <a href="#http.client">http.client</a>
@@ -5593,7 +5618,6 @@ imports:
  &#8226;   <a href="#importlib._bootstrap">importlib._bootstrap</a>
  &#8226;   <a href="#importlib._bootstrap_external">importlib._bootstrap_external</a>
  &#8226;   <a href="#importlib.machinery">importlib.machinery</a>
- &#8226;   <a href="#warnings">warnings</a>
 
   </div>
   <div class="import">
@@ -5625,7 +5649,6 @@ imported by:
  &#8226;   <a href="#pkgutil">pkgutil</a>
  &#8226;   <a href="#py_compile">py_compile</a>
  &#8226;   <a href="#pydoc">pydoc</a>
- &#8226;   <a href="#runpy">runpy</a>
 
   </div>
 
@@ -5636,8 +5659,7 @@ imported by:
   <a target="code" href="///D:/anaconda3%202018.12/lib/importlib/util.py" type="text/plain"><tt>importlib.util</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#_imp">_imp</a>
- &#8226;   <a href="#contextlib">contextlib</a>
+    <a href="#contextlib">contextlib</a>
  &#8226;   <a href="#functools">functools</a>
  &#8226;   <a href="#importlib">importlib</a>
  &#8226;   <a href="#importlib._bootstrap">importlib._bootstrap</a>
@@ -5654,7 +5676,6 @@ imported by:
  &#8226;   <a href="#pkgutil">pkgutil</a>
  &#8226;   <a href="#py_compile">py_compile</a>
  &#8226;   <a href="#pydoc">pydoc</a>
- &#8226;   <a href="#runpy">runpy</a>
  &#8226;   <a href="#zipfile">zipfile</a>
 
   </div>
@@ -5726,6 +5747,7 @@ imported by:
  &#8226;   <a href="#encodings.quopri_codec">encodings.quopri_codec</a>
  &#8226;   <a href="#encodings.uu_codec">encodings.uu_codec</a>
  &#8226;   <a href="#getpass">getpass</a>
+ &#8226;   <a href="#gettext">gettext</a>
  &#8226;   <a href="#gzip">gzip</a>
  &#8226;   <a href="#http.client">http.client</a>
  &#8226;   <a href="#http.cookiejar">http.cookiejar</a>
@@ -5751,6 +5773,23 @@ imported by:
  &#8226;   <a href="#xml.sax">xml.sax</a>
  &#8226;   <a href="#xml.sax.saxutils">xml.sax.saxutils</a>
  &#8226;   <a href="#zipfile">zipfile</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="ipaddress"></a>
+  <a target="code" href="///D:/anaconda3%202018.12/lib/ipaddress.py" type="text/plain"><tt>ipaddress</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#functools">functools</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#main.py">main.py</a>
+ &#8226;   <a href="#ssl">ssl</a>
 
   </div>
 
@@ -5839,16 +5878,15 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#_bootlocale">_bootlocale</a>
- &#8226;   <a href="#_collections_abc">_collections_abc</a>
  &#8226;   <a href="#_locale">_locale</a>
  &#8226;   <a href="#builtins">builtins</a>
+ &#8226;   <a href="#collections">collections</a>
  &#8226;   <a href="#encodings">encodings</a>
  &#8226;   <a href="#encodings.aliases">encodings.aliases</a>
  &#8226;   <a href="#functools">functools</a>
  &#8226;   <a href="#os">os</a>
  &#8226;   <a href="#re">re</a>
  &#8226;   <a href="#sys">sys</a>
- &#8226;   <a href="#warnings">warnings</a>
 
   </div>
   <div class="import">
@@ -5869,10 +5907,9 @@ imported by:
 <span class="moduletype">Package</span>  <div class="import">
 imports:
     <a href="#atexit">atexit</a>
- &#8226;   <a href="#collections.abc">collections.abc</a>
+ &#8226;   <a href="#collections">collections</a>
  &#8226;   <a href="#io">io</a>
  &#8226;   <a href="#os">os</a>
- &#8226;   <a href="#pickle">pickle</a>
  &#8226;   <a href="#string">string</a>
  &#8226;   <a href="#sys">sys</a>
  &#8226;   <a href="#threading">threading</a>
@@ -6018,6 +6055,7 @@ imports:
  &#8226;   <a href="#stat">stat</a>
  &#8226;   <a href="#string">string</a>
  &#8226;   <a href="#sys">sys</a>
+ &#8226;   <a href="#warnings">warnings</a>
 
   </div>
   <div class="import">
@@ -6101,9 +6139,9 @@ imports:
 imported by:
     <a href="#collections">collections</a>
  &#8226;   <a href="#email._header_value_parser">email._header_value_parser</a>
+ &#8226;   <a href="#enum">enum</a>
  &#8226;   <a href="#inspect">inspect</a>
  &#8226;   <a href="#main.py">main.py</a>
- &#8226;   <a href="#typing">typing</a>
 
   </div>
 
@@ -6134,8 +6172,8 @@ imported by:
   <a target="code" href="" type="text/plain"><tt>org</tt></a>
 <span class="moduletype">MissingModule</span>  <div class="import">
 imported by:
-    <a href="#copy">copy</a>
- &#8226;   <a href="#main.py">main.py</a>
+    <a href="#main.py">main.py</a>
+ &#8226;   <a href="#pickle">pickle</a>
 
   </div>
 
@@ -6148,6 +6186,7 @@ imported by:
 imports:
     <a href="#_collections_abc">_collections_abc</a>
  &#8226;   <a href="#abc">abc</a>
+ &#8226;   <a href="#errno">errno</a>
  &#8226;   <a href="#io">io</a>
  &#8226;   <a href="#nt">nt</a>
  &#8226;   <a href="#ntpath">ntpath</a>
@@ -6174,6 +6213,7 @@ imported by:
  &#8226;   <a href="#gettext">gettext</a>
  &#8226;   <a href="#glob">glob</a>
  &#8226;   <a href="#gzip">gzip</a>
+ &#8226;   <a href="#http.client">http.client</a>
  &#8226;   <a href="#http.server">http.server</a>
  &#8226;   <a href="#inspect">inspect</a>
  &#8226;   <a href="#linecache">linecache</a>
@@ -6202,7 +6242,6 @@ imported by:
  &#8226;   <a href="#subprocess">subprocess</a>
  &#8226;   <a href="#tarfile">tarfile</a>
  &#8226;   <a href="#tempfile">tempfile</a>
- &#8226;   <a href="#threading">threading</a>
  &#8226;   <a href="#unittest.loader">unittest.loader</a>
  &#8226;   <a href="#unittest.main">unittest.main</a>
  &#8226;   <a href="#urllib.request">urllib.request</a>
@@ -6235,7 +6274,6 @@ imports:
  &#8226;   <a href="#pydoc">pydoc</a>
  &#8226;   <a href="#re">re</a>
  &#8226;   <a href="#readline">readline</a>
- &#8226;   <a href="#runpy">runpy</a>
  &#8226;   <a href="#shlex">shlex</a>
  &#8226;   <a href="#signal">signal</a>
  &#8226;   <a href="#sys">sys</a>
@@ -6257,8 +6295,7 @@ imported by:
   <a target="code" href="///D:/anaconda3%202018.12/lib/pickle.py" type="text/plain"><tt>pickle</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#'org.python'">'org.python'</a>
- &#8226;   <a href="#_compat_pickle">_compat_pickle</a>
+    <a href="#_compat_pickle">_compat_pickle</a>
  &#8226;   <a href="#_pickle">_pickle</a>
  &#8226;   <a href="#argparse">argparse</a>
  &#8226;   <a href="#codecs">codecs</a>
@@ -6267,6 +6304,7 @@ imports:
  &#8226;   <a href="#functools">functools</a>
  &#8226;   <a href="#io">io</a>
  &#8226;   <a href="#itertools">itertools</a>
+ &#8226;   <a href="#org">org</a>
  &#8226;   <a href="#pprint">pprint</a>
  &#8226;   <a href="#re">re</a>
  &#8226;   <a href="#struct">struct</a>
@@ -6276,8 +6314,7 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#logging">logging</a>
- &#8226;   <a href="#main.py">main.py</a>
+    <a href="#main.py">main.py</a>
  &#8226;   <a href="#tracemalloc">tracemalloc</a>
 
   </div>
@@ -6308,7 +6345,6 @@ imports:
 imported by:
     <a href="#main.py">main.py</a>
  &#8226;   <a href="#pydoc">pydoc</a>
- &#8226;   <a href="#runpy">runpy</a>
 
   </div>
 
@@ -6462,8 +6498,7 @@ imported by:
   <a target="code" href="///D:/anaconda3%202018.12/lib/py_compile.py" type="text/plain"><tt>py_compile</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#enum">enum</a>
- &#8226;   <a href="#importlib._bootstrap_external">importlib._bootstrap_external</a>
+    <a href="#importlib._bootstrap_external">importlib._bootstrap_external</a>
  &#8226;   <a href="#importlib.machinery">importlib.machinery</a>
  &#8226;   <a href="#importlib.util">importlib.util</a>
  &#8226;   <a href="#ntpath">ntpath</a>
@@ -6668,17 +6703,18 @@ imported by:
  &#8226;   <a href="#pprint">pprint</a>
  &#8226;   <a href="#pydoc">pydoc</a>
  &#8226;   <a href="#shlex">shlex</a>
+ &#8226;   <a href="#ssl">ssl</a>
  &#8226;   <a href="#string">string</a>
  &#8226;   <a href="#tarfile">tarfile</a>
  &#8226;   <a href="#textwrap">textwrap</a>
  &#8226;   <a href="#token">token</a>
  &#8226;   <a href="#tokenize">tokenize</a>
- &#8226;   <a href="#typing">typing</a>
  &#8226;   <a href="#unittest.case">unittest.case</a>
  &#8226;   <a href="#unittest.loader">unittest.loader</a>
  &#8226;   <a href="#urllib.parse">urllib.parse</a>
  &#8226;   <a href="#urllib.request">urllib.request</a>
  &#8226;   <a href="#warnings">warnings</a>
+ &#8226;   <a href="#zipfile">zipfile</a>
 
   </div>
 
@@ -6703,7 +6739,8 @@ imported by:
   <a target="code" href="///D:/anaconda3%202018.12/lib/reprlib.py" type="text/plain"><tt>reprlib</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#_thread">_thread</a>
+    <a href="#_dummy_thread">_dummy_thread</a>
+ &#8226;   <a href="#_thread">_thread</a>
  &#8226;   <a href="#builtins">builtins</a>
  &#8226;   <a href="#itertools">itertools</a>
 
@@ -6733,28 +6770,6 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="runpy"></a>
-  <a target="code" href="///D:/anaconda3%202018.12/lib/runpy.py" type="text/plain"><tt>runpy</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#importlib.machinery">importlib.machinery</a>
- &#8226;   <a href="#importlib.util">importlib.util</a>
- &#8226;   <a href="#pkgutil">pkgutil</a>
- &#8226;   <a href="#sys">sys</a>
- &#8226;   <a href="#types">types</a>
- &#8226;   <a href="#warnings">warnings</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#main.py">main.py</a>
- &#8226;   <a href="#pdb">pdb</a>
-
-  </div>
-
-</div>
-
-<div class="node">
   <a name="select"></a>
   <tt>select</tt> <span class="moduletype"><tt>d:\anaconda3 2018.12\DLLs\select.pyd</tt></span>  <div class="import">
 imported by:
@@ -6775,7 +6790,6 @@ imported by:
 imports:
     <a href="#abc">abc</a>
  &#8226;   <a href="#collections">collections</a>
- &#8226;   <a href="#collections.abc">collections.abc</a>
  &#8226;   <a href="#math">math</a>
  &#8226;   <a href="#select">select</a>
  &#8226;   <a href="#sys">sys</a>
@@ -6907,7 +6921,9 @@ imported by:
   <a target="code" href="///D:/anaconda3%202018.12/lib/socketserver.py" type="text/plain"><tt>socketserver</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#io">io</a>
+    <a href="#dummy_threading">dummy_threading</a>
+ &#8226;   <a href="#errno">errno</a>
+ &#8226;   <a href="#io">io</a>
  &#8226;   <a href="#os">os</a>
  &#8226;   <a href="#selectors">selectors</a>
  &#8226;   <a href="#socket">socket</a>
@@ -6934,7 +6950,6 @@ imports:
     <a href="#_sre">_sre</a>
  &#8226;   <a href="#sre_constants">sre_constants</a>
  &#8226;   <a href="#sre_parse">sre_parse</a>
- &#8226;   <a href="#sys">sys</a>
 
   </div>
   <div class="import">
@@ -6995,9 +7010,12 @@ imports:
  &#8226;   <a href="#collections">collections</a>
  &#8226;   <a href="#enum">enum</a>
  &#8226;   <a href="#errno">errno</a>
+ &#8226;   <a href="#ipaddress">ipaddress</a>
  &#8226;   <a href="#os">os</a>
+ &#8226;   <a href="#re">re</a>
  &#8226;   <a href="#socket">socket</a>
  &#8226;   <a href="#sys">sys</a>
+ &#8226;   <a href="#textwrap">textwrap</a>
  &#8226;   <a href="#time">time</a>
  &#8226;   <a href="#warnings">warnings</a>
 
@@ -7045,6 +7063,7 @@ imports:
     <a href="#_string">_string</a>
  &#8226;   <a href="#collections">collections</a>
  &#8226;   <a href="#re">re</a>
+ &#8226;   <a href="#warnings">warnings</a>
 
   </div>
   <div class="import">
@@ -7112,6 +7131,7 @@ imports:
     <a href="#_posixsubprocess">_posixsubprocess</a>
  &#8226;   <a href="#_winapi">_winapi</a>
  &#8226;   <a href="#builtins">builtins</a>
+ &#8226;   <a href="#dummy_threading">dummy_threading</a>
  &#8226;   <a href="#errno">errno</a>
  &#8226;   <a href="#io">io</a>
  &#8226;   <a href="#msvcrt">msvcrt</a>
@@ -7156,6 +7176,7 @@ imported by:
  &#8226;   <a href="#datetime">datetime</a>
  &#8226;   <a href="#dis">dis</a>
  &#8226;   <a href="#doctest">doctest</a>
+ &#8226;   <a href="#dummy_threading">dummy_threading</a>
  &#8226;   <a href="#email.generator">email.generator</a>
  &#8226;   <a href="#email.iterators">email.iterators</a>
  &#8226;   <a href="#encodings">encodings</a>
@@ -7190,13 +7211,11 @@ imported by:
  &#8226;   <a href="#py_compile">py_compile</a>
  &#8226;   <a href="#pydoc">pydoc</a>
  &#8226;   <a href="#quopri">quopri</a>
- &#8226;   <a href="#runpy">runpy</a>
  &#8226;   <a href="#selectors">selectors</a>
  &#8226;   <a href="#shlex">shlex</a>
  &#8226;   <a href="#shutil">shutil</a>
  &#8226;   <a href="#socket">socket</a>
  &#8226;   <a href="#socketserver">socketserver</a>
- &#8226;   <a href="#sre_compile">sre_compile</a>
  &#8226;   <a href="#ssl">ssl</a>
  &#8226;   <a href="#subprocess">subprocess</a>
  &#8226;   <a href="#tarfile">tarfile</a>
@@ -7205,7 +7224,6 @@ imported by:
  &#8226;   <a href="#tokenize">tokenize</a>
  &#8226;   <a href="#traceback">traceback</a>
  &#8226;   <a href="#types">types</a>
- &#8226;   <a href="#typing">typing</a>
  &#8226;   <a href="#unittest.case">unittest.case</a>
  &#8226;   <a href="#unittest.loader">unittest.loader</a>
  &#8226;   <a href="#unittest.main">unittest.main</a>
@@ -7268,7 +7286,8 @@ imported by:
   <a target="code" href="///D:/anaconda3%202018.12/lib/tempfile.py" type="text/plain"><tt>tempfile</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#_thread">_thread</a>
+    <a href="#_dummy_thread">_dummy_thread</a>
+ &#8226;   <a href="#_thread">_thread</a>
  &#8226;   <a href="#errno">errno</a>
  &#8226;   <a href="#functools">functools</a>
  &#8226;   <a href="#io">io</a>
@@ -7318,6 +7337,8 @@ imported by:
  &#8226;   <a href="#main.py">main.py</a>
  &#8226;   <a href="#optparse">optparse</a>
  &#8226;   <a href="#pydoc">pydoc</a>
+ &#8226;   <a href="#ssl">ssl</a>
+ &#8226;   <a href="#zipfile">zipfile</a>
 
   </div>
 
@@ -7334,7 +7355,6 @@ imports:
  &#8226;   <a href="#_weakrefset">_weakrefset</a>
  &#8226;   <a href="#collections">collections</a>
  &#8226;   <a href="#itertools">itertools</a>
- &#8226;   <a href="#os">os</a>
  &#8226;   <a href="#sys">sys</a>
  &#8226;   <a href="#time">time</a>
  &#8226;   <a href="#traceback">traceback</a>
@@ -7344,13 +7364,13 @@ imports:
 imported by:
     <a href="#_threading_local">_threading_local</a>
  &#8226;   <a href="#bz2">bz2</a>
+ &#8226;   <a href="#dummy_threading">dummy_threading</a>
  &#8226;   <a href="#http.cookiejar">http.cookiejar</a>
  &#8226;   <a href="#logging">logging</a>
  &#8226;   <a href="#main.py">main.py</a>
  &#8226;   <a href="#pydoc">pydoc</a>
  &#8226;   <a href="#socketserver">socketserver</a>
  &#8226;   <a href="#subprocess">subprocess</a>
- &#8226;   <a href="#webbrowser">webbrowser</a>
  &#8226;   <a href="#zipfile">zipfile</a>
 
   </div>
@@ -7367,6 +7387,7 @@ imports:
   <div class="import">
 imported by:
     <a href="#_datetime">_datetime</a>
+ &#8226;   <a href="#_dummy_thread">_dummy_thread</a>
  &#8226;   <a href="#_strptime">_strptime</a>
  &#8226;   <a href="#datetime">datetime</a>
  &#8226;   <a href="#email._parseaddr">email._parseaddr</a>
@@ -7454,7 +7475,8 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#code">code</a>
+    <a href="#_dummy_thread">_dummy_thread</a>
+ &#8226;   <a href="#code">code</a>
  &#8226;   <a href="#doctest">doctest</a>
  &#8226;   <a href="#http.cookiejar">http.cookiejar</a>
  &#8226;   <a href="#logging">logging</a>
@@ -7467,7 +7489,6 @@ imported by:
  &#8226;   <a href="#unittest.case">unittest.case</a>
  &#8226;   <a href="#unittest.loader">unittest.loader</a>
  &#8226;   <a href="#unittest.result">unittest.result</a>
- &#8226;   <a href="#warnings">warnings</a>
 
   </div>
 
@@ -7479,7 +7500,7 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#_tracemalloc">_tracemalloc</a>
- &#8226;   <a href="#collections.abc">collections.abc</a>
+ &#8226;   <a href="#collections">collections</a>
  &#8226;   <a href="#fnmatch">fnmatch</a>
  &#8226;   <a href="#functools">functools</a>
  &#8226;   <a href="#linecache">linecache</a>
@@ -7518,7 +7539,7 @@ imported by:
   <a target="code" href="///D:/anaconda3%202018.12/lib/types.py" type="text/plain"><tt>types</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#_collections_abc">_collections_abc</a>
+    <a href="#collections.abc">collections.abc</a>
  &#8226;   <a href="#functools">functools</a>
  &#8226;   <a href="#sys">sys</a>
 
@@ -7538,34 +7559,7 @@ imported by:
  &#8226;   <a href="#pkgutil">pkgutil</a>
  &#8226;   <a href="#pprint">pprint</a>
  &#8226;   <a href="#random">random</a>
- &#8226;   <a href="#runpy">runpy</a>
- &#8226;   <a href="#typing">typing</a>
  &#8226;   <a href="#unittest.loader">unittest.loader</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="typing"></a>
-  <a target="code" href="///D:/anaconda3%202018.12/lib/typing.py" type="text/plain"><tt>typing</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#abc">abc</a>
- &#8226;   <a href="#collections">collections</a>
- &#8226;   <a href="#collections.abc">collections.abc</a>
- &#8226;   <a href="#contextlib">contextlib</a>
- &#8226;   <a href="#functools">functools</a>
- &#8226;   <a href="#operator">operator</a>
- &#8226;   <a href="#re">re</a>
- &#8226;   <a href="#sys">sys</a>
- &#8226;   <a href="#types">types</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#functools">functools</a>
- &#8226;   <a href="#main.py">main.py</a>
 
   </div>
 
@@ -7883,6 +7877,7 @@ imports:
     <a href="#_scproxy">_scproxy</a>
  &#8226;   <a href="#base64">base64</a>
  &#8226;   <a href="#bisect">bisect</a>
+ &#8226;   <a href="#collections">collections</a>
  &#8226;   <a href="#contextlib">contextlib</a>
  &#8226;   <a href="#email">email</a>
  &#8226;   <a href="#email.utils">email.utils</a>
@@ -7980,39 +7975,34 @@ imports:
  &#8226;   <a href="#linecache">linecache</a>
  &#8226;   <a href="#re">re</a>
  &#8226;   <a href="#sys">sys</a>
- &#8226;   <a href="#traceback">traceback</a>
  &#8226;   <a href="#tracemalloc">tracemalloc</a>
 
   </div>
   <div class="import">
 imported by:
-    <a href="#argparse">argparse</a>
- &#8226;   <a href="#base64">base64</a>
+    <a href="#base64">base64</a>
  &#8226;   <a href="#bz2">bz2</a>
  &#8226;   <a href="#collections">collections</a>
- &#8226;   <a href="#enum">enum</a>
  &#8226;   <a href="#ftplib">ftplib</a>
  &#8226;   <a href="#getpass">getpass</a>
- &#8226;   <a href="#gettext">gettext</a>
  &#8226;   <a href="#gzip">gzip</a>
  &#8226;   <a href="#http.client">http.client</a>
  &#8226;   <a href="#http.cookiejar">http.cookiejar</a>
  &#8226;   <a href="#importlib">importlib</a>
- &#8226;   <a href="#importlib.abc">importlib.abc</a>
  &#8226;   <a href="#importlib.util">importlib.util</a>
  &#8226;   <a href="#inspect">inspect</a>
- &#8226;   <a href="#locale">locale</a>
  &#8226;   <a href="#logging">logging</a>
  &#8226;   <a href="#main.py">main.py</a>
+ &#8226;   <a href="#ntpath">ntpath</a>
  &#8226;   <a href="#os">os</a>
  &#8226;   <a href="#pkgutil">pkgutil</a>
  &#8226;   <a href="#platform">platform</a>
  &#8226;   <a href="#plistlib">plistlib</a>
  &#8226;   <a href="#pydoc">pydoc</a>
  &#8226;   <a href="#random">random</a>
- &#8226;   <a href="#runpy">runpy</a>
  &#8226;   <a href="#sre_parse">sre_parse</a>
  &#8226;   <a href="#ssl">ssl</a>
+ &#8226;   <a href="#string">string</a>
  &#8226;   <a href="#subprocess">subprocess</a>
  &#8226;   <a href="#tarfile">tarfile</a>
  &#8226;   <a href="#tempfile">tempfile</a>
@@ -8031,10 +8021,10 @@ imported by:
   <a target="code" href="///D:/anaconda3%202018.12/lib/weakref.py" type="text/plain"><tt>weakref</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#_collections_abc">_collections_abc</a>
- &#8226;   <a href="#_weakref">_weakref</a>
+    <a href="#_weakref">_weakref</a>
  &#8226;   <a href="#_weakrefset">_weakrefset</a>
  &#8226;   <a href="#atexit">atexit</a>
+ &#8226;   <a href="#collections">collections</a>
  &#8226;   <a href="#copy">copy</a>
  &#8226;   <a href="#gc">gc</a>
  &#8226;   <a href="#itertools">itertools</a>
@@ -8072,7 +8062,6 @@ imports:
  &#8226;   <a href="#subprocess">subprocess</a>
  &#8226;   <a href="#sys">sys</a>
  &#8226;   <a href="#tempfile">tempfile</a>
- &#8226;   <a href="#threading">threading</a>
 
   </div>
   <div class="import">
@@ -8303,18 +8292,20 @@ imported by:
   <a target="code" href="///D:/anaconda3%202018.12/lib/zipfile.py" type="text/plain"><tt>zipfile</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#argparse">argparse</a>
- &#8226;   <a href="#binascii">binascii</a>
+    <a href="#binascii">binascii</a>
  &#8226;   <a href="#bz2">bz2</a>
+ &#8226;   <a href="#dummy_threading">dummy_threading</a>
  &#8226;   <a href="#importlib.util">importlib.util</a>
  &#8226;   <a href="#io">io</a>
  &#8226;   <a href="#lzma">lzma</a>
  &#8226;   <a href="#os">os</a>
  &#8226;   <a href="#py_compile">py_compile</a>
+ &#8226;   <a href="#re">re</a>
  &#8226;   <a href="#shutil">shutil</a>
  &#8226;   <a href="#stat">stat</a>
  &#8226;   <a href="#struct">struct</a>
  &#8226;   <a href="#sys">sys</a>
+ &#8226;   <a href="#textwrap">textwrap</a>
  &#8226;   <a href="#threading">threading</a>
  &#8226;   <a href="#time">time</a>
  &#8226;   <a href="#warnings">warnings</a>
