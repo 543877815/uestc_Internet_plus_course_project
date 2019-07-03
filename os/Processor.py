@@ -148,6 +148,7 @@ class Processor:
             self.schedule()
 
     def release_resource(self, resource, rid, release_status, process=None):
+        print(rid)
         release_status = int(release_status)
         # 获取当前已分配的资源
         if process is None:
