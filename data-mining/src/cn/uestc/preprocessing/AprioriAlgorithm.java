@@ -35,7 +35,7 @@ public class AprioriAlgorithm {
         float minConf = 0.7f;
 
         System.out.println("读取数据");
-        String fn = "E://Weka-3-8/data/Apriori_finish.txt";
+        String fn = "Apriori.txt";
 
         File file = new File(fn);
         FileReader fr = new FileReader(file);
