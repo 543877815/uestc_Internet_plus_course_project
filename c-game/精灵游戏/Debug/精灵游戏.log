@@ -1,0 +1,36 @@
+﻿生成启动时间为 2016/12/27 8:54:19。
+     1>项目“C:\Users\user\Desktop\C语言游戏开发\精灵游戏\精灵游戏\精灵游戏.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         D:\VS2015\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt ..\autosprite.cpp
+         autosprite.cpp
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(109): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(110): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(166): warning C4244: “-=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(171): warning C4244: “-=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(177): warning C4244: “-=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(181): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(182): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(189): warning C4244: “+=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(194): warning C4244: “+=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(200): warning C4244: “+=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(203): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(204): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(252): warning C4244: “+=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(252): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(252): warning C4244: “-=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(253): warning C4244: “+=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(253): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(253): warning C4244: “-=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(254): warning C4244: “+=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(254): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+     1>c:\users\user\desktop\c语言游戏开发\精灵游戏\autosprite.cpp(254): warning C4244: “-=”: 从“float”转换到“int”，可能丢失数据
+       Link:
+         D:\VS2015\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\user\Desktop\C语言游戏开发\精灵游戏\Debug\精灵游戏.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\user\Desktop\C语言游戏开发\精灵游戏\Debug\精灵游戏.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\user\Desktop\C语言游戏开发\精灵游戏\Debug\精灵游戏.lib" /MACHINE:X86 Debug\acllib.obj
+         Debug\autosprite.obj
+         "Debug\精灵游戏.obj"
+         精灵游戏.vcxproj -> C:\Users\user\Desktop\C语言游戏开发\精灵游戏\Debug\精灵游戏.exe
+     1>已完成生成项目“C:\Users\user\Desktop\C语言游戏开发\精灵游戏\精灵游戏\精灵游戏.vcxproj”(Build 个目标)的操作。
+
+已成功生成。
+
+已用时间 00:00:01.90

@@ -6,6 +6,10 @@
 
 包括
 
+大一上
+
+- c语言精灵游戏
+
 大二上
 
 - 计算机组成与结构的单周期流水线CPU，没有实现中断调试，[@XCMY-ZR](https://github.com/XCMY-ZR)实现了
@@ -20,8 +24,6 @@
 - 互联网软件开发综合课程设计, 见另一个[repository](https://github.com/543877815/earlywarning)
 
 - 数据挖掘与大数据分析
-
-
 
 大三上
 
