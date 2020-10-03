@@ -1,4 +1,4 @@
-# Install script for directory: D:/Project/c
+# Install script for directory: D:/uestc_Internet_plus_course_project/data-structure
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/Project/c/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/uestc_Internet_plus_course_project/data-structure/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

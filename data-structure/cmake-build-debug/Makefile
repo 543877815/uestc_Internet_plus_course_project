@@ -47,10 +47,10 @@ RM = "D:\CLion 2018.2.4\bin\cmake\win\bin\cmake.exe" -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\Project\c
+CMAKE_SOURCE_DIR = D:\uestc_Internet_plus_course_project\data-structure
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\Project\c\cmake-build-debug
+CMAKE_BINARY_DIR = D:\uestc_Internet_plus_course_project\data-structure\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -79,9 +79,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\Project\c\cmake-build-debug\CMakeFiles D:\Project\c\cmake-build-debug\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\uestc_Internet_plus_course_project\data-structure\cmake-build-debug\CMakeFiles D:\uestc_Internet_plus_course_project\data-structure\cmake-build-debug\CMakeFiles\progress.marks
 	$(MAKE) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\Project\c\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\uestc_Internet_plus_course_project\data-structure\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -122,32 +122,32 @@ c/fast:
 	$(MAKE) -f CMakeFiles\c.dir\build.make CMakeFiles/c.dir/build
 .PHONY : c/fast
 
-CountingSort.obj: CountingSort.c.obj
+BSTree.obj: BSTree.c.obj
 
-.PHONY : CountingSort.obj
+.PHONY : BSTree.obj
 
 # target to build an object file
-CountingSort.c.obj:
-	$(MAKE) -f CMakeFiles\c.dir\build.make CMakeFiles/c.dir/CountingSort.c.obj
-.PHONY : CountingSort.c.obj
+BSTree.c.obj:
+	$(MAKE) -f CMakeFiles\c.dir\build.make CMakeFiles/c.dir/BSTree.c.obj
+.PHONY : BSTree.c.obj
 
-CountingSort.i: CountingSort.c.i
+BSTree.i: BSTree.c.i
 
-.PHONY : CountingSort.i
+.PHONY : BSTree.i
 
 # target to preprocess a source file
-CountingSort.c.i:
-	$(MAKE) -f CMakeFiles\c.dir\build.make CMakeFiles/c.dir/CountingSort.c.i
-.PHONY : CountingSort.c.i
+BSTree.c.i:
+	$(MAKE) -f CMakeFiles\c.dir\build.make CMakeFiles/c.dir/BSTree.c.i
+.PHONY : BSTree.c.i
 
-CountingSort.s: CountingSort.c.s
+BSTree.s: BSTree.c.s
 
-.PHONY : CountingSort.s
+.PHONY : BSTree.s
 
 # target to generate assembly for a file
-CountingSort.c.s:
-	$(MAKE) -f CMakeFiles\c.dir\build.make CMakeFiles/c.dir/CountingSort.c.s
-.PHONY : CountingSort.c.s
+BSTree.c.s:
+	$(MAKE) -f CMakeFiles\c.dir\build.make CMakeFiles/c.dir/BSTree.c.s
+.PHONY : BSTree.c.s
 
 # Help Target
 help:
@@ -158,9 +158,9 @@ help:
 	@echo ... c
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... CountingSort.obj
-	@echo ... CountingSort.i
-	@echo ... CountingSort.s
+	@echo ... BSTree.obj
+	@echo ... BSTree.i
+	@echo ... BSTree.s
 .PHONY : help
 
 

@@ -1,0 +1,15 @@
+digraph G {
+1 [shape=circle];
+1->4;
+4 [shape=circle];
+4->5;
+5 [shape=circle];
+5->10;
+10 [shape=circle];
+10->16;
+16 [shape=circle];
+16->17;
+17 [shape=circle];
+17->21;
+21 [shape=circle];
+}

@@ -72,8 +72,8 @@ int main() {
         BSTreeInsertNode(&BiTree, keynumber);
     }
     fclose(fp);
-    createDotFile("./dotFile/BST.dot", BiTree);
-    system("dot -Tpng ./dotFile/BST.dot -o ./dotFile/BST.png");
+//    createDotFile("./dotFile/BST.dot", BiTree);
+//    system("dot -Tpng ./dotFile/BST.dot -o ./dotFile/BST.png");
 
     // 前序遍历
     PreOrder(BiTree);

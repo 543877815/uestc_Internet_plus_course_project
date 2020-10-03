@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/c.dir/CountingSort.c.obj"
+  "CMakeFiles/c.dir/BSTree.c.obj"
   "c.pdb"
   "c.exe"
   "c.exe.manifest"

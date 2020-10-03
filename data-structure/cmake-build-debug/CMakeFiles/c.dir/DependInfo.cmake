@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "D:/Project/c/CountingSort.c" "D:/Project/c/cmake-build-debug/CMakeFiles/c.dir/CountingSort.c.obj"
+  "D:/uestc_Internet_plus_course_project/data-structure/BSTree.c" "D:/uestc_Internet_plus_course_project/data-structure/cmake-build-debug/CMakeFiles/c.dir/BSTree.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
